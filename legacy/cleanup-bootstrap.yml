@@ -1,4 +1,4 @@
-name: Cleanup Bootstrap Workflow
+name: Cleanup Canonical Folder Structure (Teaching Version)
 
 on:
   workflow_dispatch:
@@ -11,28 +11,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Remove bootstrap workflow and placeholders
+      - name: Remove canonical folder structure
         run: |
-          # Remove the bootstrap workflow
-          rm -f .github/workflows/bootstrap.yml
-
-          # Optional: remove placeholder files
-          rm -f .devcontainer/placeholder.txt
-          rm -f src/app/auth/placeholder.txt
-          rm -f src/app/db/placeholder.txt
-          rm -f src/app/main/placeholder.txt
-          rm -f src/app/pwa/placeholder.txt
-          rm -f src/app/security/placeholder.txt
-          rm -f src/app/static/placeholder.txt
-          rm -f src/app/templates/placeholder.txt
-          rm -f tests/placeholder.txt
-
-          # Remove this cleanup workflow after it runs
-          rm -f .github/workflows/cleanup-bootstrap.yml
+          rm -rf src/app/auth
+          rm -rf src/app/db
+          rm -rf src/app/main
+          rm -rf src/app/pwa
+          rm -rf src/app/security
+          rm -rf src/app/static
+          rm -rf src/app/templates
+          rm -rf tests
+          rm -rf .devcontainer
 
       - name: Commit cleanup changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Cleanup bootstrap workflow and placeholders"
+          commit_message: "Cleanup canonical project structure (teaching version)"
           commit_user_name: "github-actions"
           commit_user_email: "github-actions@github.com"
