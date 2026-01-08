@@ -1,0 +1,15 @@
+{
+  "name": "high-security-flask-pwa-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Front-end tooling for the high-security Flask PWA template",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/app/static/css/input.css -o ./src/app/static/css/output.css --watch",
+    "build": "tailwindcss -i ./src/app/static/css/input.css -o ./src/app/static/css/output.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.3",
+    "postcss": "8.4.35",
+    "autoprefixer": "10.4.17"
+  }
+}
