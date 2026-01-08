@@ -1,4 +1,4 @@
-name: 03‑TEMP Generate uv.lock (artifact only)
+name: TEMP Generate uv.lock (artifact only)
 
 on:
   workflow_dispatch:
