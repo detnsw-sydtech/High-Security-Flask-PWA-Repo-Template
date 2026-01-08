@@ -1,0 +1,31 @@
+name: Reset Canonical Folder Structure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Remove canonical folder structure
+        run: |
+          rm -rf src/app/auth
+          rm -rf src/app/db
+          rm -rf src/app/main
+          rm -rf src/app/pwa
+          rm -rf src/app/security
+          rm -rf src/app/static
+          rm -rf src/app/templates
+          rm -rf tests
+          rm -rf .devcontainer
+
+      - name: Commit cleanup changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Reset canonical project structure"
+          commit_user_name: "github-actions"
+          commit_user_email: "github-actions@github.com"
