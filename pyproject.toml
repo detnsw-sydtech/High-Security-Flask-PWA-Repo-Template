@@ -1,9 +1,100 @@
 [project]
 name = "high-security-flask-pwa-template"
-version = "0.0.1"
-description = "High-security Flask PWA template for SE12"
+version = "0.1.0"
+description = "High-security Flask PWA template with modern front-end tooling for SE12"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
 
+# -----------------------------
+# Runtime dependencies
+# -----------------------------
+dependencies = [
+  # --- Flask core ---
+  "flask==3.0.2",
+  "jinja2==3.1.4",
+  "werkzeug==3.0.3",
+  "itsdangerous==2.2.0",
+  "click==8.1.7",
+
+  # --- Security ---
+  "flask-talisman==1.1.0",        # CSP, HSTS, secure headers
+  "flask-limiter==3.5.0",         # rate limiting
+  "bcrypt==4.1.2",                # password hashing
+  "python-dotenv==1.0.1",         # environment variable management
+
+  # --- PWA essentials ---
+  "flask-compress==1.14",         # gzip/brotli compression
+  "flask-caching==2.1.0",         # caching for offline support
+  "flask-htmx==0.4.0",            # HTMX integration
+
+  # --- Front-end enhancement ---
+  # Tailwind CLI is installed via npm, not Python
+  # but we include helpers for template rendering
+  "markupsafe==2.1.5",
+]
+
+# -----------------------------
+# Optional development extras
+# -----------------------------
+[project.optional-dependencies]
+dev = [
+  # --- Testing ---
+  "pytest",
+  "pytest-cov",
+
+  # --- Linting / formatting ---
+  "ruff",
+
+  # --- Static typing ---
+  "mypy",
+
+  # --- Security scanning ---
+  "bandit",
+  "semgrep",
+  "pip-audit",
+]
+
+# -----------------------------
+# uv configuration
+# -----------------------------
 [tool.uv]
+dev-dependencies = ["dev"]
+
+# -----------------------------
+# Ruff configuration
+# -----------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "W", "B", "I", "UP", "S"]
+ignore = ["E501"]  # allow long lines for HTML templates
+
+# -----------------------------
+# Mypy configuration
+# -----------------------------
+[tool.mypy]
+python_version = "3.12"
+warn_unused_configs = true
+warn_return_any = true
+warn_unused_ignores = true
+strict = true
+
+# -----------------------------
+# Pytest configuration
+# -----------------------------
+[tool.pytest.ini_options]
+addopts = "--disable-warnings --maxfail=1"
+testpaths = ["tests"]
+
+# -----------------------------
+# Bandit configuration
+# -----------------------------
+[tool.bandit]
+skips = ["B101"]  # allow assert in tests
+
+# -----------------------------
+# Semgrep configuration
+# -----------------------------
+[tool.semgrep]
+config = ["p/ci"]
