@@ -205,3 +205,21 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# uv
+.venv/
+uv.lock
+
+# Environment variables
+.env
+.env.*
+
+# Node/Tailwind (if added later)
+node_modules/
+dist/
+
+# VS Code
+.vscode/
+
+# Flask cache
+instance/

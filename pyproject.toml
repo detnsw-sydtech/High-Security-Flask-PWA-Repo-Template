@@ -1,0 +1,9 @@
+[project]
+name = "high-security-flask-pwa-template"
+version = "0.0.1"
+description = "High-security Flask PWA template for SE12"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+
+[tool.uv]
