@@ -9,9 +9,32 @@ permissions:
   contents: read
 
 jobs:
+  check-tailwind-folders:
+    name: Check Tailwind folder structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Tailwind folder exists
+        run: |
+          if [ ! -d "src/app/static/css" ]; then
+            echo "ERROR: Tailwind css folder missing: src/app/static/css"
+            exit 1
+          fi
+
+          if [ ! -f "src/app/static/css/input.css" ]; then
+            echo "ERROR: Tailwind input.css missing"
+            exit 1
+          fi
+
+          echo "Tailwind folder structure OK"
+
   quality:
     name: Quality (Ruff + pytest + mypy)
     runs-on: ubuntu-latest
+    needs: check-tailwind-folders
 
     steps:
       - name: Checkout repository
@@ -133,7 +156,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # OSV-Scanner official action scanning the repository (including lockfile when you add it)
       - name: OSV Scan
         uses: ossf/osv-scanner-action@v1
         with:
