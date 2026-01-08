@@ -1,0 +1,37 @@
+name: Recreate Canonical Folder Structure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  recreate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Recreate canonical folder structure
+        run: |
+          # --- Create folders ---
+          mkdir -p src/app/{auth,db,main,pwa,security,static,templates}
+          mkdir -p tests
+          mkdir -p .devcontainer
+
+          # --- Add placeholder files so Git tracks directories ---
+          echo "placeholder" > .devcontainer/placeholder.txt
+          echo "placeholder" > src/app/auth/placeholder.txt
+          echo "placeholder" > src/app/db/placeholder.txt
+          echo "placeholder" > src/app/main/placeholder.txt
+          echo "placeholder" > src/app/pwa/placeholder.txt
+          echo "placeholder" > src/app/security/placeholder.txt
+          echo "placeholder" > src/app/static/placeholder.txt
+          echo "placeholder" > src/app/templates/placeholder.txt
+          echo "placeholder" > tests/placeholder.txt
+
+      - name: Commit regenerated structure
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Recreate canonical project structure"
+          commit_user_name: "github-actions"
+          commit_user_email: "github-actions@github.com"
