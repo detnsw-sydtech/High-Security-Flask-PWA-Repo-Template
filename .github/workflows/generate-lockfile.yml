@@ -1,4 +1,4 @@
-name: Generate uv.lock
+name: 02 Generate uv.lock (after canonical structue is created)
 
 on:
   workflow_dispatch:
