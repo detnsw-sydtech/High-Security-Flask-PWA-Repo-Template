@@ -1,0 +1,143 @@
+name: CI (quality + security)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Quality (Ruff + pytest + mypy)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+
+      - name: Cache uv package store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Install dependencies (app + dev)
+        run: uv sync --frozen
+
+      - name: Ruff (lint + style)
+        run: uv run ruff check .
+
+      - name: Mypy (static typing)
+        run: uv run mypy src
+
+      - name: Pytest (unit tests)
+        run: uv run pytest -q
+
+  sast:
+    name: SAST (Bandit + Semgrep)
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+
+      - name: Cache uv package store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Install dev dependencies
+        run: uv sync --frozen
+
+      - name: Bandit (Python security analysis)
+        run: uv run bandit -r src -ll
+
+      - name: Semgrep (security rules)
+        run: uv run semgrep --config p/ci --error --quiet
+
+  dependencies:
+    name: Dependency Vulnerabilities + SBOM (pip-audit)
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+
+      - name: Cache uv package store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: pip-audit (Python dependency vulnerabilities)
+        run: uv run pip-audit
+
+      - name: Generate SBOM (CycloneDX JSON)
+        run: uv run pip-audit --format cyclonedx-json --output sbom-python.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-python
+          path: sbom-python.json
+
+  secrets:
+    name: Secret Scanning (Gitleaks)
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --source . --no-banner --redact
+
+  osv:
+    name: OSV Scanning (whole repo)
+    runs-on: ubuntu-latest
+    needs: [quality, dependencies]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # OSV-Scanner official action scanning the repository (including lockfile when you add it)
+      - name: OSV Scan
+        uses: ossf/osv-scanner-action@v1
+        with:
+          scan-args: |
+            --recursive
+            --skip-git
+            .
