@@ -1,4 +1,4 @@
-name: 06‑MAINTAINER Update Dependencies
+name: 05‑MAINTAINER Update Dependencies
 
 on:
   workflow_dispatch:
