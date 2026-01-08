@@ -1,4 +1,4 @@
-name: Reset Canonical Folder Structure
+name: 05 Reset Canonical Folder Structure
 
 on:
   workflow_dispatch:
