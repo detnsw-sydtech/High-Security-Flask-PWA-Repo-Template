@@ -10,3 +10,10 @@ It provides:
 - A clean, extensible project layout suitable for Major Projects
 
 Full documentation will be added as the project is built out.
+
+## Creating your repo project structure
+```text
+> Actions
+```
+Click the Actions button (fourth in from the left ) to run the Actions Workflow "Build repository structure".
+This will be the repo structure automatically for you.
