@@ -1,6 +1,5 @@
 name: Create / Recreate Canonical Folder Structure
 
-
 on:
   workflow_dispatch:
 
@@ -14,12 +13,15 @@ jobs:
 
       - name: Recreate canonical folder structure
         run: |
-          # --- Create folders ---
+          # --- Create backend folders ---
           mkdir -p src/app/{auth,db,main,pwa,security,static,templates}
           mkdir -p tests
           mkdir -p .devcontainer
 
-          # --- Add placeholder files so Git tracks directories ---
+          # --- Create Tailwind front-end folders ---
+          mkdir -p src/app/static/css
+
+          # --- Add placeholder files for Git tracking ---
           echo "placeholder" > .devcontainer/placeholder.txt
           echo "placeholder" > src/app/auth/placeholder.txt
           echo "placeholder" > src/app/db/placeholder.txt
@@ -30,9 +32,14 @@ jobs:
           echo "placeholder" > src/app/templates/placeholder.txt
           echo "placeholder" > tests/placeholder.txt
 
+          # --- Tailwind input.css ---
+          echo "@tailwind base;" > src/app/static/css/input.css
+          echo "@tailwind components;" >> src/app/static/css/input.css
+          echo "@tailwind utilities;" >> src/app/static/css/input.css
+
       - name: Commit regenerated structure
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Recreate canonical project structure"
+          commit_message: "Recreate canonical project structure (with Tailwind folders)"
           commit_user_name: "github-actions"
           commit_user_email: "github-actions@github.com"
