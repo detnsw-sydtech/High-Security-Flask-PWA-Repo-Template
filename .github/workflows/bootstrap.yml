@@ -1,4 +1,5 @@
-name: Recreate Canonical Folder Structure
+name: Create / Recreate Canonical Folder Structure
+
 
 on:
   workflow_dispatch:
