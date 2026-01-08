@@ -1,0 +1,90 @@
+name: Bootstrap Repository Structure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create canonical folder structure and files
+        run: |
+          # --- Create folders ---
+          mkdir -p .github/workflows
+          mkdir -p .devcontainer
+          mkdir -p src/app/{auth,db,main,pwa,security,static,templates}
+          mkdir -p tests
+
+          # --- Placeholder files ---
+          echo "placeholder" > .github/workflows/placeholder.txt
+          echo "placeholder" > .devcontainer/placeholder.txt
+          echo "placeholder" > src/app/auth/placeholder.txt
+          echo "placeholder" > src/app/db/placeholder.txt
+          echo "placeholder" > src/app/main/placeholder.txt
+          echo "placeholder" > src/app/pwa/placeholder.txt
+          echo "placeholder" > src/app/security/placeholder.txt
+          echo "placeholder" > src/app/static/placeholder.txt
+          echo "placeholder" > src/app/templates/placeholder.txt
+          echo "placeholder" > tests/placeholder.txt
+
+          # --- pyproject.toml ---
+          cat << 'EOF' > pyproject.toml
+          [project]
+          name = "high-security-flask-pwa-template"
+          version = "0.0.1"
+          description = "High-security Flask PWA template for SE12"
+          readme = "README.md"
+          requires-python = ">=3.12"
+          license = { text = "MIT" }
+
+          [tool.uv]
+          EOF
+
+          # --- README.md (overwrite placeholder) ---
+          cat << 'EOF' > README.md
+          # High‑Security Flask-PWA-Repo-Template
+
+          This repository is the official detnsw-sydtech high‑security Flask Progressive Web App template for SE12 Software Engineering students.
+
+          It provides:
+          - A modern Python toolchain using \`pyproject.toml\` and \`uv\`
+          - A secure-by-default Flask architecture with blueprints and layered security
+          - A PWA structure including manifest, service worker, and offline support
+          - A CI pipeline including linting, testing, and Wapiti dynamic security scanning
+          - A clean, extensible project layout suitable for Major Projects
+
+          Full documentation will be added as the project is built out.
+          EOF
+
+          # --- Extend .gitignore safely ---
+          cat << 'EOF' >> .gitignore
+
+          # uv
+          .venv/
+          uv.lock
+
+          # Environment variables
+          .env
+          .env.*
+
+          # Node/Tailwind (if added later)
+          node_modules/
+          dist/
+
+          # VS Code
+          .vscode/
+
+          # Flask cache
+          instance/
+          EOF
+
+      - name: Commit bootstrap structure
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Bootstrap canonical project structure"
+          commit_user_name: "github-actions"
+          commit_user_email: "github-actions@github.com"
