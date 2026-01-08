@@ -1,0 +1,17 @@
+name: 00 Print Repository Tree
+
+on:
+  workflow_dispatch:
+
+jobs:
+  print-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tree
+        run: sudo apt-get update && sudo apt-get install -y tree
+
+      - name: Print tree
+        run: tree -a -I '.git|.github|.venv' -L 4
