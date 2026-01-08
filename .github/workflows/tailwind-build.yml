@@ -1,4 +1,4 @@
-name: Build Tailwind CSS
+name: 03 Build Tailwind CSS
 
 on:
   push:
