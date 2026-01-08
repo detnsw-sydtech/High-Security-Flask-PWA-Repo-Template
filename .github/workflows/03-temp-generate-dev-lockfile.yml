@@ -1,0 +1,29 @@
+name: 03‑TEMP Generate uv.lock (runtime + dev groups)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate-lockfile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+
+      - name: Generate uv.lock (runtime + dev)
+        run: uv lock --group dev
+
+      - name: Upload uv.lock artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: uv-lockfile-dev
+          path: uv.lock
