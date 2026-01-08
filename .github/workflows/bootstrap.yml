@@ -20,7 +20,7 @@ jobs:
           mkdir -p tests
 
           # --- Placeholder files ---
-          echo "placeholder" > .github/workflows/placeholder.txt
+          # echo "placeholder" > .github/workflows/placeholder.txt
           echo "placeholder" > .devcontainer/placeholder.txt
           echo "placeholder" > src/app/auth/placeholder.txt
           echo "placeholder" > src/app/db/placeholder.txt
