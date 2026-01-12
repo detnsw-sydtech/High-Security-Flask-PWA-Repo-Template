@@ -67,9 +67,16 @@ dev-dependencies = ["high-security-flask-pwa-template[dev]"]
 # -----------------------------
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "S"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores] 
+"tests/*" = ["S101"]
+
 target-version = "py313"
-select = ["E", "F", "W", "B", "I", "UP", "S"]
-ignore = ["E501"]  # allow long lines for HTML templates
+
 
 # -----------------------------
 # Mypy configuration
