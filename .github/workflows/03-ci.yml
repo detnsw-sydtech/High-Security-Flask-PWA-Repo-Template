@@ -57,6 +57,15 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: uv venv
 
+      - name: Debug venv location
+        run: |
+          echo "PWD:"
+          pwd
+          echo "Listing current directory:"
+          ls -a
+          echo "Listing parent directory:"
+          ls -a ..
+
       - name: Install dependencies (app + dev)
         working-directory: ${{ github.workspace }}
         run: uv sync --frozen
