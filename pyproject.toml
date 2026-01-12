@@ -67,7 +67,7 @@ dev = [
 # -----------------------------
 [tool.ruff]
 line-length = 88
-target-version = "py312"
+target-version = "py313"
 select = ["E", "F", "W", "B", "I", "UP", "S"]
 ignore = ["E501"]  # allow long lines for HTML templates
 
@@ -75,7 +75,7 @@ ignore = ["E501"]  # allow long lines for HTML templates
 # Mypy configuration
 # -----------------------------
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.13"
 warn_unused_configs = true
 warn_return_any = true
 warn_unused_ignores = true
