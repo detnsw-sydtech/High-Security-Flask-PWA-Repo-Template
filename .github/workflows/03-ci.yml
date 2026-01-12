@@ -67,6 +67,8 @@ jobs:
           ls -a ..
 
       - name: Install dependencies (app + dev)
+        env:
+          UV_PROJECT_ENVIRONMENT: ".venv"
         working-directory: ${{ github.workspace }}
         run: uv sync --frozen
 
