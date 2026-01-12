@@ -68,6 +68,13 @@ jobs:
       - name: Install dependencies (app + dev)
         run: uv sync --frozen --directory .venv
 
+      - name: Debug .venv/bin contents 
+        run: | 
+          echo "PWD:"
+          pwd
+          echo "Listing .venv/bin:"
+          ls -al .venv/bin
+
       - name: Ruff (lint + style)
         run: .venv/bin/ruff check .
 
