@@ -60,7 +60,7 @@ dev = [
 # uv configuration
 # -----------------------------
 [tool.uv]
-dev-dependencies = ["project:dev"]
+dev-dependencies = ["high-security-flask-pwa-template[dev]"]
 
 # -----------------------------
 # Ruff configuration
