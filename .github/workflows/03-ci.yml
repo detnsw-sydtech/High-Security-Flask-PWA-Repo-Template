@@ -1,5 +1,9 @@
 name: 03 CI (quality + security)
 
+defaults:
+  run:
+    working-directory: ${{ github.workspace }}
+
 on:
   push:
     branches: [ "main" ]
@@ -54,34 +58,13 @@ jobs:
             uv-${{ runner.os }}-
 
       - name: Create virtual environment
-        working-directory: ${{ github.workspace }}
         run: uv venv
 
-      - name: Debug venv location
-        run: |
-          echo "PWD:"
-          pwd
-          echo "Listing current directory:"
-          ls -a
-          echo "Listing parent directory:"
-          ls -a ..
-
       - name: Install dependencies (app + dev)
-        env:
-          UV_PROJECT_ENVIRONMENT: ".venv"
-        working-directory: ${{ github.workspace }}
         run: uv sync --frozen --directory .venv
 
       - name: Ruff (lint + style)
-        working-directory: ${{ github.workspace }}
         run: .venv/bin/ruff check .
-
-      - name: Debug directory
-        run: |
-         echo "Current directory:"
-         pwd
-         echo "Contents:"
-         ls -a
 
       - name: Mypy (static typing)
         run: .venv/bin/mypy src
@@ -111,14 +94,17 @@ jobs:
           restore-keys: |
             uv-${{ runner.os }}-
 
+      - name: Create virtual environment
+        run: uv venv
+
       - name: Install dev dependencies
-        run: uv sync --frozen
+        run: uv sync --frozen --directory .venv
 
       - name: Bandit (Python security analysis)
-        run: uv run bandit -r src -ll
+        run: .venv/bin/bandit -r src -ll
 
       - name: Semgrep (security rules)
-        run: uv run semgrep --config p/ci --error --quiet
+        run: .venv/bin/semgrep --config p/ci --error --quiet
 
   dependencies:
     name: Dependency Vulnerabilities + SBOM (pip-audit)
@@ -142,14 +128,17 @@ jobs:
           restore-keys: |
             uv-${{ runner.os }}-
 
+      - name: Create virtual environment
+        run: uv venv
+
       - name: Install dependencies
-        run: uv sync --frozen
+        run: uv sync --frozen --directory .venv
 
       - name: pip-audit (Python dependency vulnerabilities)
-        run: uv run pip-audit
+        run: .venv/bin/pip-audit
 
       - name: Generate SBOM (CycloneDX JSON)
-        run: uv run pip-audit --format cyclonedx-json --output sbom-python.json
+        run: .venv/bin/pip-audit --format cyclonedx-json --output sbom-python.json
 
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v4
