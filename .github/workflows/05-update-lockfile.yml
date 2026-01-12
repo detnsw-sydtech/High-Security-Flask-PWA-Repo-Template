@@ -1,0 +1,45 @@
+name: 05 Update Lockfile
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: .
+
+jobs:
+  update-lockfile:
+    name: Regenerate uv.lock
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+
+      - name: Regenerate lockfile
+        run: uv lock --upgrade
+
+      - name: Commit updated lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add uv.lock
+          git commit -m "chore: regenerate uv.lock via GitHub Action" || echo "No changes to commit"
+
+      - name: Push changes
+        run: git push
