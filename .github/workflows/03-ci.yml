@@ -65,6 +65,13 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: .venv/bin/ruff check .
 
+      - name: Debug directory
+        run: |
+         echo "Current directory:"
+         pwd
+         echo "Contents:"
+         ls -a
+
       - name: Mypy (static typing)
         run: .venv/bin/mypy src
 
