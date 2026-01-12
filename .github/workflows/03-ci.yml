@@ -68,15 +68,15 @@ jobs:
       - name: Install dependencies (app + dev)
         run: uv sync --frozen --directory .venv
 
-      - name: Debug .venv/bin contents
+      - name: Debug .venv structure
         run: |
           echo "PWD:"
           pwd
-          echo "Listing .venv:"
+          echo "Does .venv exist?"
+          ls -al . || echo "Cannot list root"
           ls -al .venv || echo ".venv does not exist"
-          echo "Listing .venv/bin:"
+          echo "Contents of .venv/bin:"
           ls -al .venv/bin || echo ".venv/bin does not exist"
-
 
       - name: Ruff (lint + style)
         run: .venv/bin/ruff check .
