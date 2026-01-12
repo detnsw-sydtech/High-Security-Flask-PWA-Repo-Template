@@ -5,6 +5,7 @@ description = "High-security Flask PWA template with modern front-end tooling fo
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
+packages = ["src"]
 
 # -----------------------------
 # Runtime dependencies
