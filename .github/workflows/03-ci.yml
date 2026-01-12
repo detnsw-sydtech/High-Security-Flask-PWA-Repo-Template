@@ -54,12 +54,15 @@ jobs:
             uv-${{ runner.os }}-
 
       - name: Create virtual environment
+        working-directory: ${{ github.workspace }}
         run: uv venv
 
       - name: Install dependencies (app + dev)
+        working-directory: ${{ github.workspace }}
         run: uv sync --frozen
 
       - name: Ruff (lint + style)
+        working-directory: ${{ github.workspace }}
         run: .venv/bin/ruff check .
 
       - name: Mypy (static typing)
