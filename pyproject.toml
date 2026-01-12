@@ -59,8 +59,8 @@ dev = [
 # -----------------------------
 # uv configuration
 # -----------------------------
-# [tool.uv]
-# dev-dependencies = ["dev"]
+[tool.uv]
+dev-dependencies = ["dev"]
 
 # -----------------------------
 # Ruff configuration
