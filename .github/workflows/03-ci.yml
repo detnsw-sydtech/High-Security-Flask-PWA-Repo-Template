@@ -57,13 +57,13 @@ jobs:
         run: uv sync --frozen
 
       - name: Ruff (lint + style)
-        run: uv run ruff check .
+        run: .venv/bin/ruff check .
 
       - name: Mypy (static typing)
-        run: uv run mypy src
+        run: .venv/bin/mypy src
 
       - name: Pytest (unit tests)
-        run: uv run pytest -q
+        run: .venv/bin/pytest -q
 
   sast:
     name: SAST (Bandit + Semgrep)
