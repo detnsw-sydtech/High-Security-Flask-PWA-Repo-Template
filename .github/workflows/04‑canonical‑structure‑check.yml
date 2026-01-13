@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate directory structure
+      - name: Validate required directories
         run: |
           REQUIRED_DIRS=(
             "src/app"
