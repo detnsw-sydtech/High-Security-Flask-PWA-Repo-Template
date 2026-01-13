@@ -1,4 +1,4 @@
-name: 05‑MAINTAINER Update Dependencies
+name: 54 Maintainer Dependency Update (Staff Only)
 
 on:
   workflow_dispatch:
