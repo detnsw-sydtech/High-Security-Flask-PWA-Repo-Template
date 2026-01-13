@@ -24,23 +24,23 @@ jobs:
 
       - name: Verify input CSS exists
         run: |
-          if [ ! -f "static/src/input.css" ]; then
-            echo "❌ Tailwind input CSS file missing: static/src/input.css"
+          if [ ! -f "src/app/static/src/input.css" ]; then
+            echo "❌ Tailwind input CSS file missing: src/app/static/src/input.css"
             exit 1
           fi
 
       - name: Verify output CSS exists
         run: |
-          if [ ! -f "static/css/tailwind.css" ]; then
-            echo "❌ Tailwind output CSS missing: static/css/tailwind.css"
+          if [ ! -f "src/app/static/css/tailwind.css" ]; then
+            echo "❌ Tailwind output CSS missing: src/app/static/css/tailwind.css"
             echo "Run the staff-only Tailwind build workflow to regenerate it."
             exit 1
           fi
 
       - name: Verify static folder structure
         run: |
-          if [ ! -d "static/css" ] || [ ! -d "static/src" ]; then
-            echo "❌ Expected static/css and static/src directories missing."
+          if [ ! -d "src/app/static/css" ] || [ ! -d "src/app/static/src" ]; then
+            echo "❌ Expected src/app/static/css and src/app/static/src directories missing."
             exit 1
           fi
 
