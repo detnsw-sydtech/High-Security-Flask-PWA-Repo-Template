@@ -121,7 +121,7 @@ jobs:
         run: ls -R .venv/bin
 
       - name: Semgrep (security rules)
-        run: .venv/bin/semgrep --config p/ci --error --quiet
+        run: .venv/bin/semgrep --config p/security-audit --error --quiet
 
   dependencies:
     name: Dependency Vulnerabilities + SBOM (pip-audit)
