@@ -1,3 +1,16 @@
+"""
+This file defines the Flask application factory.
+
+It is responsible for:
+- creating the Flask app
+- loading configuration
+- initialising the database and migrations
+- registering blueprints
+- applying security headers
+
+A full annotated explanation is available in docs/staff/app-factory-explained.md
+"""
+
 from flask import Flask
 from flask_migrate import Migrate
 
