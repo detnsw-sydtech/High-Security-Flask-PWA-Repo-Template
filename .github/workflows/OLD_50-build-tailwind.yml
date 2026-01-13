@@ -1,4 +1,4 @@
-name: 50 Build Tailwind CSS (Staff Only)
+name: OLD 50 Build Tailwind CSS (Staff Only)
 
 on:
   workflow_dispatch:
