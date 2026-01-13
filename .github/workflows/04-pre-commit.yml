@@ -6,10 +6,6 @@ on:
     branches-ignore:
       - main
 
-defaults:
-  run:
-    working-directory: .
-
 jobs:
   pre-commit:
     name: Run Pre-Commit Hooks
@@ -19,24 +15,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.13
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Cache uv virtualenv
+        uses: actions/cache@v4
         with:
-          version: "0.4.20"
+          path: .venv
+          key: uv-venv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            uv-venv-${{ runner.os }}-
 
-      - name: Create virtual environment
-        run: uv venv
+      - name: Install pre-commit
+        run: uv tool install pre-commit
 
-      - name: Install dependencies (including dev tools)
-        run: uv sync --directory .venv
-
-      - name: Install pre-commit into venv
-        run: .venv/bin/pip install pre-commit
+      - name: Install hook environments
+        run: uv run pre-commit install-hooks
 
       - name: Run pre-commit on all files
-        run: .venv/bin/pre-commit run --all-files
+        run: uv run pre-commit run --all-files
