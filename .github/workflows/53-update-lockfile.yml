@@ -1,4 +1,4 @@
-name: 05 Update Lockfile
+name: 53 Update Lockfile (Staff Only)
 
 on:
   workflow_dispatch:
