@@ -1,0 +1,8 @@
+[[IgnoredDirectories]]
+Path = "tests"
+
+[[IgnoredDirectories]]
+Path = "docs"
+
+[[IgnoredDirectories]]
+Path = ".github"
