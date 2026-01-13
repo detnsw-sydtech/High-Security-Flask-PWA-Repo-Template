@@ -181,8 +181,11 @@ jobs:
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
         with:
-          args: detect --source . --no-banner --redact --config .gitleaks.toml
+          config-path: .gitleaks.toml
+
 
   osv:
     name: OSV Scanning (whole repo)
