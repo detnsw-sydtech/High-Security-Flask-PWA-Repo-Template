@@ -32,7 +32,7 @@ jobs:
           version: "0.4.20"
 
       - name: Regenerate lockfile
-        run: uv lock --upgrade
+        run: uv lock --upgrade --refresh
 
       - name: Commit updated lockfile
         run: |
