@@ -1,1 +1,49 @@
+name: 02 Tailwind Structure Check
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  tailwind-structure:
+    name: Validate Tailwind Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Tailwind config exists
+        run: |
+          if [ ! -f "tailwind.config.js" ] && [ ! -f "tailwind.config.cjs" ]; then
+            echo "❌ Tailwind config file not found."
+            exit 1
+          fi
+
+      - name: Verify input CSS exists
+        run: |
+          if [ ! -f "static/src/input.css" ]; then
+            echo "❌ Tailwind input CSS file missing: static/src/input.css"
+            exit 1
+          fi
+
+      - name: Verify output CSS exists
+        run: |
+          if [ ! -f "static/css/tailwind.css" ]; then
+            echo "❌ Tailwind output CSS missing: static/css/tailwind.css"
+            echo "This usually means the Tailwind build workflow hasn't been run."
+            exit 1
+          fi
+
+      - name: Verify static folder structure
+        run: |
+          if [ ! -d "static/css" ] || [ ! -d "static/src" ]; then
+            echo "❌ Expected static/css and static/src directories missing."
+            exit 1
+          fi
+
+      - name: Tailwind structure check passed
+        run: echo "✔ Tailwind structure is valid."
 
