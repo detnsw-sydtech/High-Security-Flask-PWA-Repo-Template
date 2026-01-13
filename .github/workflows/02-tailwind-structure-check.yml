@@ -17,30 +17,37 @@ jobs:
 
       - name: Verify Tailwind config exists
         run: |
-          if [ ! -f "tailwind.config.js" ] && [ ! -f "tailwind.config.cjs" ]; then
-            echo "❌ Tailwind config file not found."
+          if [ ! -f "tailwind.config.js" ]; then
+            echo "ERROR: tailwind.config.js missing"
             exit 1
           fi
 
-      - name: Verify input CSS exists
+      - name: Verify Tailwind input folder exists
+        run: |
+          if [ ! -d "src/app/static/src" ]; then
+            echo "ERROR: Tailwind input folder missing: src/app/static/src"
+            exit 1
+          fi
+
+      - name: Verify Tailwind input.css exists
         run: |
           if [ ! -f "src/app/static/src/input.css" ]; then
-            echo "❌ Tailwind input CSS file missing: src/app/static/src/input.css"
+            echo "ERROR: Tailwind input.css missing: src/app/static/src/input.css"
             exit 1
           fi
 
-      - name: Verify output CSS exists
+      - name: Verify Tailwind output folder exists
+        run: |
+          if [ ! -d "src/app/static/css" ]; then
+            echo "ERROR: Tailwind css folder missing: src/app/static/css"
+            exit 1
+          fi
+
+      - name: Verify Tailwind output tailwind.css exists
         run: |
           if [ ! -f "src/app/static/css/tailwind.css" ]; then
-            echo "❌ Tailwind output CSS missing: src/app/static/css/tailwind.css"
-            echo "Run the staff-only Tailwind build workflow to regenerate it."
-            exit 1
-          fi
-
-      - name: Verify static folder structure
-        run: |
-          if [ ! -d "src/app/static/css" ] || [ ! -d "src/app/static/src" ]; then
-            echo "❌ Expected src/app/static/css and src/app/static/src directories missing."
+            echo "ERROR: Tailwind output tailwind.css missing: src/app/static/css/tailwind.css"
+            echo "Run the staff-only workflow 50 Build Tailwind CSS to generate it."
             exit 1
           fi
 
