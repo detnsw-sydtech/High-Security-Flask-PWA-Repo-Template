@@ -1,8 +1,1 @@
-[[IgnoredDirectories]]
-Path = "tests"
-
-[[IgnoredDirectories]]
-Path = "docs"
-
-[[IgnoredDirectories]]
-Path = ".github"
+# Empty config file — OSV CLI does not support ignore rules
