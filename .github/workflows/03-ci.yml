@@ -206,9 +206,8 @@ jobs:
         run: |
           ./osv-scanner \
             --recursive \
-            --ignore-file .osv-ignore \
+            --config=./osv-scanner.toml \
             .
-
 
 
 
