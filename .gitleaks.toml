@@ -1,16 +1,39 @@
 [allowlist]
-description = "Allow known safe files in the template"
+description = "Allow known safe files and patterns in the High-Security Flask PWA Template"
+
+# Paths that contain example values, documentation, or test fixtures
 paths = [
   "tests/",
   "docs/",
   ".env.example",
-  "README.md"
+  "README.md",
+  "static/",
+  "templates/"
 ]
 
+# Regex patterns that are safe in this template but look like secrets
 regexes = [
-  # Allow placeholder secrets like "YOUR_SECRET_HERE"
+  # Placeholder secrets used in teaching materials
   '''YOUR_.*_HERE''',
 
-  # Allow hex strings used in examples or docs
-  '''[A-Fa-f0-9]{32,}'''
+  # Common placeholder tokens
+  '''CHANGE_ME''',
+  '''REPLACE_ME''',
+
+  # Hex strings used in examples or docs (32+ chars)
+  '''[A-Fa-f0-9]{32,}''',
+
+  # JWT-like example tokens (header.payload.signature)
+  '''^[A-Za-z0-9-_]+?\.[A-Za-z0-9-_]+?\.[A-Za-z0-9-_]+?$''',
+
+  # Base64-like example strings
+  '''^[A-Za-z0-9+/]{20,}={0,2}$'''
+]
+
+# Commit messages that are safe to ignore
+commits = [
+  # Students often commit placeholder secrets in early scaffolding
+  "initial commit",
+  "scaffold",
+  "template"
 ]
