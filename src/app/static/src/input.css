@@ -1,1 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  Custom project styles can go here.
+  Keep this file minimal — Tailwind generates everything else.
+*/
 
