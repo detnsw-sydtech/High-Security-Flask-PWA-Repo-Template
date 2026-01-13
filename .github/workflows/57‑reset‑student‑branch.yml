@@ -1,0 +1,52 @@
+name: 57 Reset Student Branch (Staff Only)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reset-student-branch:
+    name: Reset student branch to canonical template
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure canonical template exists
+        run: |
+          if [ ! -d "src/app" ]; then
+            echo "❌ Canonical template missing. Run 56-recreate-canonical.yml first."
+            exit 1
+          fi
+
+      - name: Create temporary working directory
+        run: |
+          mkdir canonical
+          cp -R src canonical/
+          cp -R pyproject.toml canonical/
+          cp -R package.json canonical/
+          cp -R tailwind.config.js canonical/
+          cp -R README.md canonical/
+          cp -R LICENSE canonical/
+          cp -R .gitignore canonical/
+
+      - name: Switch to student branch
+        run: |
+          git checkout student || git checkout -b student
+
+      - name: Wipe student branch
+        run: |
+          shopt -s extglob
+          rm -rf !( .git | .github )
+
+      - name: Copy canonical template into student branch
+        run: |
+          cp -R canonical/* .
+
+      - name: Commit and push reset
+        run: |
+          git add -A
+          git commit -m "Reset student branch to canonical template"
+          git push --force origin student
