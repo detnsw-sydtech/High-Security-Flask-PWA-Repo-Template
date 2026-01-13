@@ -1,1 +1,8 @@
+[allowlist]
+description = "Allow known false positives"
+paths = [
+  "tests/",
+  ".env.example",
+  "docs/",
+]
 
