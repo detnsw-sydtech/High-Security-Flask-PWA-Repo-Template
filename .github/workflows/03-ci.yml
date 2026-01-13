@@ -197,11 +197,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: OSV Scan
-        uses: google/osv-scanner-action@v1
+        uses: ossf/osv-scanner-action@v1
         with:
-          path: "."
-          recursive: true
-          skip-git: true
-          ignore-file: ".osv-ignore"
+          scan-args: |
+            --recursive
+            --skip-git
+            --ignore-file .osv-ignore
+            .
+
 
 
