@@ -1,1 +1,5 @@
+skips:
+  - B101   # allow pytest asserts in tests
+  - B104   # ignore hardcoded bind address in dev servers
+  - B603   # ignore subprocess false positives
 
