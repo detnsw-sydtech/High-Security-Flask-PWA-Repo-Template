@@ -121,7 +121,9 @@ jobs:
         run: ls -R .venv/bin
 
       - name: Semgrep (security rules)
-        run: .venv/bin/semgrep --config r/python.security.audit --error --quiet
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: r/python.security.audit
 
   dependencies:
     name: Dependency Vulnerabilities + SBOM (pip-audit)
