@@ -29,7 +29,7 @@ jobs:
 
           for d in "${REQUIRED_DIRS[@]}"; do
             if [ ! -d "$d" ]; then
-              echo "❌ Missing directory: $d"
+              echo "ERROR: Missing directory: $d"
               exit 1
             fi
           done
@@ -60,7 +60,7 @@ jobs:
 
           for f in "${REQUIRED_FILES[@]}"; do
             if [ ! -f "$f" ]; then
-              echo "❌ Missing file: $f"
+              echo "ERROR: Missing file: $f"
               exit 1
             fi
           done
