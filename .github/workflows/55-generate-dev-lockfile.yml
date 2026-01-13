@@ -1,4 +1,4 @@
-name: 03‑TEMP Generate uv.lock (runtime + dev groups)
+name: 55 Generate Dev Lockfile (Staff Only)
 
 on:
   workflow_dispatch:
