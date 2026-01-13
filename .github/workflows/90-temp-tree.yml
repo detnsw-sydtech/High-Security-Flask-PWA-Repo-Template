@@ -1,4 +1,4 @@
-name: 04 Generate Repository Tree
+name: 90 Temporary Repository Tree Generator
 
 on:
   workflow_dispatch:
