@@ -206,7 +206,6 @@ jobs:
         run: |
           ./osv-scanner \
             --recursive \
-            --skip-git \
             --ignore-file .osv-ignore \
             .
 
