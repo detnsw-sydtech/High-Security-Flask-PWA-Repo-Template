@@ -205,9 +205,9 @@ jobs:
       - name: Run OSV scanner
         run: |
           ./osv-scanner \
-            --recursive \
-            --config=./osv-scanner.toml \
-            .
+            --lockfile=uv.lock \
+            --config=./osv-scanner.toml
+
 
 
 
