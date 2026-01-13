@@ -1,4 +1,4 @@
-name: 04 Reset Canonical Folder Structure
+name: 52 Reset Canonical Structure (Dangerous)
 
 on:
   workflow_dispatch:
