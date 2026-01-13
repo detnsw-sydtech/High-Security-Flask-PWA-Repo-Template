@@ -4,7 +4,7 @@
   "private": true,
   "description": "Front-end tooling for the high-security Flask PWA template",
   "scripts": {
-    "dev": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --watch"
+    "dev": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --watch",
     "build": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --minify"
   },
   "devDependencies": {
