@@ -6,6 +6,7 @@ on:
 jobs:
   print-tree:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -13,5 +14,34 @@ jobs:
       - name: Install tree
         run: sudo apt-get update && sudo apt-get install -y tree
 
-      - name: Print tree
-        run: tree -a -I '.git|.github|.venv' -L 4
+      - name: Generate repository trees
+        run: |
+          # Whole repo tree
+          tree -a -p -h -I '.git|.github|.venv' -L 10 > repo-tree.txt
+          cp repo-tree.txt repo-tree.md
+
+          # src tree
+          if [ -d "src" ]; then
+            tree -a -p -h src > src-tree.md
+          fi
+
+          # tests tree
+          if [ -d "tests" ]; then
+            tree -a -p -h tests > tests-tree.md
+          fi
+
+          # static tree
+          if [ -d "static" ]; then
+            tree -a -p -h static > static-tree.md
+          fi
+
+      - name: Upload tree artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-trees
+          path: |
+            repo-tree.txt
+            repo-tree.md
+            src-tree.md
+            tests-tree.md
+            static-tree.md
