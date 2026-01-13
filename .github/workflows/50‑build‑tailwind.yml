@@ -27,4 +27,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tailwind-css
-          path: static/css/tailwind.css
+          path: src/app/static/css/tailwind.css
+
