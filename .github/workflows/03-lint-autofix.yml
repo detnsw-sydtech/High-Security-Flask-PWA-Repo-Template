@@ -1,4 +1,4 @@
-name: 04 Maintenance — Ruff Autofix
+name: 03 Ruff Autofix (Manual)
 
 on:
   workflow_dispatch:
