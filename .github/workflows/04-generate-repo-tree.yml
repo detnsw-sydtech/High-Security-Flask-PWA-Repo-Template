@@ -1,4 +1,4 @@
-name: 00 Print Repository Tree
+name: 04 Generate Repository Tree
 
 on:
   workflow_dispatch:
