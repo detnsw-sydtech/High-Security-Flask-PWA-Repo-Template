@@ -1,4 +1,4 @@
-name: 04 Pre-Commit Quality Gate
+name: 00 Pre-Commit Quality Gate
 
 on:
   pull_request:
