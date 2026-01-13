@@ -1,4 +1,4 @@
-name: 02 Canonical Structure Check
+name: 04 Canonical Structure Check
 
 on:
   pull_request:
