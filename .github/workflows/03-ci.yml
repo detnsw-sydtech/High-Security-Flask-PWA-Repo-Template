@@ -114,8 +114,8 @@ jobs:
       - name: Install dev dependencies
         run: uv sync --frozen --directory .venv
 
-      - name: Bandit (Python security analysis)
-        run: .venv/bin/bandit -r src -ll
+      - name: Bandit (Python SAST)
+        run: venv/bin/bandit -r src -ll -c bandit.yaml
 
       - name: Semgrep (security rules)
         run: .venv/bin/semgrep --config p/ci --error --quiet
