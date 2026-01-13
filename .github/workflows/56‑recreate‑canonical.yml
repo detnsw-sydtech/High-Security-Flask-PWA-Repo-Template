@@ -1,4 +1,4 @@
-name: 56 Recreate Canonical Template (Dangerous) 13012026
+name: 56 Recreate Canonical Template (Dangerous)
 
 on:
   workflow_dispatch:
@@ -12,14 +12,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Remove all files except .git and .github/workflows
+      - name: Remove all files except .git and .github
+        shell: bash
         run: |
+          shopt import -q extglob || true
           shopt -s extglob
-          rm -rf !( .git | .github )
-          rm -rf .github/!(workflows)
-          rm -rf .github/workflows/!(**)
+          for entry in * .[^.]*; do
+            if [[ "$entry" == ".git" || "$entry" == ".github" ]]; then
+              continue
+            fi
+            rm -rf "$entry"
+          done
+
+      - name: Ensure .github/workflows is preserved
+        shell: bash
+        run: |
+          mkdir -p .github/workflows
 
       - name: Recreate directory structure
+        shell: bash
         run: |
           mkdir -p src/app/templates
           mkdir -p src/app/static/css
@@ -28,9 +39,10 @@ jobs:
           mkdir -p src/app/static/icons
           mkdir -p src/app/tests
 
-      - name: Create Flask app files
+      - name: Create Flask core files
+        shell: bash
         run: |
-          cat > src/app/__init__.py << 'EOF'
+          cat << 'EOF' > src/app/__init__.py
 from flask import Flask
 from .routes import bp as routes_bp
 
@@ -40,7 +52,7 @@ def create_app():
     return app
 EOF
 
-          cat > src/app/routes.py << 'EOF'
+          cat << 'EOF' > src/app/routes.py
 from flask import Blueprint, render_template
 
 bp = Blueprint("routes", __name__)
@@ -54,26 +66,24 @@ def offline():
     return render_template("offline.html")
 EOF
 
-          cat > src/app/security.py << 'EOF'
-# Security utilities for the High-Security Flask PWA Template
+          cat << 'EOF' > src/app/security.py
+"""
+Security utilities for the High-Security Flask PWA Template.
+This module is a placeholder for future security-related helpers.
+"""
 EOF
 
-          cat > src/app/pwa.py << 'EOF'
-# PWA helpers (service worker registration, manifest loading)
+          cat << 'EOF' > src/app/pwa.py
+"""
+PWA helpers for the High-Security Flask PWA Template.
+This module is a placeholder for PWA-related utilities.
+"""
 EOF
 
-          cat > src/app/tests/test_routes.py << 'EOF'
-def test_index_route(client):
-    response = client.get("/")
-    assert response.status_code == 200
-EOF
-
-          cat > src/app/tests/test_security.py << 'EOF'
-def test_security_module_imports():
-    import app.security
-EOF
-
-          cat > src/app/templates/base.html << 'EOF'
+      - name: Create templates
+        shell: bash
+        run: |
+          cat << 'EOF' > src/app/templates/base.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,84 +98,150 @@ EOF
 </html>
 EOF
 
-          cat > src/app/templates/index.html << 'EOF'
+          cat << 'EOF' > src/app/templates/index.html
 {% extends "base.html" %}
 {% block content %}
 <h1 class="text-3xl font-bold">Flask PWA Template</h1>
+<p class="mt-4">This is the canonical high-security Flask PWA template.</p>
 {% endblock %}
 EOF
 
-          cat > src/app/templates/offline.html << 'EOF'
+          cat << 'EOF' > src/app/templates/offline.html
 {% extends "base.html" %}
 {% block content %}
-<h1 class="text-xl">You are offline.</h1>
+<h1 class="text-xl font-semibold">You are offline.</h1>
+<p class="mt-2">Some features may be unavailable until connection is restored.</p>
 {% endblock %}
+EOF
+
+      - name: Create tests
+        shell: bash
+        run: |
+          cat << 'EOF' > src/app/tests/test_routes.py
+def test_index_route(client):
+    response = client.get("/")
+    assert response.status_code == 200
+EOF
+
+          cat << 'EOF' > src/app/tests/test_security.py
+def test_security_module_imports():
+    import app.security
 EOF
 
       - name: Create PWA static files
+        shell: bash
         run: |
-          cat > src/app/static/js/service-worker.js << 'EOF'
-// Basic offline service worker
-self.addEventListener("install", () => self.skipWaiting());
-self.addEventListener("activate", () => clients.claim());
+          cat << 'EOF' > src/app/static/js/service-worker.js
+// Basic offline-ready service worker for the canonical template.
+self.addEventListener("install", (event) => {
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", (event) => {
+  // Placeholder fetch handler for future caching strategies.
+});
 EOF
 
-          cat > src/app/static/js/pwa.js << 'EOF'
+          cat << 'EOF' > src/app/static/js/pwa.js
+// Register the service worker if available.
 if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
     navigator.serviceWorker.register("/static/js/service-worker.js");
+  });
 }
 EOF
 
-          cat > src/app/static/manifest.json << 'EOF'
+          cat << 'EOF' > src/app/static/manifest.json
 {
   "name": "High Security Flask PWA",
   "short_name": "FlaskPWA",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2563eb"
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
 EOF
 
-      - name: Create Tailwind input file
+      - name: Create Tailwind input and placeholder output
+        shell: bash
         run: |
-          cat > src/app/static/src/input.css << 'EOF'
+          cat << 'EOF' > src/app/static/src/input.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 EOF
 
-      - name: Create placeholder Tailwind output file
-        run: |
-          echo "/* Tailwind CSS will be generated by workflow 50-build-tailwind */" > src/app/static/css/tailwind.css
+          cat << 'EOF' > src/app/static/css/tailwind.css
+/* Tailwind CSS is generated by the staff-only workflow 50 Build Tailwind CSS (Staff Only).
+ * Students should not edit this file directly. */
+EOF
 
-      - name: Create project root files
+      - name: Create project metadata files
+        shell: bash
         run: |
-          cat > README.md << 'EOF'
+          cat << 'EOF' > README.md
 # High-Security Flask PWA Template
-Canonical rebuild generated by workflow 56-recreate-canonical.yml.
+
+This repository contains the canonical high-security Flask PWA template.
+It can be fully reconstructed by running the staff-only workflow:
+
+- \`56 Recreate Canonical Template (Dangerous)\`
+
+Students should never run this workflow. It is reserved for staff to reset
+or recreate the institutional reference template.
 EOF
 
-          cat > LICENSE << 'EOF'
+          cat << 'EOF' > LICENSE
 MIT License
+
+Copyright (c) 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+...
 EOF
 
-          cat > .gitignore << 'EOF'
+          cat << 'EOF' > .gitignore
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+venv/
+.build/
+dist/
 node_modules/
 EOF
 
-          cat > pyproject.toml << 'EOF'
+          cat << 'EOF' > pyproject.toml
 [project]
 name = "high-security-flask-pwa"
 version = "0.1.0"
+description = "Canonical high-security Flask PWA template."
+requires-python = ">=3.11"
 EOF
 
-          cat > package.json << 'EOF'
+          cat << 'EOF' > package.json
 {
   "name": "high-security-flask-pwa-frontend",
   "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --watch",
     "build": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --minify"
@@ -173,13 +249,16 @@ EOF
 }
 EOF
 
-          cat > tailwind.config.js << 'EOF'
+          cat << 'EOF' > tailwind.config.js
 module.exports = {
   content: ["./src/app/templates/**/*.html"],
-  theme: { extend: {} },
+  theme: {
+    extend: {}
+  },
   plugins: []
-}
+};
 EOF
 
       - name: Final confirmation
+        shell: bash
         run: echo "Canonical template successfully recreated."
