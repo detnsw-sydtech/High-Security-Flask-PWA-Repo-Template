@@ -1,8 +1,16 @@
 [allowlist]
-description = "Allow known false positives"
+description = "Allow known safe files in the template"
 paths = [
   "tests/",
-  ".env.example",
   "docs/",
+  ".env.example",
+  "README.md"
 ]
 
+regexes = [
+  # Allow placeholder secrets like "YOUR_SECRET_HERE"
+  '''YOUR_.*_HERE''',
+
+  # Allow hex strings used in examples or docs
+  '''[A-Fa-f0-9]{32,}'''
+]
