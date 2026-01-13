@@ -42,46 +42,46 @@ jobs:
       - name: Create __init__.py
         run: |
           cat << 'EOF' > src/app/__init__.py
-from flask import Flask
-from .routes import bp as routes_bp
+          from flask import Flask
+          from .routes import bp as routes_bp
 
-def create_app():
-    app = Flask(__name__)
-    app.register_blueprint(routes_bp)
-    return app
-EOF
+          def create_app():
+              app = Flask(__name__)
+              app.register_blueprint(routes_bp)
+              return app
+          EOF
 
       - name: Create routes.py
         run: |
           cat << 'EOF' > src/app/routes.py
-from flask import Blueprint, render_template
+          from flask import Blueprint, render_template
 
-bp = Blueprint("routes", __name__)
+          bp = Blueprint("routes", __name__)
 
-@bp.route("/")
-def index():
-    return render_template("index.html")
+          @bp.route("/")
+          def index():
+              return render_template("index.html")
 
-@bp.route("/offline")
-def offline():
-    return render_template("offline.html")
-EOF
+          @bp.route("/offline")
+          def offline():
+              return render_template("offline.html")
+          EOF
 
       - name: Create security.py
         run: |
           cat << 'EOF' > src/app/security.py
-"""
-Security utilities for the High-Security Flask PWA Template.
-"""
-EOF
+          """
+          Security utilities for the High-Security Flask PWA Template.
+          """
+          EOF
 
       - name: Create pwa.py
         run: |
           cat << 'EOF' > src/app/pwa.py
-"""
-PWA helpers for the High-Security Flask PWA Template.
-"""
-EOF
+          """
+          PWA helpers for the High-Security Flask PWA Template.
+          """
+          EOF
 
       # -----------------------------
       # Templates
@@ -90,39 +90,39 @@ EOF
       - name: Create base.html
         run: |
           cat << 'EOF' > src/app/templates/base.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Flask PWA</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-</head>
-<body class="bg-gray-100 text-gray-900">
-    {% block content %}{% endblock %}
-</body>
-</html>
-EOF
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <title>Flask PWA</title>
+              <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+              <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+          </head>
+          <body class="bg-gray-100 text-gray-900">
+              {% block content %}{% endblock %}
+          </body>
+          </html>
+          EOF
 
       - name: Create index.html
         run: |
           cat << 'EOF' > src/app/templates/index.html
-{% extends "base.html" %}
-{% block content %}
-<h1 class="text-3xl font-bold">Flask PWA Template</h1>
-<p class="mt-4">This is the canonical high-security Flask PWA template.</p>
-{% endblock %}
-EOF
+          {% extends "base.html" %}
+          {% block content %}
+          <h1 class="text-3xl font-bold">Flask PWA Template</h1>
+          <p class="mt-4">This is the canonical high-security Flask PWA template.</p>
+          {% endblock %}
+          EOF
 
       - name: Create offline.html
         run: |
           cat << 'EOF' > src/app/templates/offline.html
-{% extends "base.html" %}
-{% block content %}
-<h1 class="text-xl font-semibold">You are offline.</h1>
-<p class="mt-2">Some features may be unavailable until connection is restored.</p>
-{% endblock %}
-EOF
+          {% extends "base.html" %}
+          {% block content %}
+          <h1 class="text-xl font-semibold">You are offline.</h1>
+          <p class="mt-2">Some features may be unavailable until connection is restored.</p>
+          {% endblock %}
+          EOF
 
       # -----------------------------
       # Tests
@@ -131,17 +131,17 @@ EOF
       - name: Create test_routes.py
         run: |
           cat << 'EOF' > src/app/tests/test_routes.py
-def test_index_route(client):
-    response = client.get("/")
-    assert response.status_code == 200
-EOF
+          def test_index_route(client):
+              response = client.get("/")
+              assert response.status_code == 200
+          EOF
 
       - name: Create test_security.py
         run: |
           cat << 'EOF' > src/app/tests/test_security.py
-def test_security_module_imports():
-    import app.security
-EOF
+          def test_security_module_imports():
+              import app.security
+          EOF
 
       # -----------------------------
       # PWA Static Files
@@ -150,42 +150,42 @@ EOF
       - name: Create service-worker.js
         run: |
           cat << 'EOF' > src/app/static/js/service-worker.js
-self.addEventListener("install", (event) => {
-  event.waitUntil(self.skipWaiting());
-});
+          self.addEventListener("install", (event) => {
+            event.waitUntil(self.skipWaiting());
+          });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(self.clients.claim());
-});
+          self.addEventListener("activate", (event) => {
+            event.waitUntil(self.clients.claim());
+          });
 
-self.addEventListener("fetch", (event) => {
-  // Placeholder for caching strategies
-});
-EOF
+          self.addEventListener("fetch", (event) => {
+            // Placeholder for caching strategies
+          });
+          EOF
 
       - name: Create pwa.js
         run: |
           cat << 'EOF' > src/app/static/js/pwa.js
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/static/js/service-worker.js");
-  });
-}
-EOF
+          if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+              navigator.serviceWorker.register("/static/js/service-worker.js");
+            });
+          }
+          EOF
 
       - name: Create manifest.json
         run: |
           cat << 'EOF' > src/app/static/manifest.json
-{
-  "name": "High Security Flask PWA",
-  "short_name": "FlaskPWA",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
-  "icons": []
-}
-EOF
+          {
+            "name": "High Security Flask PWA",
+            "short_name": "FlaskPWA",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#ffffff",
+            "theme_color": "#2563eb",
+            "icons": []
+          }
+          EOF
 
       # -----------------------------
       # Tailwind Files
@@ -194,16 +194,16 @@ EOF
       - name: Create Tailwind input.css
         run: |
           cat << 'EOF' > src/app/static/src/input.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-EOF
+          @tailwind base;
+          @tailwind components;
+          @tailwind utilities;
+          EOF
 
       - name: Create placeholder tailwind.css
         run: |
           cat << 'EOF' > src/app/static/css/tailwind.css
-/* Tailwind CSS is generated by workflow 50 Build Tailwind CSS (Staff Only). */
-EOF
+          /* Tailwind CSS is generated by workflow 50 Build Tailwind CSS (Staff Only). */
+          EOF
 
       # -----------------------------
       # Project Root Files
@@ -212,56 +212,56 @@ EOF
       - name: Create README.md
         run: |
           cat << 'EOF' > README.md
-# High-Security Flask PWA Template
+          # High-Security Flask PWA Template
 
-This repository contains the canonical high-security Flask PWA template.
-EOF
+          This repository contains the canonical high-security Flask PWA template.
+          EOF
 
       - name: Create LICENSE
         run: |
           cat << 'EOF' > LICENSE
-MIT License
-EOF
+          MIT License
+          EOF
 
       - name: Create .gitignore
         run: |
           cat << 'EOF' > .gitignore
-__pycache__/
-*.pyc
-node_modules/
-EOF
+          __pycache__/
+          *.pyc
+          node_modules/
+          EOF
 
       - name: Create pyproject.toml
         run: |
           cat << 'EOF' > pyproject.toml
-[project]
-name = "high-security-flask-pwa"
-version = "0.1.0"
-EOF
+          [project]
+          name = "high-security-flask-pwa"
+          version = "0.1.0"
+          EOF
 
       - name: Create package.json
         run: |
           cat << 'EOF' > package.json
-{
-  "name": "high-security-flask-pwa-frontend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --watch",
-    "build": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --minify"
-  }
-}
-EOF
+          {
+            "name": "high-security-flask-pwa-frontend",
+            "version": "0.1.0",
+            "private": true,
+            "scripts": {
+              "dev": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --watch",
+              "build": "tailwindcss -i ./src/app/static/src/input.css -o ./src/app/static/css/tailwind.css --minify"
+            }
+          }
+          EOF
 
       - name: Create tailwind.config.js
         run: |
           cat << 'EOF' > tailwind.config.js
-module.exports = {
-  content: ["./src/app/templates/**/*.html"],
-  theme: { extend: {} },
-  plugins: []
-};
-EOF
+          module.exports = {
+            content: ["./src/app/templates/**/*.html"],
+            theme: { extend: {} },
+            plugins: []
+          };
+          EOF
 
       - name: Final confirmation
         run: echo "Canonical template successfully recreated."
