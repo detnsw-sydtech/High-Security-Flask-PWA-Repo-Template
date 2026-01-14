@@ -38,6 +38,10 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/sydneytechnicalhighschool
 
+plugins:
+  - search
+  - mermaid2
+
 nav:
   - Home: index.md
   - Architecture:
