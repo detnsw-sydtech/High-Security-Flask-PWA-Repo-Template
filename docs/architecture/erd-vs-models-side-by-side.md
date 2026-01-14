@@ -49,8 +49,9 @@ Each user belongs to exactly one role.
 # 2. ItemType ↔ Item (One‑to‑Many)
 
 ## ERD
-```text
-ITEMTYPE ||--o{ ITEM
+```mermaid
+erDiagram
+ITEMTYPE ||--o{ ITEM : "has many"
 ```
 
 ## SQLAlchemy
