@@ -24,7 +24,7 @@ Mermaid is a simple text‑based way to draw ERDs that GitHub can render automat
 ## Basic Mermaid ERD Syntax
 
 A Mermaid ERD looks like this:
-```text
+```mermaid
 erDiagram
 TABLE1 ||--o{ TABLE2 : "relationship"
 ```
@@ -46,7 +46,7 @@ means **one‑to‑many**.
 ## Reading One‑to‑Many
 
 Example:
-```text
+```mermaid
 ITEMTYPE ||--o{ ITEM : "has many"
 ```
 
@@ -65,7 +65,7 @@ In SQLAlchemy, this is represented with:
 ## Reading Many‑to‑Many
 
 Mermaid shows many‑to‑many using a **link table**:
-```
+```mermaid
 ITEM ||--o{ ITEM_CREATOR : "links"
 CREATOR ||--o{ ITEM_CREATOR : "links"
 ```
@@ -83,7 +83,7 @@ This matches how relational databases actually work.
 ## Reading Table Definitions
 
 Mermaid lets you list fields inside each table:
-```text
+```mermaid
 ITEM {
 int id PK
 string title
