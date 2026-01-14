@@ -55,3 +55,16 @@
   margin: 0 auto;
   border-radius: 3px;
 }
+
+/* Make Mermaid diagrams scale to full width */
+.mermaid {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 1.5rem 0;
+}
+
+/* Prevent tiny auto‑scaling */
+.mermaid svg {
+    width: 100% !important;
+    height: auto !important;
+}
