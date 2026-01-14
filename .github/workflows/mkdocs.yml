@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Clear pip cache
+        run: pip cache purge
+
       - name: Install dependencies MkDocs, Material theme, mermaid2 plugin
         run: |
           pip install mkdocs-material
