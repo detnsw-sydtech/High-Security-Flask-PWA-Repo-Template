@@ -76,7 +76,7 @@ One item type (Book, Video, etc.) can be linked to many items.
 ## ERD
 ```mermaid
 erDiagram
-ITEM ||--o{ ITEM_CREATOR }o--|| CREATOR : "many has many, but one to many via ITEM_CREATOR"
+ITEM ||--o{ ITEM_CREATOR }o--|| CREATOR : "has many"
 ```
 
 ## SQLAlchemy
