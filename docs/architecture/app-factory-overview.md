@@ -1,5 +1,6 @@
 --8<-- "../_includes/header.md"
 
+
 # Application Factory Overview  
 *Understanding how your Flask app is created and organised*
 
