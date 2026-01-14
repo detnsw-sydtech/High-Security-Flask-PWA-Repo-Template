@@ -132,3 +132,6 @@ Explore:
 - `src/app/db/models.py` — the actual model definitions  
 - `src/app/main/forms.py` — forms that interact with the database  
 - `src/app/main/queries.py` — example search queries  
+
+
+--8<-- "../_includes/footer.md"
