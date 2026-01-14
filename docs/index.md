@@ -1,9 +1,11 @@
 --8<-- "docs/_includes/header.md"
 
-# Welcome to the High‑Security Flask PWA Template
+# High‑Security Flask PWA Template
 
-This documentation site is part of the Sydney Technical High School secure software engineering curriculum.  
-It provides a complete, audit‑ready reference for:
+Welcome to the official documentation for the Sydney Technical High School High‑Security Flask PWA Template.  
+This site provides a complete, audit‑ready reference for secure software engineering, aligned with STHS curriculum and institutional best practice.
+
+## What you’ll find here
 
 - Application architecture  
 - Database design  
@@ -12,5 +14,23 @@ It provides a complete, audit‑ready reference for:
 - Teaching‑aligned engineering practices  
 
 Use the navigation on the left to explore each section.
+
+## Architecture Overview
+
+<div class="grid cards" markdown>
+
+-   **App Factory**  
+    Learn how the application factory pattern structures your Flask project.
+
+-   **Database Model**  
+    Understand how models, relationships, and migrations are organised.
+
+-   **Blueprints**  
+    Explore how modular routing keeps your application maintainable.
+
+-   **Security**  
+    Review the security posture, CSP, and hardening strategies.
+
+</div>
 
 --8<-- "docs/_includes/footer.md"
