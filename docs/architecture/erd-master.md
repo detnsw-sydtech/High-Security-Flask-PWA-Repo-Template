@@ -2,14 +2,11 @@
 This diagram shows the complete relational structure of the system.  
 Hover over relationships for teaching notes, and click any entity to open its model documentation.
 
-<div class="md-typeset__scrollwrap">
+<div class="erd-wrapper">
 
 ```mermaid
 %% ---------------------------------------------------------
 %% Mermaid Init Block with STHS Branding
-%% ---------------------------------------------------------
-%% Ensures readable font size, Inter font, smooth curves,
-%% and a colour palette aligned with your documentation theme.
 %% ---------------------------------------------------------
 
 %%{init: {
@@ -129,3 +126,12 @@ erDiagram
 ```
 
 </div>
+
+!!! tip "Explore the Models"
+    - **Role** → `architecture/role-model.md`
+    - **User** → `architecture/user-model.md`
+    - **ItemType** → `architecture/itemtype-model.md`
+    - **Item** → `architecture/item-model.md`
+    - **Category** → `architecture/category-model.md`
+    - **Creator** → `architecture/creator-model.md`
+    - **Join Tables** → `architecture/join-tables-overview.md`
