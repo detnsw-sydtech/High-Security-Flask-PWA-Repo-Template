@@ -26,12 +26,12 @@ ROLE ||--o{ USER
 
 ## SQLAlchemy
 **Foreign key:**
-```text
+```python
 role_id = db.Column(db.Integer, db.ForeignKey("role.id"))
 ```
 
 **Relationships:**
-```text
+```python
 Role.users  = db.relationship("User", back_populates="role")
 User.role  = db.relationship("Role", back_populates="users")
 ```
@@ -45,18 +45,18 @@ Each user belongs to exactly one role.
 # 2. ItemType ↔ Item (One‑to‑Many)
 
 ## ERD
-```
+```text
 ITEMTYPE ||--o{ ITEM
 ```
 
 ## SQLAlchemy
 **Foreign key:**
-```
+```python
 item_type_id = db.Column(db.Integer, db.ForeignKey("item_type.id"))
 ```
 
 **Relationships:**
-```text
+```python
 ItemType.items  = db.relationship("Item", back_populates="item_type")
 Item.item_type = db.relationship("ItemType", back_populates="items")
 ```
@@ -69,13 +69,13 @@ One item type (Book, Video, etc.) can be linked to many items.
 # 3. Item ↔ Creator (Many‑to‑Many)
 
 ## ERD
-```
+```text
 ITEM ||--o{ ITEM_CREATOR }o--|| CREATOR
 ```
 
 ## SQLAlchemy
 **Association table:**
-```text
+```python
 item_creator = db.Table(
 "item_creator",
 db.Column("item_id", db.Integer, db.ForeignKey("item.id"), primary_key=True),
@@ -84,7 +84,7 @@ db.Column("creator_id", db.Integer, db.ForeignKey("creator.id"), primary_key=Tru
 ```
 
 **Relationships:**
-```text
+```python
 Item.creators  = db.relationship("Creator", secondary=item_creator, back_populates="items")
 Creator.items  = db.relationship("Item", secondary=item_creator, back_populates="creators")
 ```
@@ -105,7 +105,7 @@ ITEM ||--o{ ITEM_CATEGORY }o--|| CATEGORY
 
 ## SQLAlchemy
 **Association table:**
-```text
+```python
 item_category = db.Table(
 "item_category",
 db.Column("item_id", db.Integer, db.ForeignKey("item.id"), primary_key=True),
@@ -114,7 +114,7 @@ db.Column("category_id", db.Integer, db.ForeignKey("category.id"), primary_key=T
 ```
 
 **Relationships:**
-```text
+```python
 Item.categories  = db.relationship("Category", secondary=item_category, back_populates="items")
 Category.items  = db.relationship("Item", secondary=item_category, back_populates="categories")
 ```
@@ -145,7 +145,7 @@ datetime updated_at
 ```
 
 ### SQLAlchemy
-```text
+```python
 id = db.Column(db.Integer, primary_key=True)
 title = db.Column(db.String(255), nullable=False)
 description = db.Column(db.Text)
