@@ -1,70 +1,42 @@
-:root {
-  --md-primary-fg-color: #003366;
-  --md-accent-fg-color: #ffcc00;
-}
+/* ============================================================
+   FORCE MERMAID DIAGRAMS TO RENDER FULL WIDTH
+   Works for ERD, flowchart, sequence, class diagrams, etc.
+   ============================================================ */
 
-.md-header, .md-footer {
-  background-color: #003366 !important;
-}
-
-.md-header a, .md-footer a {
-  color: #ffffff !important;
-}
-
-.hero {
-  padding: 2rem;
-  background: #003366;
-  color: white;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-}
-
-/* --- STHS Hero Section --- */
-
-.hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: linear-gradient(135deg, #003366 0%, #002244 100%);
-  color: white;
-  border-radius: 12px;
-  margin-bottom: 2.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.hero-logo {
-  width: 120px;
-  margin-bottom: 1rem;
-}
-
-.hero-title {
-  font-size: 2.2rem;
-  margin: 0.5rem 0;
-  font-weight: 700;
-}
-
-.hero-tagline {
-  font-size: 1.2rem;
-  margin: 0.5rem 0 1.5rem 0;
-  opacity: 0.9;
-}
-
-.hero-underline {
-  width: 120px;
-  height: 6px;
-  background: #ffcc00;
-  margin: 0 auto;
-  border-radius: 3px;
-}
-
-/* Make Mermaid diagrams scale to full width */
+/* Make the Mermaid container expand fully */
 .mermaid {
-    max-width: 100% !important;
+    display: block !important;
     width: 100% !important;
-    margin: 1.5rem 0;
+    max-width: 100% !important;
+    margin: 2rem 0 !important;
+    overflow: visible !important;
 }
 
-/* Prevent tiny auto‑scaling */
+/* Force the SVG to scale responsively */
 .mermaid svg {
     width: 100% !important;
     height: auto !important;
+    max-width: none !important;
+}
+
+/* Prevent MkDocs Material from shrinking the diagram */
+.md-typeset .mermaid > svg {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Fix for flex/grid containers that collapse SVGs */
+.md-typeset__scrollwrap .mermaid svg {
+    flex: 1 1 auto !important;
+}
+
+/* Ensure text remains readable */
+.mermaid svg text {
+    font-size: 16px !important;
+}
+
+/* Prevent parent containers from clipping the diagram */
+.md-typeset__scrollwrap {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
 }
