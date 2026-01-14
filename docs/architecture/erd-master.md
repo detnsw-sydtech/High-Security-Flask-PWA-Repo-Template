@@ -2,31 +2,8 @@
 This diagram shows the complete relational structure of the system.  
 Hover over relationships for teaching notes, and click any entity to open its model documentation.
 
-<div class="erd-wrapper">
 
 ```mermaid
-%% ---------------------------------------------------------
-%% Mermaid Init Block with STHS Branding
-%% ---------------------------------------------------------
-
-%%{init: {
-  "theme": "neutral",
-  "themeVariables": {
-    "primaryColor": "#1e88e5",
-    "primaryBorderColor": "#0d47a1",
-    "primaryTextColor": "#ffffff",
-
-    "lineColor": "#37474f",
-    "secondaryColor": "#e3f2fd",
-    "tertiaryColor": "#bbdefb",
-
-    "fontFamily": "Inter, sans-serif",
-    "fontSize": "16px",
-    "edgeLabelBackground": "#ffffff"
-  },
-  "flowchart": { "curve": "basis" }
-}}%%
-
 erDiagram
 
     %% ======================================================
@@ -124,8 +101,6 @@ erDiagram
     class ITEM_CATEGORY join
     class ITEM_CREATOR  join
 ```
-
-</div>
 
 !!! tip "Explore the Models"
     - **Role** → `architecture/role-model.md`
