@@ -1,35 +1,51 @@
-# Master Entity‑Relationship Diagram  
-A complete, interactive ERD showing the relational structure of the Online Library Catalogue.
+# Master ERD — Online Library Catalogue  
+This diagram shows the complete relational structure of the system.  
+Hover over relationships for teaching notes, and click any entity to open its model documentation.
+
+<div class="md-typeset__scrollwrap">
 
 ```mermaid
-erDiagram
+%% ---------------------------------------------------------
+%% Mermaid Init Block with STHS Branding
+%% ---------------------------------------------------------
+%% Ensures readable font size, Inter font, smooth curves,
+%% and a colour palette aligned with your documentation theme.
+%% ---------------------------------------------------------
+
 %%{init: {
   "theme": "neutral",
   "themeVariables": {
+    "primaryColor": "#1e88e5",
+    "primaryBorderColor": "#0d47a1",
+    "primaryTextColor": "#ffffff",
+
+    "lineColor": "#37474f",
+    "secondaryColor": "#e3f2fd",
+    "tertiaryColor": "#bbdefb",
+
+    "fontFamily": "Inter, sans-serif",
     "fontSize": "16px",
-    "fontFamily": "Inter, sans-serif"
-  }
+    "edgeLabelBackground": "#ffffff"
+  },
+  "flowchart": { "curve": "basis" }
 }}%%
 
+erDiagram
 
     %% ======================================================
     %% RELATIONSHIPS (with tooltips)
     %% ======================================================
 
-    %% One Role → Many Users
     ROLE ||--o{ USER : "one role has many users"
     %% "Each user belongs to exactly one role."
 
-    %% One ItemType → Many Items
     ITEMTYPE ||--o{ ITEM : "one type has many items"
     %% "The foreign key lives on the ITEM table."
 
-    %% Many Items ↔ Many Categories (via join table)
     ITEM ||--o{ ITEM_CATEGORY : "item appears in many categories"
     CATEGORY ||--o{ ITEM_CATEGORY : "category contains many items"
     %% "This is a true many‑to‑many implemented using a join table."
 
-    %% Many Items ↔ Many Creators (via join table)
     ITEM ||--o{ ITEM_CREATOR : "item has many creators"
     CREATOR ||--o{ ITEM_CREATOR : "creator contributed to many items"
     %% "Another many‑to‑many relationship implemented via a join table."
@@ -112,3 +128,4 @@ erDiagram
     class ITEM_CREATOR  join
 ```
 
+</div>
