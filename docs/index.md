@@ -4,7 +4,7 @@
     <p>Secure. Reproducible. Curriculum‑aligned.</p>
 </div>
 
-# High‑Security Flask PWA Template
+# Welcome
 
 Welcome to the official documentation for the Sydney Technical High School High‑Security Flask PWA Template.  
 This site provides a complete, audit‑ready reference for secure software engineering, aligned with STHS curriculum and institutional best practice.
