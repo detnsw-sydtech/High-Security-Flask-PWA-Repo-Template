@@ -1,5 +1,4 @@
---8<-- "_includes/header.md"
-
+--8<-- "../_includes/header.md"
 
 # Application Factory Overview  
 *Understanding how your Flask app is created and organised*
@@ -136,7 +135,7 @@ After understanding the application factory, explore:
 - `src/app/pwa/` — offline support  
 - `src/app/security/` — secure HTTP headers  
 
---8<-- "_includes/footer.md"
+--8<-- "../_includes/footer.md"
 Each module builds on the foundation created by the application factory.
 
 ---
