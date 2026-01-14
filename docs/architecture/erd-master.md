@@ -113,11 +113,18 @@ erDiagram
     %% CLASS DEFINITIONS (COLOUR CODING)
     %% ======================================================
 
-    classDef core fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#0d47a1;
-    classDef lookup fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#1b5e20;
-    classDef join fill:#fff3e0,stroke:#fb8c00,stroke-width:2px,color:#e65100;
+classDef core fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#0d47a1;
+classDef lookup fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#1b5e20;
+classDef join fill:#fff3e0,stroke:#fb8c00,stroke-width:2px,color:#e65100;
 
-    class ROLE,USER,ITEM core;
-    class ITEMTYPE,CATEGORY,CREATOR lookup;
-    class ITEM_CATEGORY,ITEM_CREATOR join;
+class ROLE          core
+class USER          core
+class ITEM          core
+
+class ITEMTYPE      lookup
+class CATEGORY      lookup
+class CREATOR       lookup
+
+class ITEM_CATEGORY join
+class ITEM_CREATOR  join
 ```
