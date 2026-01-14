@@ -10,3 +10,12 @@
 .md-header a, .md-footer a {
   color: #ffffff !important;
 }
+
+.hero {
+  padding: 2rem;
+  background: #003366;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
