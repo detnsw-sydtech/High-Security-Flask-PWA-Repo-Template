@@ -23,10 +23,13 @@ Understanding this mapping is essential for designing clean, relational applicat
 # 1. Role ↔ User (One‑to‑Many)
 
 ## ERD
+
+
 ```mermaid
 erDiagram
 ROLE ||--o{ USER
 ```
+
 
 ## SQLAlchemy
 **Foreign key:**
