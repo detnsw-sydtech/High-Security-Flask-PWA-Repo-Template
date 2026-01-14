@@ -1,4 +1,4 @@
---8<-- "docs/_includes/header.md" 
+--8<-- "_includes/header.md"
 
 <div class="hero">
   <img src="https://avatars.githubusercontent.com/u/250778024?s=200&v=4" alt="STHS Logo" class="hero-logo">
@@ -25,6 +25,8 @@ Use the navigation on the left to explore each section.
 ## Architecture Overview
 
 <div class="grid cards" markdown>
+
+--8<-- "_includes/footer.md"
 
 -   **App Factory**  
     Learn how the application factory pattern structures your Flask project.
