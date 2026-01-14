@@ -4,6 +4,13 @@ site_author: Sydney Technical High School
 
 theme:
   name: material
+  features:
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - content.code.highlight
+    - content.code.fences
+    - content.code.mermaid
   palette:
     primary: blue grey
     accent: indigo
