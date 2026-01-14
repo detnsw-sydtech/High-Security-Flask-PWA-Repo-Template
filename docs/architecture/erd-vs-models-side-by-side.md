@@ -12,7 +12,7 @@ An Entity Relationship Diagram (ERD) shows the structure of your database visual
 Your SQLAlchemy models implement that structure in Python.
 
 This guide helps you see how each part of the ERD maps directly to the code in:
-```
+```bash
 src/app/db/models.py
 ```
 
@@ -23,7 +23,8 @@ Understanding this mapping is essential for designing clean, relational applicat
 # 1. Role ↔ User (One‑to‑Many)
 
 ## ERD
-```
+```mermaid
+erDiagram
 ROLE ||--o{ USER
 ```
 
