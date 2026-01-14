@@ -65,8 +65,22 @@ Each user belongs to exactly one role.
 ## ERD
 ```mermaid
 erDiagram
-ITEMTYPE ||--o{ ITEM : "has many"
+    ITEMTYPE ||--o{ ITEM : "has many"
+
+    ITEMTYPE {
+        int id PK
+        string name
+        string description
+    }
+
+    ITEM {
+        int id PK
+        string title
+        string author
+        int item_type_id FK
+    }
 ```
+
 
 ## SQLAlchemy
 **Foreign key:**
