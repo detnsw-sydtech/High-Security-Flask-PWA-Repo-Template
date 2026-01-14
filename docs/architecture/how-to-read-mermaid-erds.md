@@ -47,6 +47,7 @@ means **one‑to‑many**.
 
 Example:
 ```mermaid
+erDiagram
 ITEMTYPE ||--o{ ITEM : "has many"
 ```
 
