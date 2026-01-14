@@ -11,9 +11,6 @@
 <hr style="border: 1px solid #003366;">
 
 
-<!--
---8<-- "../_includes/header.md"
->>!>
 
 # Entity Relationship Diagram (ERD)
 *A visual overview of the relational model used in this template*
