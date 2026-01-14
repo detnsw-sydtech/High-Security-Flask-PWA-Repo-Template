@@ -1,4 +1,5 @@
---8<-- "../_includes/header.md"
+-8<-- "../_includes/header.md"
+
 
 # Blueprint Architecture Overview  
 *How your Flask application stays modular and organised*
