@@ -67,6 +67,7 @@ In SQLAlchemy, this is represented with:
 
 Mermaid shows many‑to‑many using a **link table**:
 ```mermaid
+erDiagram
 ITEM ||--o{ ITEM_CREATOR : "links"
 CREATOR ||--o{ ITEM_CREATOR : "links"
 ```
@@ -85,6 +86,7 @@ This matches how relational databases actually work.
 
 Mermaid lets you list fields inside each table:
 ```mermaid
+erDiagram
 ITEM {
 int id PK
 string title
