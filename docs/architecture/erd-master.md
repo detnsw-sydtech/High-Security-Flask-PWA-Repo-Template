@@ -1,7 +1,6 @@
 # Master Entity‑Relationship Diagram  
 A complete, interactive ERD showing the relational structure of the Online Library Catalogue.
 
-<div class="md-typeset__scrollwrap">
 ```mermaid
 %%{init: {
   "theme": "neutral",
@@ -109,4 +108,4 @@ erDiagram
     class ITEM_CATEGORY join
     class ITEM_CREATOR  join
 ```
-</div>
+
