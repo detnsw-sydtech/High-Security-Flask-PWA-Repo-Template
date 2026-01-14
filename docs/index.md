@@ -1,4 +1,8 @@
---8<-- "docs/_includes/header.md"
+--8<-- "docs/_includes/header.md" 
+<div class="hero"> 
+    <h1>High‑Security Flask PWA Template</h1> 
+    <p>Secure. Reproducible. Curriculum‑aligned.</p>
+</div>
 
 # High‑Security Flask PWA Template
 
