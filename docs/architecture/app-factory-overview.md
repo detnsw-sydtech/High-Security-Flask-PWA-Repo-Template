@@ -142,3 +142,6 @@ Each module builds on the foundation created by the application factory.
 ---
 
 If you have questions or want to customise your project, talk to your teacher or explore the documentation in the `docs/architecture` folder.
+
+
+--8<-- "../_includes/footer.md"
