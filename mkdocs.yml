@@ -19,24 +19,24 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets
 
+extra_css:
+  - _static/theme.css
+
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/sydneytechnicalhighschool
 
-extra_css:
-  - docs/_static/theme.css
-
 nav:
   - Home: index.md
   - Architecture:
-      - App Factory: docs/architecture/app-factory-overview.md
-      - Database Model: docs/architecture/database-model-overview.md
-      - Blueprints: docs/architecture/blueprints-overview.md
-      - Security: docs/architecture/security-overview.md
-      - Search System: docs/architecture/search-system-overview.md
-      - Relationships Overview: docs/architecture/relational-relationships-overview.md
-      - ERD Diagram: docs/architecture/relational-erd.md
-      - How to Read ERDs: docs/architecture/how-to-read-mermaid-erds.md
-      - ERD vs Models: docs/architecture/erd-vs-models-side-by-side.md
-      - ERD Exercise: docs/architecture/erd-drawing-exercise.md
+      - App Factory: architecture/app-factory-overview.md
+      - Database Model: architecture/database-model-overview.md
+      - Blueprints: architecture/blueprints-overview.md
+      - Security: architecture/security-overview.md
+      - Search System: architecture/search-system-overview.md
+      - Relationships Overview: architecture/relational-relationships-overview.md
+      - ERD Diagram: architecture/relational-erd.md
+      - How to Read ERDs: architecture/how-to-read-mermaid-erds.md
+      - ERD vs Models: architecture/erd-vs-models-side-by-side.md
+      - ERD Exercise: architecture/erd-drawing-exercise.md
