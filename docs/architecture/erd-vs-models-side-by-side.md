@@ -74,8 +74,9 @@ One item type (Book, Video, etc.) can be linked to many items.
 # 3. Item ↔ Creator (Many‑to‑Many)
 
 ## ERD
-```text
-ITEM ||--o{ ITEM_CREATOR }o--|| CREATOR
+```mermaid
+erDiagram
+ITEM ||--o{ ITEM_CREATOR }o--|| CREATOR : "many has many, but one to many via ITEM_CREATOR"
 ```
 
 ## SQLAlchemy
