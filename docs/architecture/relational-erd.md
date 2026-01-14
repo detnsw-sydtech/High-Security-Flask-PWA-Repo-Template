@@ -86,7 +86,7 @@ erDiagram
     }
 
 
-```
+
 
     ITEM_CATEGORY {
         int item_id FK
