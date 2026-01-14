@@ -204,7 +204,8 @@ A category can contain many items.
 ## Example: Item
 
 ### ERD
-```text
+```mermaid
+erDiagram
 ITEM {
 int id PK
 string title
