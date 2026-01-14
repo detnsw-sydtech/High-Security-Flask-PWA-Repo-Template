@@ -1,0 +1,12 @@
+:root {
+  --md-primary-fg-color: #003366;
+  --md-accent-fg-color: #ffcc00;
+}
+
+.md-header, .md-footer {
+  background-color: #003366 !important;
+}
+
+.md-header a, .md-footer a {
+  color: #ffffff !important;
+}
