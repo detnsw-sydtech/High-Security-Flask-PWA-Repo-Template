@@ -1,7 +1,10 @@
 --8<-- "docs/_includes/header.md" 
-<div class="hero"> 
-    <h1>High‑Security Flask PWA Template</h1> 
-    <p>Secure. Reproducible. Curriculum‑aligned.</p>
+
+<div class="hero">
+  <img src="https://avatars.githubusercontent.com/u/250778024?s=200&v=4" alt="STHS Logo" class="hero-logo">
+  <h1 class="hero-title">High‑Security Flask PWA Template</h1>
+  <p class="hero-tagline">Secure. Reproducible. Curriculum‑aligned.</p>
+  <div class="hero-underline"></div>
 </div>
 
 # Welcome
