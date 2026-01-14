@@ -23,10 +23,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs and Material theme
+      - name: Install dependencies MkDocs, Material theme, mermaid2 plugin
         run: |
           pip install mkdocs-material
           pip install mkdocs-material-extensions
+          pip install mkdocs-mermaid2-plugin
 
       - name: Build site
         run: mkdocs build --clean
