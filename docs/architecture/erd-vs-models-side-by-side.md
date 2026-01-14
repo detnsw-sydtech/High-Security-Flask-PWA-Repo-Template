@@ -151,9 +151,31 @@ The association table stores the relationship.
 # 4. Item ↔ Category (Many‑to‑Many)
 
 ## ERD
-```text
-ITEM ||--o{ ITEM_CATEGORY }o--|| CATEGORY
+```mermaid
+erDiagram
+    ITEM ||--o{ ITEM_CATEGORY : "has many"
+    CATEGORY ||--o{ ITEM_CATEGORY : "has many"
+
+    ITEM {
+        int id PK
+        string title
+        string author
+    }
+
+    CATEGORY {
+        int id PK
+        string name
+        string description
+    }
+
+    ITEM_CATEGORY {
+        int id PK
+        int item_id FK
+        int category_id FK
+        datetime created_at
+    }
 ```
+
 
 ## SQLAlchemy
 **Association table:**
