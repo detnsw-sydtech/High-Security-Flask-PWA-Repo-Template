@@ -25,8 +25,22 @@ Understanding this mapping is essential for designing clean, relational applicat
 ## ERD
 ```mermaid
 erDiagram
-  ROLE ||--o{ USER : "has many"
+    ROLE ||--o{ USER : "has many"
+
+    ROLE {
+        int id PK
+        string name
+        string description
+    }
+
+    USER {
+        int id PK
+        string username
+        string email
+        int role_id FK
+    }
 ```
+
 
 ## SQLAlchemy
 **Foreign key:**
