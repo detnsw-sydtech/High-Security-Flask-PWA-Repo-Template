@@ -2,12 +2,15 @@
 A complete, interactive ERD showing the relational structure of the Online Library Catalogue.
 
 ```mermaid
+erDiagram
 %%{init: {
   "theme": "neutral",
-  "flowchart": { "curve": "basis" }
+  "themeVariables": {
+    "fontSize": "16px",
+    "fontFamily": "Inter, sans-serif"
+  }
 }}%%
 
-erDiagram
 
     %% ======================================================
     %% RELATIONSHIPS (with tooltips)
