@@ -86,3 +86,4 @@ erDiagram
         int item_id FK
         int category_id FK
     }
+```
