@@ -1,6 +1,3 @@
---8<-- "../_includes/header.md"
-
-
 # How to Read Mermaid ERDs  
 *A student‑friendly guide to understanding Entity Relationship Diagrams*
 
@@ -122,5 +119,3 @@ Check out:
 - `relational-erd.md` — the full ERD for this project  
 - `relational-relationships-overview.md` — how relationships work  
 
-
---8<-- "../_includes/footer.md"
