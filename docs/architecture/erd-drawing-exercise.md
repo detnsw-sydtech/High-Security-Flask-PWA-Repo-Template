@@ -42,7 +42,6 @@ This is a **many‑to‑many** relationship resolved through a join table.
 ## Part 2 — Draw the ERD (Starter Code Provided)
 ```mermaid
 erDiagram
-erDiagram
     STUDENT ||--o{ LOAN : "borrows"
     BOOK ||--o{ LOAN : "is borrowed in"
 
