@@ -67,22 +67,24 @@ Instead, it uses a **bridge table** (also called an association table or join ta
 A many‑to‑many relationship is actually **two one‑to‑many relationships** with a table in the middle.
 
 Example:
+
 ```mermaid
 erDiagram
-Item 1 ───< item_creator >─── 1 Creator
+    ITEM ||--o{ ITEM_CREATOR : "item has many creators"
+    CREATOR ||--o{ ITEM_CREATOR : "creator contributed to many items"
 ```
 
 The `item_creator` table contains:
-```mermaid
-erDiagram
-- `item_id` → points to Item.id  
-- `creator_id` → points to Creator.id  
-```
+
+- `item_id` → points to `Item.id`  
+- `creator_id` → points to `Creator.id`  
+
 Each of these is a **one‑to‑many** relationship.
 
-Together, they represent a many‑to‑many relationship.
+Together, they represent a **many‑to‑many** relationship.
 
 This is exactly how relational databases are designed to work.
+
 
 ---
 
