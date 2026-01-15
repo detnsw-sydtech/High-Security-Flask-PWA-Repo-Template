@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Online Library Catalogue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="/static/manifest.webmanifest" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/static/icons/favicon.ico" />
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png" />
+
+    <!-- Security & CSP (set via headers, not meta where possible) -->
+    <!-- Example CSP (to be sent as HTTP header, not inline):
+         Content-Security-Policy:
+         default-src 'self';
+         script-src 'self';
+         style-src 'self';
+         img-src 'self' data:;
+         connect-src 'self';
+         object-src 'none';
+         base-uri 'self';
+         frame-ancestors 'none';
+    -->
+
+    <!-- External CSS only (no inline styles) -->
+    <link rel="stylesheet" href="/static/css/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark">STHS</span>
+        <span class="brand-title">Online Library Catalogue</span>
+      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="#search">Search</a></li>
+          <li><a href="#featured">Featured</a></li>
+          <li><a href="#account">My Account</a></li>
+          <li><a href="/docs/">Docs</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section id="hero" class="hero" aria-labelledby="hero-heading">
+        <div class="hero-content">
+          <h1 id="hero-heading">Discover, Borrow, Learn</h1>
+          <p class="hero-lead">
+            Search the school’s library catalogue, explore curated collections, and manage your loans from any device.
+          </p>
+          <form id="search" class="search-form" role="search" aria-label="Catalogue search">
+            <label for="search-query" class="visually-hidden">Search by title, author, or keyword</label>
+            <input
+              id="search-query"
+              name="q"
+              type="search"
+              autocomplete="off"
+              placeholder="Search by title, author, or keyword"
+              required
+            />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="featured" class="section" aria-labelledby="featured-heading">
+        <div class="section-header">
+          <h2 id="featured-heading">Featured items</h2>
+          <p class="section-subtitle">Recently added or highlighted by staff.</p>
+        </div>
+        <div id="featured-grid" class="card-grid" aria-live="polite">
+          <!-- Cards injected dynamically by app.js -->
+        </div>
+      </section>
+
+      <section id="account" class="section" aria-labelledby="account-heading">
+        <div class="section-header">
+          <h2 id="account-heading">My account</h2>
+          <p class="section-subtitle">View your current loans and holds.</p>
+        </div>
+        <div id="account-panel" class="account-panel" aria-live="polite">
+          <!-- Account summary injected dynamically -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; <span id="year"></span> Sydney Technical High School. All rights reserved.</p>
+      <p>
+        <a href="/docs/">Architecture &amp; documentation</a>
+      </p>
+    </footer>
+
+    <!-- External JS only (no inline scripts) -->
+    <script src="/static/js/app.js" defer></script>
+    <script src="/static/js/sw-register.js" defer></script>
+  </body>
+</html>
