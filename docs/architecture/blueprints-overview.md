@@ -1,6 +1,3 @@
--8<-- "../_includes/header.md"
-
-
 # Blueprint Architecture Overview  
 *How your Flask application stays modular and organised*
 
@@ -97,9 +94,6 @@ This structure is intentionally designed to support both beginners and advanced 
 
 ---
 
-## Where to go next
-
-Explore:
 
 - `src/app/auth/`  
 - `src/app/main/`  
