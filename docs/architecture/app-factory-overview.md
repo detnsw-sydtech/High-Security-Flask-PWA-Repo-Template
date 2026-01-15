@@ -18,7 +18,7 @@ This pattern makes your project:
 - more modular  
 
 The factory lives in:
-```
+```bash
 src/app/init.py
 ```
 
