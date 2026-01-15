@@ -1,6 +1,3 @@
---8<-- "../_includes/header.md"
-
-
 # ERD vs SQLAlchemy Models  
 *A side‑by‑side comparison to help you understand how diagrams become code*
 
@@ -247,5 +244,3 @@ Every field in the ERD maps directly to a column in the SQLAlchemy model.
 
 ---
 
-
---8<-- "../_includes/footer.md"
