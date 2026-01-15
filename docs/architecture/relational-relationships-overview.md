@@ -33,7 +33,8 @@ Examples from this project:
 - One ItemType → many Items  
 
 These are stored directly using a foreign key.
-```
+```mermaid
+erDiagram
 User.role_id → Role.id
 ```
 
@@ -66,15 +67,17 @@ Instead, it uses a **bridge table** (also called an association table or join ta
 A many‑to‑many relationship is actually **two one‑to‑many relationships** with a table in the middle.
 
 Example:
-```text
+```mermaid
+erDiagram
 Item 1 ───< item_creator >─── 1 Creator
 ```
 
 The `item_creator` table contains:
-
+```mermaid
+erDiagram
 - `item_id` → points to Item.id  
 - `creator_id` → points to Creator.id  
-
+```
 Each of these is a **one‑to‑many** relationship.
 
 Together, they represent a many‑to‑many relationship.
