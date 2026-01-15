@@ -1,6 +1,3 @@
--8<-- "../_includes/header.md"
-
-
 # Database Model Overview  
 *Understanding how your relational data is structured*
 
