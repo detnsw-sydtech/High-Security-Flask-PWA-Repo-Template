@@ -69,10 +69,8 @@ erDiagram
         int creator_id FK
     }
 
-
-
-
     ITEM_CATEGORY {
         int item_id FK
         int category_id FK
     }
+```
