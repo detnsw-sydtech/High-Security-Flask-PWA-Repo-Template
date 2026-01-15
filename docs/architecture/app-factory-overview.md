@@ -1,3 +1,12 @@
+--8<-- "_includes/header.md"
+
+<div class="hero">
+  <img src="https://avatars.githubusercontent.com/u/250778024?s=200&v=4" alt="STHS Logo" class="hero-logo">
+  <h1 class="hero-title">High‑Security Flask PWA Template</h1>
+  <p class="hero-tagline">Application Factory Overview</p>
+  <div class="hero-underline"></div>
+</div>
+
 # Application Factory Overview  
 *Understanding how your Flask app is created and organised*
 
