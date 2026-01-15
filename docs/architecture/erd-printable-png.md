@@ -1,6 +1,3 @@
--8<-- "../_includes/header.md"
-
-
 # Printable ERD (PNG via Mermaid)
 
 To save this diagram as a PNG:
@@ -80,5 +77,3 @@ erDiagram
     }
 ```
 
-
---8<-- "../_includes/footer.md"
