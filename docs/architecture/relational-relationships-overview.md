@@ -145,8 +145,3 @@ If you want to explore further, check out:
 - `docs/architecture/database-model-overview.md`  
 - `docs/architecture/search-system-overview.md`
 
-
-
-
-For example:
-
