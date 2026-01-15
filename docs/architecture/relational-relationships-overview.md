@@ -35,7 +35,7 @@ Examples from this project:
 These are stored directly using a foreign key.
 ```mermaid
 erDiagram
-User.role_id → Role.id
+    ROLE ||--o{ USER : "one role has many users"
 ```
 
 This is the simplest and most common relationship in relational databases.
