@@ -29,12 +29,13 @@ jobs:
             exit 1
           fi
 
-          if [ ! -f "src/app/static/css/input.css" ]; then
-            echo "ERROR: Tailwind input.css missing"
+          if [ ! -f "src/app/static/src/input.css" ]; then
+            echo "ERROR: Tailwind input.css missing at src/app/static/src/input.css"
             exit 1
           fi
 
           echo "Tailwind folder structure OK"
+
 
   quality:
     name: Quality (Ruff + pytest + mypy)
