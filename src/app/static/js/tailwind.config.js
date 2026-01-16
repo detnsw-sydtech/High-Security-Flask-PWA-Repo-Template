@@ -2,17 +2,27 @@
 module.exports = {
   content: [
     "./src/app/templates/**/*.html",
-    "./src/app/static/js/**/*.js"
+    "./src/app/static/js/**/*.js",
+    "./docs/**/*.md"
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
         sths: {
-          navy: "#0b1f33",
-          gold: "#f5b400",
-          light: "#f5f7fb",
-          dark: "#1f2933"
+          navy: "var(--sths-navy)",
+          gold: "var(--sths-gold)",
+          light: "var(--sths-light)",
+          dark: "var(--sths-dark)"
         }
+      },
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)"
+      },
+      boxShadow: {
+        card: "var(--shadow-card)"
       }
     }
   },
