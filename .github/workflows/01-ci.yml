@@ -212,7 +212,7 @@ jobs:
         env:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
         with:
-          config-path: .gitleaks.toml
+          args: detect --config=.gitleaks.toml
 
 
   # ---------------------------------------------------------
