@@ -48,7 +48,8 @@ dev = [
   "ruff",
 
   # --- Static typing ---
-  "mypy",
+  
+
 
   # --- Security scanning ---
   "bandit",
@@ -60,7 +61,9 @@ dev = [
 # uv configuration
 # -----------------------------
 [tool.uv]
-dev-dependencies = ["high-security-flask-pwa-template[dev]"]
+dev-dependencies = ["high-security-flask-pwa-template[dev]",
+    "mypy",
+]
 
 # -----------------------------
 # Ruff configuration
