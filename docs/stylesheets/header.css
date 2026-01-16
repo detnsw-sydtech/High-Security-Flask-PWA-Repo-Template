@@ -1,0 +1,81 @@
+/* ----------------------------------------------------------
+   STHS BRAND VARIABLES (shared with PWA)
+---------------------------------------------------------- */
+:root {
+  --sths-navy: #0b1f33;
+  --sths-gold: #f5b400;
+  --sths-light: #f5f7fb;
+  --sths-dark: #1f2933;
+}
+
+/* Dark mode overrides */
+:root.dark {
+  --sths-navy: #0a1624;
+  --sths-light: #0f172a;
+  --sths-dark: #e2e8f0;
+}
+
+/* ----------------------------------------------------------
+   HEADER CONTAINER
+---------------------------------------------------------- */
+.sydtech-header {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--sths-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ----------------------------------------------------------
+   LOGO
+---------------------------------------------------------- */
+.sydtech-header img {
+  height: 48px;
+  width: 48px;
+  border-radius: 6px;
+}
+
+/* ----------------------------------------------------------
+   TEXT BLOCK
+---------------------------------------------------------- */
+.sydtech-header .sydtech-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.sydtech-header .sydtech-title-main {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--sths-dark);
+}
+
+.sydtech-header .sydtech-title-sub {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  color: var(--sths-dark);
+}
+
+/* Dark mode text */
+:root.dark .sydtech-title-main,
+:root.dark .sydtech-title-sub {
+  color: var(--sths-light);
+}
+
+/* ----------------------------------------------------------
+   DARK MODE TOGGLE BUTTON
+---------------------------------------------------------- */
+#docs-theme-toggle {
+  margin-left: auto;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.4rem;
+  background: var(--sths-gold);
+  color: black;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+#docs-theme-toggle:hover {
+  opacity: 0.9;
+}
