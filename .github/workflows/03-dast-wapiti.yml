@@ -1,4 +1,4 @@
-name: 03 Manual DAST Scan (Wapiti)
+name: 03 Manual DAST Scan (Wapiti3)
 
 on:
   workflow_dispatch:
@@ -34,10 +34,10 @@ jobs:
       - name: Create virtual environment
         run: uv venv
 
-      - name: Install Wapiti
+      - name: Install Wapiti3
         run: |
           uv sync --frozen --directory .venv
-          uv pip install wapiti
+          uv pip install wapiti3
 
       - name: Start Flask app
         run: |
@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Wapiti Active Scan
         run: |
-          uv run wapiti \
+          uv run wapiti3 \
             -u http://localhost:5000 \
             -f json \
             -o wapiti-report.json
