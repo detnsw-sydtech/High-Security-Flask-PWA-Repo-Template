@@ -1,8 +1,5 @@
-# src/app/db/__init__.py
-from flask import Blueprint
 from flask_sqlalchemy import SQLAlchemy
-from . import routes # noqa: E402, F401
 
-bp = Blueprint("auth", __name__, url_prefix="/auth")
-
+# Global SQLAlchemy instance used across the application.
+# It is initialised in create_app() inside src/app/__init__.py.
 db = SQLAlchemy()
