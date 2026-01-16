@@ -1,24 +1,22 @@
 # .ruff.toml
+
 # Ruff configuration for the STHS Flask PWA template.
 
-target-version = "py311"
+target-version = "py313"
 line-length = 88
 src = ["src"]
 
-select = [
-    "E",
-    "F",
-    "W",
-    "I",
-]
+[lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E203", "E266"]
 
-ignore = [
-    "E203",
-    "E266",
-]
+[lint.isort]
+combine-as-imports = true
+force-single-line = false
 
-[per-file-ignores]
+[lint.per-file-ignores]
 "src/app/db/models.py" = ["E501"]
+
 
 [isort]
 combine-as-imports = true
