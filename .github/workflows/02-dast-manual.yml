@@ -1,3 +1,58 @@
+name: 02 Manual DAST Scan
 
+on:
+  workflow_dispatch:
 
-on: workflow_dispatch:
+defaults:
+  run:
+    working-directory: .
+
+permissions:
+  contents: read
+
+jobs:
+
+  # ---------------------------------------------------------
+  # Manual DAST Scan (Docker-free ZAP)
+  # ---------------------------------------------------------
+  dast-manual:
+    name: Manual DAST OWASP Baseline Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+
+      - name: Install Python 3.13
+        run: uv python install 3.13
+
+      - name: Create virtual environment
+        run: uv venv
+
+      - name: Install dependencies (including ZAP API client)
+        run: |
+          uv sync --frozen --directory .venv
+          uv pip install python-owasp-zap-v2.4
+
+      - name: Start Flask app
+        run: |
+          uv run flask run --host=0.0.0.0 --port=5000 &
+          sleep 5
+
+      - name: Run ZAP Baseline (Docker-free)
+        run: uv run python scripts/zap_baseline.py
+
+      - name: Upload DAST Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dast-zap-report
+          path: |
+            zap_report.json
+            zap_report.txt
+            zap_report.md
+          if-no-files-found: ignore
