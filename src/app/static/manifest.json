@@ -1,0 +1,3 @@
+@bp.get("/manifest.json")
+def manifest():
+    return send_from_directory("static", "manifest.json", ...)
