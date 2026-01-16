@@ -1,154 +1,79 @@
+/* ----------------------------------------------------------
+   CSS VARIABLES (Brand tokens)
+---------------------------------------------------------- */
 :root {
-  --brand-bg: #0b1f33;
-  --brand-accent: #f5b400;
-  --brand-text: #ffffff;
-  --body-bg: #f5f7fb;
-  --body-text: #1f2933;
+  --sths-navy: #0b1f33;
+  --sths-gold: #f5b400;
+  --sths-light: #f5f7fb;
+  --sths-dark: #1f2933;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.1);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* ----------------------------------------------------------
+   TAILWIND LAYERS
+---------------------------------------------------------- */
+
+/* Base layer: global resets or typography tweaks */
+@layer base {
+  body {
+    @apply bg-[var(--sths-light)] text-[var(--sths-dark)] font-sans;
+  }
+
+  a {
+    @apply text-sths-gold hover:underline;
+  }
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--body-bg);
-  color: var(--body-text);
-}
+/* Components layer: reusable UI blocks */
+@layer components {
+  .site-header {
+    @apply flex items-center justify-between px-6 py-3 bg-[var(--sths-navy)] text-white;
+  }
 
-.site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  background: var(--brand-bg);
-  color: var(--brand-text);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.brand-mark {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  background: var(--brand-accent);
-  color: #000;
-  font-weight: 700;
-}
-
-.site-nav {
-  position: relative;
-}
-
-.nav-toggle {
-  display: none;
-  background: none;
-  border: 1px solid var(--brand-text);
-  color: var(--brand-text);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-menu a {
-  color: var(--brand-text);
-  text-decoration: none;
-}
-
-.hero {
-  padding: 3rem 1.5rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.hero-lead {
-  max-width: 40rem;
-}
-
-.search-form {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.search-form input {
-  flex: 1;
-  padding: 0.5rem 0.75rem;
-}
-
-.search-form button {
-  padding: 0.5rem 1rem;
-}
-
-.section {
-  padding: 2rem 1.5rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.card {
-  background: #ffffff;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
-}
-
-.site-footer {
-  padding: 1rem 1.5rem;
-  text-align: center;
-  font-size: 0.875rem;
-}
-
-/* Accessibility helpers */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* Responsive nav */
-@media (max-width: 720px) {
-  .nav-toggle {
-    display: inline-flex;
-    align-items: center;
+  .brand-mark {
+    @apply bg-[var(--sths-gold)] text-black font-bold px-2 py-1 rounded-sm;
   }
 
   .nav-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    flex-direction: column;
-    background: var(--brand-bg);
-    padding: 0.5rem 0.75rem;
-    display: none;
+    @apply flex gap-4 list-none m-0 p-0;
   }
 
-  .nav-menu.nav-menu--open {
-    display: flex;
+  .nav-menu--open {
+    @apply flex;
+  }
+
+  .hero {
+    @apply max-w-4xl mx-auto px-6 py-16;
+  }
+
+  .hero-lead {
+    @apply max-w-xl text-lg;
+  }
+
+  .card {
+    @apply bg-white rounded-md p-4 shadow;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-grid {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .site-footer {
+    @apply text-center text-sm py-4 px-6;
+  }
+}
+
+/* Utilities layer: custom utilities not provided by Tailwind */
+@layer utilities {
+  .visually-hidden {
+    @apply absolute w-px h-px p-0 m-0 overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
   }
 }
