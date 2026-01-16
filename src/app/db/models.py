@@ -41,15 +41,35 @@ from . import db
 # Links Items ↔ Creators (e.g., books ↔ authors)
 item_creator = db.Table(
     "item_creator",
-    db.Column("item_id", db.Integer, db.ForeignKey("item.id"), primary_key=True),
-    db.Column("creator_id", db.Integer, db.ForeignKey("creator.id"), primary_key=True),
+    db.Column(
+        "item_id",
+        db.Integer,
+        db.ForeignKey("item.id"),
+        primary_key=True,
+    ),
+    db.Column(
+        "creator_id",
+        db.Integer,
+        db.ForeignKey("creator.id"),
+        primary_key=True,
+    ),
 )
 
 # Links Items ↔ Categories (e.g., books ↔ genres)
 item_category = db.Table(
     "item_category",
-    db.Column("item_id", db.Integer, db.ForeignKey("item.id"), primary_key=True),
-    db.Column("category_id", db.Integer, db.ForeignKey("category.id"), primary_key=True),
+    db.Column(
+        "item_id",
+        db.Integer,
+        db.ForeignKey("item.id"),
+        primary_key=True,
+    ),
+    db.Column(
+        "category_id",
+        db.Integer,
+        db.ForeignKey("category.id"),
+        primary_key=True,
+    ),
 )
 
 
