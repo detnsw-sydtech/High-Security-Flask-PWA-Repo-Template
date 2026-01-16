@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./src/app/templates/**/*.html",
-    "./src/app/static/js/**/*.js",
+    "./src/app/static/js/*.js",
     "./docs/**/*.md"
   ],
   darkMode: "class",
