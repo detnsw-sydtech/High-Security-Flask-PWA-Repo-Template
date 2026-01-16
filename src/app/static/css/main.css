@@ -1,24 +1,36 @@
 /* ----------------------------------------------------------
-   CSS VARIABLES (Brand tokens)
+   BRAND TOKENS (CSS Variables)
 ---------------------------------------------------------- */
 :root {
+  /* Light mode palette */
   --sths-navy: #0b1f33;
   --sths-gold: #f5b400;
   --sths-light: #f5f7fb;
   --sths-dark: #1f2933;
 
+  /* Radii */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
 
+  /* Shadows */
   --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.1);
 }
 
 /* ----------------------------------------------------------
-   TAILWIND LAYERS
+   DARK MODE OVERRIDES
+---------------------------------------------------------- */
+:root.dark {
+  --sths-navy: #0a1624;
+  --sths-light: #0f172a;
+  --sths-dark: #e2e8f0;
+}
+
+/* ----------------------------------------------------------
+   TAILwind LAYERS
 ---------------------------------------------------------- */
 
-/* Base layer: global resets or typography tweaks */
+/* ---------------------- BASE ---------------------------- */
 @layer base {
   body {
     @apply bg-[var(--sths-light)] text-[var(--sths-dark)] font-sans;
@@ -29,14 +41,24 @@
   }
 }
 
-/* Components layer: reusable UI blocks */
+/* ------------------- COMPONENTS ------------------------- */
 @layer components {
+  /* Header */
   .site-header {
     @apply flex items-center justify-between px-6 py-3 bg-[var(--sths-navy)] text-white;
   }
 
+  .brand {
+    @apply flex items-center gap-2;
+  }
+
   .brand-mark {
     @apply bg-[var(--sths-gold)] text-black font-bold px-2 py-1 rounded-sm;
+  }
+
+  /* Navigation */
+  .nav-toggle {
+    @apply hidden border border-white text-white px-2 py-1 rounded-md;
   }
 
   .nav-menu {
@@ -47,6 +69,7 @@
     @apply flex;
   }
 
+  /* Hero section */
   .hero {
     @apply max-w-4xl mx-auto px-6 py-16;
   }
@@ -55,25 +78,63 @@
     @apply max-w-xl text-lg;
   }
 
+  /* Search form */
+  .search-form {
+    @apply mt-6 flex gap-2;
+  }
+
+  .search-form input {
+    @apply flex-1 px-3 py-2 rounded-md border border-sths-dark/20;
+  }
+
+  .search-form button {
+    @apply px-4 py-2 bg-sths-gold text-black font-semibold rounded-md;
+  }
+
+  /* Cards */
   .card {
     @apply bg-white rounded-md p-4 shadow;
     box-shadow: var(--shadow-card);
   }
 
-  .card-grid {
+  /* Responsive grid */
+  .pwa-grid {
     @apply grid gap-4;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
+  /* Footer */
   .site-footer {
     @apply text-center text-sm py-4 px-6;
   }
+
+  /* Theme toggle */
+  .theme-toggle {
+    @apply px-3 py-1 rounded-md bg-sths-gold text-black font-semibold;
+  }
 }
 
-/* Utilities layer: custom utilities not provided by Tailwind */
+/* ------------------- UTILITIES -------------------------- */
 @layer utilities {
   .visually-hidden {
     @apply absolute w-px h-px p-0 m-0 overflow-hidden whitespace-nowrap border-0;
     clip: rect(0, 0, 0, 0);
+  }
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE NAVIGATION (non‑Tailwind custom rules)
+---------------------------------------------------------- */
+@media (max-width: 720px) {
+  .nav-toggle {
+    @apply inline-flex items-center;
+  }
+
+  .nav-menu {
+    @apply hidden flex-col absolute right-0 top-full bg-[var(--sths-navy)] p-3 rounded-md;
+  }
+
+  .nav-menu.nav-menu--open {
+    @apply flex;
   }
 }
