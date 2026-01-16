@@ -1,0 +1,39 @@
+# .ruff.toml
+# Ruff configuration for the STHS Flask PWA template.
+# This setup balances strictness with approachability for students.
+
+# Target Python version
+target-version = "py311"
+
+# Maximum line length (PEP 8 default)
+line-length = 88
+
+# Directories to include
+src = ["src"]
+
+# Select rules
+select = [
+    "E",   # Pycodestyle errors
+    "F",   # Pyflakes
+    "W",   # Pycodestyle warnings
+    "I",   # Import sorting
+]
+
+# Rules to ignore
+ignore = [
+    "E203",  # Whitespace before ':', conflicts with Black
+    "E266",  # Too many leading '#' for block comments
+    "E501",  # Line too long (we keep this ON for teaching)
+]
+
+# Per-file ignores (optional)
+[per-file-ignores]
+"src/app/db/models.py" = [
+    # Allow long docstrings and comments in models
+    "E501",
+]
+
+# Import sorting configuration
+[tool.ruff.isort]
+combine-as-imports = true
+force-single-line = false
