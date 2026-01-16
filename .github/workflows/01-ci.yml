@@ -73,8 +73,20 @@ jobs:
       - name: Debug .venv/bin
         run: ls -al .venv/bin
 
+      - name: Ruff autofix
+        run: uv run ruff check . --fix
+
+      - name: Commit Ruff fixes
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Apply Ruff autofix" || echo "No changes to commit"
+
       - name: Ruff (lint + style)
-        run: .venv/bin/ruff check .
+        run: uv run ruff check .
+
 
       - name: Mypy (static typing)
         run: .venv/bin/mypy src
