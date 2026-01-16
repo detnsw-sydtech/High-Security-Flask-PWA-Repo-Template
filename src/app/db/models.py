@@ -38,7 +38,6 @@ from . import db
 # Association tables (many-to-many)
 # ---------------------------------------------------------------------------
 
-# Links Items ↔ Creators (e.g., books ↔ authors)
 item_creator = db.Table(
     "item_creator",
     db.Column(
@@ -55,7 +54,6 @@ item_creator = db.Table(
     ),
 )
 
-# Links Items ↔ Categories (e.g., books ↔ genres)
 item_category = db.Table(
     "item_category",
     db.Column(
@@ -172,7 +170,7 @@ class Item(db.Model):
     description = db.Column(db.Text)
 
     year = db.Column(db.Integer)
-    identifier = db.Column(db.String(100))  # ISBN, DOI, catalogue number, etc.
+    identifier = db.Column(db.String(100))
 
     item_type_id = db.Column(db.Integer, db.ForeignKey("item_type.id"), nullable=False)
     item_type = db.relationship("ItemType", back_populates="items")
@@ -191,10 +189,11 @@ class Item(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
-        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+        db.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
     )
 
-    # Example of a field that might be staff-only
     internal_notes = db.Column(db.Text)
 
     def __repr__(self) -> str:
