@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/app/templates/**/*.html",
-    "./src/app/static/js/*.js",
-    "./docs/**/*.md"
+    "./src/app/templates/*.html",     // Your flat templates folder
+    "./src/app/static/js/*.js",       // Your flat JS folder
+    "./docs/**/*.md"                  // MkDocs documentation
   ],
   darkMode: "class",
   theme: {
