@@ -12,15 +12,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # -----------------------------
+      # Checkout repository
+      # -----------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # -----------------------------
+      # Install uv (Python + package manager)
+      # -----------------------------
       - name: Install uv
         uses: astral-sh/setup-uv@v3
 
+      # -----------------------------
+      # Install Python via uv
+      # Ensures consistent Python version for hooks
+      # -----------------------------
       - name: Set up Python
         run: uv python install
 
+      # -----------------------------
+      # Cache uv virtualenv
+      # Speeds up repeated runs
+      # -----------------------------
       - name: Cache uv virtualenv
         uses: actions/cache@v4
         with:
@@ -29,11 +43,33 @@ jobs:
           restore-keys: |
             uv-venv-${{ runner.os }}-
 
+      # -----------------------------
+      # Install pre-commit using uv
+      # -----------------------------
       - name: Install pre-commit
         run: uv tool install pre-commit
 
+      # -----------------------------
+      # Cache pre-commit hook environments
+      # This is the biggest speed boost
+      # -----------------------------
+      - name: Cache pre-commit hooks
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: precommit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            precommit-${{ runner.os }}-
+
+      # -----------------------------
+      # Install hook environments
+      # -----------------------------
       - name: Install hook environments
         run: uv run pre-commit install-hooks
 
+      # -----------------------------
+      # Run pre-commit on all files
+      # Fail fast for quicker feedback
+      # -----------------------------
       - name: Run pre-commit on all files
-        run: uv run pre-commit run --all-files
+        run: uv run pre-commit run --all-files --show-diff-on-failure
