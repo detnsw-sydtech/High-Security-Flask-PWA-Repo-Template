@@ -26,5 +26,6 @@ echo "[setup] Installing developer tools..."
 source .venv/bin/activate
 pip install pre-commit nox
 pre-commit install
+chmod +x .devcontainer/startup.sh
 
 echo "[setup] Setup complete."
