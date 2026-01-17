@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "STARTUP SCRIPT RAN" > /tmp/startup.log
 set -e
 
 # ------------------------------------------------------------
