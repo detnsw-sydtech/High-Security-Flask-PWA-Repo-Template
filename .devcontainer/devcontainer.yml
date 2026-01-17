@@ -1,0 +1,12 @@
+name: High Security Flask PWA
+image: mcr.microsoft.com/devcontainers/python:3.13-bullseye
+
+forwardPorts:
+  - 5000
+
+remoteEnv:
+  FLASK_APP: "src.app:create_app"
+  FLASK_ENV: "development"
+
+postCreateCommand: ".devcontainer/setup.sh"
+postStartCommand: ".devcontainer/startup.sh"
