@@ -1,5 +1,6 @@
 name: High Security Flask PWA
-image: mcr.microsoft.com/devcontainers/python:3.13-bullseye
+
+image: mcr.microsoft.com/devcontainers/python:3.12-bullseye
 
 forwardPorts:
   - 5000
