@@ -51,13 +51,7 @@ def info():
 
 @bp.get("/catalogue")
 def catalogue_partial():
-    """
-    Return an HTML partial containing:
-    - item cards
-    - pagination controls
-
-    This endpoint is called by HTMX from index.html.
-    """
+    """Return HTML partial for HTMX catalogue updates."""
 
     # Pagination
     try:
@@ -67,11 +61,17 @@ def catalogue_partial():
 
     page = max(page, 1)
 
-    # Search
+    # Filters
     q = request.args.get("q", "").strip()
+    category = request.args.get("category")
+    creator = request.args.get("creator")
+    item_type = request.args.get("type")
+    sort = request.args.get("sort", "created_at")
+    direction = request.args.get("direction", "desc")
 
     query = Item.query
 
+    # Search
     if q:
         like = f"%{q}%"
         query = query.filter(
@@ -82,13 +82,34 @@ def catalogue_partial():
             )
         )
 
-    # Order newest first
-    query = query.order_by(Item.created_at.desc())
+    # Category filter
+    if category:
+        query = query.join(Item.categories).filter(Category.name == category)
 
-    # Paginate (12 items per page)
+    # Creator filter
+    if creator:
+        query = query.join(Item.creators).filter(Creator.name == creator)
+
+    # Item type filter
+    if item_type:
+        query = query.join(Item.item_type).filter(ItemType.name == item_type)
+
+    # Sorting
+    sort_fields = {
+        "title": Item.title,
+        "year": Item.year,
+        "created_at": Item.created_at,
+    }
+
+    sort_column = sort_fields.get(sort, Item.created_at)
+    sort_clause = sort_column.asc() if direction == "asc" else sort_column.desc()
+
+    query = query.order_by(sort_clause).distinct()
+
+    # Pagination
     pagination = query.paginate(page=page, per_page=12, error_out=False)
 
-    # Serialise items for template
+    # Serialise items
     items = [
         {
             "title": item.title,
