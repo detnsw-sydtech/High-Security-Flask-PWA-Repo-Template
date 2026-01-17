@@ -22,8 +22,9 @@
 <div class="pagination">
     {% if pagination.has_prev %}
         <button
-            hx-get="/catalogue?page={{ pagination.page - 1 }}&q={{ query }}"
+            hx-get="/catalogue?page={{ pagination.page - 1 }}"
             hx-target="#catalogue-results"
+            hx-include=".filters"
             hx-swap="innerHTML"
         >
             Previous
@@ -34,8 +35,9 @@
 
     {% if pagination.has_next %}
         <button
-            hx-get="/catalogue?page={{ pagination.page + 1 }}&q={{ query }}"
+            hx-get="/catalogue?page={{ pagination.page + 1 }}"
             hx-target="#catalogue-results"
+            hx-include=".filters"
             hx-swap="innerHTML"
         >
             Next
