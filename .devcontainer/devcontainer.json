@@ -2,41 +2,17 @@
   "name": "High Security Flask PWA",
   "image": "mcr.microsoft.com/devcontainers/python:3.13",
 
-  // ------------------------------------------------------------
-  // Expose Flask port so Codespaces auto-detects it
-  // ------------------------------------------------------------
   "forwardPorts": [5000],
 
-  // ------------------------------------------------------------
-  // Environment variables available inside the container
-  // ------------------------------------------------------------
   "remoteEnv": {
     "FLASK_APP": "src.app:create_app",
     "FLASK_ENV": "development"
   },
 
-  // ------------------------------------------------------------
-  // Runs ONCE when the Codespace is first created
-  // ------------------------------------------------------------
-  "postCreateCommand": "
-    curl -LsSf https://astral.sh/uv/install.sh | sh &&
-    source ~/.profile &&
-    uv venv .venv &&
-    uv sync
-  ",
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && source ~/.profile && uv venv .venv && uv sync",
 
-  // ------------------------------------------------------------
-  // Runs EVERY TIME the Codespace starts
-  // ------------------------------------------------------------
-  "postStartCommand": "
-    echo 'source $(pwd)/.venv/bin/activate' >> ~/.bashrc &&
-    source ~/.bashrc &&
-    flask run --host 0.0.0.0 --port 5000
-  ",
+  "postStartCommand": "echo 'source $(pwd)/.venv/bin/activate' >> ~/.bashrc && source ~/.bashrc && flask run --host 0.0.0.0 --port 5000",
 
-  // ------------------------------------------------------------
-  // Helpful VS Code extensions for students
-  // ------------------------------------------------------------
   "customizations": {
     "vscode": {
       "extensions": [
