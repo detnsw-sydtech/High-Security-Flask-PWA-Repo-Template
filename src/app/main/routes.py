@@ -6,6 +6,7 @@ Includes:
 - Health and info endpoints
 - HTMX-powered catalogue partial (/catalogue)
 - Full catalogue page (/catalogue/full)
+- Debug JSON endpoint (/catalogue/debug)
 """
 
 from flask import render_template, jsonify, request
@@ -59,6 +60,24 @@ def info():
             "description": "Online Library Catalogue",
         }
     )
+
+
+# ------------------------------------------------------------
+# Debug JSON endpoint
+# ------------------------------------------------------------
+
+@bp.get("/catalogue/debug")
+def catalogue_debug():
+    """
+    Return raw JSON data for debugging, testing, and DAST tools.
+    Replace BOOKS with your actual dataset source.
+    """
+    try:
+        from .data import BOOKS
+    except ImportError:
+        return jsonify({"error": "BOOKS dataset not found"}), 500
+
+    return jsonify(BOOKS)
 
 
 # ------------------------------------------------------------
