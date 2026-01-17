@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Wapiti3 Active Scan
         run: |
-          uv run wapiti3 \
+          uv run wapiti \
             -u http://localhost:5000 \
             -f json \
             -o wapiti-report.json
