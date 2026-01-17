@@ -1,3 +1,5 @@
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/detnsw-sydtech/High-Security-Flask-PWA-Repo-Template?quickstart=1)
+
 # High‑Security Flask-PWA-Repo-Template
 
 This repository is the official detnsw-sydtech high‑security Flask Progressive Web App template for SE12 Software Engineering students.
