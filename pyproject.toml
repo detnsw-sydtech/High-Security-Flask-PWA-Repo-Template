@@ -7,9 +7,9 @@ requires-python = ">=3.13"
 license = { text = "MIT" }
 packages = ["src"]
 
-# -----------------------------
+# ------------------------------------------------------------
 # Runtime dependencies
-# -----------------------------
+# ------------------------------------------------------------
 dependencies = [
   # --- Flask core ---
   "flask==3.0.2",
@@ -24,50 +24,50 @@ dependencies = [
   "bcrypt==4.1.2",                # password hashing
   "python-dotenv==1.0.1",         # environment variable management
 
+  # --- Database / ORM ---
+  "sqlalchemy>=2.0",
+  "flask-sqlalchemy>=3.0",
+  "alembic>=1.13",
+
   # --- PWA essentials ---
   "flask-compress==1.14",         # gzip/brotli compression
   "flask-caching==2.1.0",         # caching for offline support
   "flask-htmx==0.4.0",            # HTMX integration
 
   # --- Front-end enhancement ---
-  # Tailwind CLI is installed via npm, not Python
-  # but we include helpers for template rendering
   "markupsafe==2.1.5",
 ]
 
-# -----------------------------
-# Optional development extras
-# -----------------------------
-[project.optional-dependencies]
-dev = [
-  # --- Testing ---
-  "pytest",
-  "pytest-cov",
+# ------------------------------------------------------------
+# Optional dependency groups (uv-compatible)
+# ------------------------------------------------------------
+[dependency-groups.dev]
+# --- Testing ---
+pytest = "*"
+pytest-cov = "*"
 
-  # --- Linting / formatting ---
-  "ruff",
+# --- Linting / formatting ---
+ruff = "*"
 
-  # --- Static typing ---
-  
+# --- Static typing ---
+mypy = "*"
 
+# --- Security scanning ---
+bandit = "*"
+semgrep = "*"
+pip-audit = "*"
 
-  # --- Security scanning ---
-  "bandit",
-  "semgrep",
-  "pip-audit",
-]
-
-# -----------------------------
+# ------------------------------------------------------------
 # uv configuration
-# -----------------------------
+# ------------------------------------------------------------
 [tool.uv]
-dev-dependencies = ["high-security-flask-pwa-template[dev]",
-    "mypy",
-]
+# No dev-dependencies here anymore — replaced by dependency-groups.dev
+# uv will automatically install dev dependencies via:
+#   uv sync --group dev
 
-# -----------------------------
+# ------------------------------------------------------------
 # Ruff configuration
-# -----------------------------
+# ------------------------------------------------------------
 [tool.ruff]
 line-length = 88
 target-version = "py313"
@@ -76,12 +76,12 @@ target-version = "py313"
 select = ["E", "F", "W", "B", "S"]
 ignore = []
 
-[tool.ruff.lint.per-file-ignores] 
+[tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
 
-# -----------------------------
+# ------------------------------------------------------------
 # Mypy configuration
-# -----------------------------
+# ------------------------------------------------------------
 [tool.mypy]
 python_version = "3.13"
 warn_unused_configs = true
@@ -89,21 +89,21 @@ warn_return_any = true
 warn_unused_ignores = true
 strict = true
 
-# -----------------------------
+# ------------------------------------------------------------
 # Pytest configuration
-# -----------------------------
+# ------------------------------------------------------------
 [tool.pytest.ini_options]
 addopts = "--disable-warnings --maxfail=1"
 testpaths = ["tests"]
 
-# -----------------------------
+# ------------------------------------------------------------
 # Bandit configuration
-# -----------------------------
+# ------------------------------------------------------------
 [tool.bandit]
 skips = ["B101"]  # allow assert in tests
 
-# -----------------------------
+# ------------------------------------------------------------
 # Semgrep configuration
-# -----------------------------
+# ------------------------------------------------------------
 [tool.semgrep]
 config = ["p/ci"]
