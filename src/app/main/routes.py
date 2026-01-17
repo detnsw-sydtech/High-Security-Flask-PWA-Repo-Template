@@ -5,12 +5,13 @@ Includes:
 - Landing page (/)
 - Health and info endpoints
 - HTMX-powered catalogue partial (/catalogue)
+- Full catalogue page (/catalogue/full)
 """
 
 from flask import render_template, jsonify, request
 from sqlalchemy import or_
 from . import bp
-from ..db.models import Item
+from ..db.models import Item, Category, Creator, ItemType
 
 
 # ------------------------------------------------------------
@@ -21,6 +22,21 @@ from ..db.models import Item
 def index():
     """Render the main landing page."""
     return render_template("index.html")
+
+
+# ------------------------------------------------------------
+# Full catalogue page (non-HTMX)
+# ------------------------------------------------------------
+
+@bp.get("/catalogue/full")
+def catalogue_full():
+    """
+    Render the full catalogue page.
+
+    This page loads the same HTMX-powered interface as index.html,
+    but provides a dedicated standalone URL for browsing.
+    """
+    return render_template("catalogue.html")
 
 
 # ------------------------------------------------------------
@@ -51,7 +67,13 @@ def info():
 
 @bp.get("/catalogue")
 def catalogue_partial():
-    """Return HTML partial for HTMX catalogue updates."""
+    """
+    Return an HTML partial containing:
+    - item cards
+    - pagination controls
+
+    This endpoint is called by HTMX from index.html and catalogue.html.
+    """
 
     # Pagination
     try:
@@ -109,7 +131,7 @@ def catalogue_partial():
     # Pagination
     pagination = query.paginate(page=page, per_page=12, error_out=False)
 
-    # Serialise items
+    # Serialise items for template
     items = [
         {
             "title": item.title,
