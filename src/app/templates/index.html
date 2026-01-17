@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Online Library Catalogue</title>
 
-    <!-- Simple, clean styling -->
     <style>
         body {
             font-family: system-ui, sans-serif;
@@ -18,16 +17,20 @@
             margin-bottom: 1rem;
         }
 
-        .search-container {
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
-        .search-container input {
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
+        .filters input,
+        .filters select {
+            padding: 0.6rem;
             border: 1px solid #ccc;
             border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
         }
 
         .item-list {
@@ -75,16 +78,86 @@
 
 <h1>Online Library Catalogue</h1>
 
-<div class="search-container">
+<!-- FILTER BAR -->
+<div class="filters">
+
+    <!-- Search -->
     <input
         type="text"
         name="q"
-        placeholder="Search books, authors, categories..."
+        placeholder="Search title, description, identifier..."
         hx-get="/catalogue"
         hx-target="#catalogue-results"
         hx-trigger="keyup changed delay:300ms"
-        hx-include="[name='q']"
+        hx-include=".filters"
     >
+
+    <!-- Category filter -->
+    <select
+        name="category"
+        hx-get="/catalogue"
+        hx-target="#catalogue-results"
+        hx-trigger="change"
+        hx-include=".filters"
+    >
+        <option value="">All Categories</option>
+        {% for c in categories %}
+            <option value="{{ c.name }}">{{ c.name }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Creator filter -->
+    <select
+        name="creator"
+        hx-get="/catalogue"
+        hx-target="#catalogue-results"
+        hx-trigger="change"
+        hx-include=".filters"
+    >
+        <option value="">All Creators</option>
+        {% for cr in creators %}
+            <option value="{{ cr.name }}">{{ cr.name }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Item Type filter -->
+    <select
+        name="type"
+        hx-get="/catalogue"
+        hx-target="#catalogue-results"
+        hx-trigger="change"
+        hx-include=".filters"
+    >
+        <option value="">All Types</option>
+        {% for t in item_types %}
+            <option value="{{ t.name }}">{{ t.name }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Sorting -->
+    <select
+        name="sort"
+        hx-get="/catalogue"
+        hx-target="#catalogue-results"
+        hx-trigger="change"
+        hx-include=".filters"
+    >
+        <option value="created_at">Newest</option>
+        <option value="title">Title</option>
+        <option value="year">Year</option>
+    </select>
+
+    <select
+        name="direction"
+        hx-get="/catalogue"
+        hx-target="#catalogue-results"
+        hx-trigger="change"
+        hx-include=".filters"
+    >
+        <option value="desc">Descending</option>
+        <option value="asc">Ascending</option>
+    </select>
+
 </div>
 
 <!-- Dynamic catalogue container -->
@@ -95,7 +168,6 @@
      hx-swap="innerHTML">
 </div>
 
-<!-- HTMX -->
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
 </body>
