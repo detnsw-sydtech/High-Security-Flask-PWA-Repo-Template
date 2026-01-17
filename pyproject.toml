@@ -12,30 +12,46 @@ packages = ["src"]
 # ------------------------------------------------------------
 dependencies = [
   # --- Flask core ---
-  "flask==3.0.2",
-  "jinja2>=3.1.4",
-  "werkzeug>=3.0.3",
-  "itsdangerous==2.2.0",
-  "click==8.1.7",
+  "flask==3.0.2",                 # Flask framework
+  "jinja2>=3.1.4",                # Template rendering engine
+  "werkzeug>=3.0.3",              # WSGI utilities and HTTP handling
+  "itsdangerous==2.2.0",          # Secure signing utilities
+  "click==8.1.7",                 # CLI command framework
 
   # --- Security ---
   "flask-talisman==1.1.0",        # CSP, HSTS, secure headers
-  "flask-limiter==3.5.0",         # rate limiting
-  "bcrypt==4.1.2",                # password hashing
-  "python-dotenv==1.0.1",         # environment variable management
+  "flask-limiter==3.5.0",         # Rate limiting middleware
+  "bcrypt==4.1.2",                # Password hashing
+  "python-dotenv==1.0.1",         # Environment variable loading
 
   # --- Database / ORM ---
-  "sqlalchemy>=2.0",
-  "flask-sqlalchemy>=3.0",
-  "alembic>=1.13",
+  "sqlalchemy>=2.0",              # Core ORM and query engine
+  "flask-sqlalchemy>=3.0",        # Flask integration for SQLAlchemy
+  "alembic>=1.13",                # Database migrations
 
   # --- PWA essentials ---
-  "flask-compress==1.14",         # gzip/brotli compression
-  "flask-caching==2.1.0",         # caching for offline support
-  "flask-htmx==0.4.0",            # HTMX integration
+  "flask-compress==1.14",         # Gzip/Brotli compression
+  "flask-caching==2.1.0",         # Caching backend for performance
+  "flask-htmx==0.4.0",            # HTMX integration for partial updates
 
   # --- Front-end enhancement ---
-  "markupsafe==2.1.5",
+  "markupsafe==2.1.5",            # Safe HTML escaping for templates
+
+  # --- Data generation ---
+  "faker>=25.0",                  # Generate synthetic catalogue data
+
+  # --- Date handling ---
+  "python-dateutil>=2.9",         # Robust date parsing and manipulation
+
+  # --- Validation ---
+  "email-validator>=2.1",         # Validate member email addresses
+
+  # --- Forms (optional but recommended) ---
+  "wtforms>=3.1",                 # Form handling and validation
+  "flask-wtf>=1.2",               # CSRF-protected Flask forms
+
+  # --- Slug generation (optional) ---
+  "python-slugify>=8.0",          # Generate clean slugs for URLs
 ]
 
 # ------------------------------------------------------------
@@ -43,13 +59,13 @@ dependencies = [
 # ------------------------------------------------------------
 [dependency-groups]
 dev = [
-  "pytest",
-  "pytest-cov",
-  "ruff",
-  "mypy",
-  "bandit",
-  "semgrep",
-  "pip-audit",
+  "pytest",                       # Test runner
+  "pytest-cov",                   # Coverage reporting
+  "ruff",                         # Linting and formatting
+  "mypy",                         # Static type checking
+  "bandit",                       # Security linting
+  "semgrep",                      # Pattern-based static analysis
+  "pip-audit",                    # Dependency vulnerability scanning
 ]
 
 # ------------------------------------------------------------
