@@ -1,6 +1,6 @@
 {
   "name": "Flask Auto Launch",
-  "image": "mcr.microsoft.com/devcontainers/python:3.13-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13-bullseye",
 
   "forwardPorts": [5000],
 
@@ -11,5 +11,5 @@
 
   "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && uv venv .venv && uv sync",
 
-  "postStartCommand": "echo 'source $(pwd)/.venv/bin/activate' >> ~/.bashrc && source ~/.bashrc && flask run --host 0.0.0.0 --port 5000"
+  "postStartCommand": "echo 'source $(pwd)/.venv/bin/activate' >> ~/.bashrc && source ~/.bashrc && sleep 2 && flask run --host 0.0.0.0 --port 5000"
 }
