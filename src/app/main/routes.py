@@ -1,75 +1,108 @@
 """
-Main application routes.
+Main blueprint routes for the Online Library Catalogue.
 
-This blueprint contains the core public-facing pages of the application.
-At this stage of the project, the focus is on helping students understand:
-
-1. How Flask renders HTML templates.
-2. How JSON responses work.
-3. How blueprints organise related functionality.
-4. How health endpoints support CI, monitoring, and security scanning.
-
-These routes form the "front door" of the application and demonstrate
-the basic request/response flow in a clean, minimal way.
+Includes:
+- Landing page (/)
+- Health and info endpoints
+- HTMX-powered catalogue partial (/catalogue)
 """
 
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
+from sqlalchemy import or_
 from . import bp
+from ..db.models import Item
 
+
+# ------------------------------------------------------------
+# Landing page
+# ------------------------------------------------------------
 
 @bp.get("/")
-def index() -> str:
-    """
-    Render the main landing page.
-
-    This route demonstrates how Flask uses templates to generate HTML.
-    The template file `index.html` lives in the application's templates
-    directory and can contain any HTML, CSS, or JavaScript needed for
-    the user interface.
-
-    Later, students can expand this page to include:
-    - navigation
-    - dynamic content
-    - PWA installation prompts
-    - Tailwind‑styled components
-    """
+def index():
+    """Render the main landing page."""
     return render_template("index.html")
 
 
+# ------------------------------------------------------------
+# Health + Info (used by diagnostics and DAST)
+# ------------------------------------------------------------
+
 @bp.get("/health")
 def health():
-    """
-    Health check endpoint.
-
-    This route is used by:
-    - CI workflows (01-ci.yml)
-    - Wapiti dynamic security scanning
-    - Monitoring tools or uptime checks
-
-    It returns a simple JSON object confirming that the main blueprint
-    is functioning correctly. Keeping this endpoint lightweight ensures
-    it remains reliable even under load.
-    """
-    return jsonify({"status": "ok", "component": "main"})
+    """Simple health check endpoint."""
+    return jsonify({"status": "ok"})
 
 
 @bp.get("/info")
 def info():
-    """
-    Basic diagnostic endpoint.
-
-    This route returns a small JSON payload that helps students
-    understand:
-    - how JSON responses are structured
-    - how blueprints can expose useful metadata
-    - how to design simple API-style endpoints
-
-    It is intentionally minimal and safe for early development.
-    """
+    """Basic application info."""
     return jsonify(
         {
             "app": "STHS Flask PWA",
-            "blueprint": "main",
             "version": "1.0",
+            "description": "Online Library Catalogue",
         }
+    )
+
+
+# ------------------------------------------------------------
+# HTMX Catalogue Partial
+# ------------------------------------------------------------
+
+@bp.get("/catalogue")
+def catalogue_partial():
+    """
+    Return an HTML partial containing:
+    - item cards
+    - pagination controls
+
+    This endpoint is called by HTMX from index.html.
+    """
+
+    # Pagination
+    try:
+        page = int(request.args.get("page", 1))
+    except ValueError:
+        page = 1
+
+    page = max(page, 1)
+
+    # Search
+    q = request.args.get("q", "").strip()
+
+    query = Item.query
+
+    if q:
+        like = f"%{q}%"
+        query = query.filter(
+            or_(
+                Item.title.ilike(like),
+                Item.description.ilike(like),
+                Item.identifier.ilike(like),
+            )
+        )
+
+    # Order newest first
+    query = query.order_by(Item.created_at.desc())
+
+    # Paginate (12 items per page)
+    pagination = query.paginate(page=page, per_page=12, error_out=False)
+
+    # Serialise items for template
+    items = [
+        {
+            "title": item.title,
+            "description": item.description,
+            "year": item.year,
+            "creators": [c.name for c in item.creators],
+            "categories": [c.name for c in item.categories],
+        }
+        for item in pagination.items
+    ]
+
+    return render_template(
+        "partials/item_list.html",
+        items=items,
+        pagination=pagination,
+        query=q,
     )
