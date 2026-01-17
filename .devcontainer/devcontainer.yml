@@ -1,19 +1,50 @@
-name: Flask Auto Launch
+# ======================================================================
+# TEACHING VERSION — devcontainer.yml
+# ----------------------------------------------------------------------
+# This file defines the Codespaces development environment.
+# It explains:
+#   - the base image
+#   - forwarded ports
+#   - environment variables
+#   - setup and startup lifecycle hooks
+#   - how automation creates a zero‑setup student experience
+# ======================================================================
 
+name: High Security Flask PWA (Teaching)
+
+# ----------------------------------------------------------------------
+# Base image
+# Using the Python 3.13 devcontainer image ensures:
+#   - Python preinstalled
+#   - VS Code integration
+#   - lifecycle hooks supported
+# ----------------------------------------------------------------------
 image: mcr.microsoft.com/devcontainers/python:3.13-bullseye
 
+# ----------------------------------------------------------------------
+# Forward Flask's default port so Codespaces can detect it
+# ----------------------------------------------------------------------
 forwardPorts:
   - 5000
 
+# ----------------------------------------------------------------------
+# Environment variables for Flask
+# These remove the need for students to export anything manually.
+# ----------------------------------------------------------------------
 remoteEnv:
   FLASK_APP: "src.app:create_app"
   FLASK_ENV: "development"
 
-postCreateCommand: |
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  uv venv .venv
-  uv sync
+# ----------------------------------------------------------------------
+# postCreateCommand
+# Runs ONCE when the Codespace is first created.
+# Delegates to setup.sh for clarity and teaching.
+# ----------------------------------------------------------------------
+postCreateCommand: ".devcontainer/setup.sh"
 
-postStartCommand: |
-  source .venv/bin/activate
-  nohup flask run --host 0.0.0.0 --port 5000 >/tmp/flask.log 2>&1 &
+# ----------------------------------------------------------------------
+# postStartCommand
+# Runs EVERY TIME the Codespace starts.
+# Delegates to startup.sh to launch Flask automatically.
+# ----------------------------------------------------------------------
+postStartCommand: ".devcontainer/startup.sh"
