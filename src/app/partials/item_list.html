@@ -1,0 +1,44 @@
+<div class="item-list">
+    {% for item in items %}
+        <div class="item-card">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+
+            {% if item.year %}
+                <p><strong>Year:</strong> {{ item.year }}</p>
+            {% endif %}
+
+            {% if item.creators %}
+                <p><strong>Creators:</strong> {{ item.creators | join(', ') }}</p>
+            {% endif %}
+
+            {% if item.categories %}
+                <p><strong>Categories:</strong> {{ item.categories | join(', ') }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if pagination.has_prev %}
+        <button
+            hx-get="/catalogue?page={{ pagination.page - 1 }}&q={{ query }}"
+            hx-target="#catalogue-results"
+            hx-swap="innerHTML"
+        >
+            Previous
+        </button>
+    {% endif %}
+
+    <span>Page {{ pagination.page }} of {{ pagination.total_pages }}</span>
+
+    {% if pagination.has_next %}
+        <button
+            hx-get="/catalogue?page={{ pagination.page + 1 }}&q={{ query }}"
+            hx-target="#catalogue-results"
+            hx-swap="innerHTML"
+        >
+            Next
+        </button>
+    {% endif %}
+</div>
