@@ -41,20 +41,22 @@ dependencies = [
 # ------------------------------------------------------------
 # Optional dependency groups (uv-compatible)
 # ------------------------------------------------------------
-[dependency-groups.dev]
-pytest = "*"
-pytest-cov = "*"
-ruff = "*"
-mypy = "*"
-bandit = "*"
-semgrep = "*"
-pip-audit = "*"
+[dependency-groups]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+  "mypy",
+  "bandit",
+  "semgrep",
+  "pip-audit",
+]
 
 # ------------------------------------------------------------
 # uv configuration
 # ------------------------------------------------------------
 [tool.uv]
-# Dev dependencies now live under [dependency-groups.dev]
+# Dev dependencies now live under [dependency-groups]
 # Install them with:
 #   uv sync --group dev
 
