@@ -55,10 +55,10 @@
 
 <body>
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/catalogue/full">Catalogue</a>
-    <a href="/catalogue/debug">Debug JSON</a>
+<nav class="nav"> 
+<a href="{{ url_for('main.index') }}">Home</a> 
+<a href="{{ url_for('main.catalogue_full') }}">Catalogue</a> 
+<a href="{{ url_for('main.catalogue_debug') }}">Debug JSON</a> 
 </nav>
 
 <div class="breadcrumbs">
