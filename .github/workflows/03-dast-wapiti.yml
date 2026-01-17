@@ -13,10 +13,10 @@ permissions:
 jobs:
 
   # ---------------------------------------------------------
-  # Manual DAST Scan (Wapiti Active Scanner)
+  # Manual DAST Scan (Wapiti3 Active Scanner)
   # ---------------------------------------------------------
   wapiti-manual:
-    name: Manual DAST Active Scan (Wapiti)
+    name: Manual DAST Active Scan (Wapiti3)
     runs-on: ubuntu-latest
 
     steps:
@@ -44,16 +44,16 @@ jobs:
           uv run flask run --host=0.0.0.0 --port=5000 &
           sleep 5
 
-      - name: Run Wapiti Active Scan
+      - name: Run Wapiti3 Active Scan
         run: |
           uv run wapiti3 \
             -u http://localhost:5000 \
             -f json \
             -o wapiti-report.json
 
-      - name: Upload Wapiti Report
+      - name: Upload Wapiti3 Report
         uses: actions/upload-artifact@v4
         with:
-          name: wapiti-report
+          name: wapiti3-report
           path: wapiti-report.json
           if-no-files-found: ignore
