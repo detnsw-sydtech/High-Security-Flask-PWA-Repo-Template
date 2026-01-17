@@ -1,3 +1,33 @@
+# ---------------------------------------------------------
+# 03 Manual DAST Scan (Wapiti3)
+#
+# This workflow performs an *active* Dynamic Application
+# Security Test (DAST) using Wapiti3. It is intentionally
+# manual-only so that:
+#
+# - CI remains fast, deterministic, and Docker-free
+# - students can run active scans when needed
+# - security scanning becomes an intentional learning activity
+#
+# Wapiti3 is a Python-based DAST tool that supports Python 3.13
+# and integrates cleanly with uv. It performs active tests such
+# as:
+# - XSS payload injection
+# - SQL injection attempts
+# - file inclusion tests
+# - command injection attempts
+# - path traversal
+#
+# This workflow:
+# 1. Installs uv and Python 3.13
+# 2. Creates a virtual environment
+# 3. Installs Wapiti3
+# 4. Starts the Flask app using the correct --app import path
+# 5. Runs Wapiti3 against http://localhost:5000
+# 6. Uploads the JSON report as an artifact
+#
+# ---------------------------------------------------------
+
 name: 03 Manual DAST Scan (Wapiti3)
 
 on:
@@ -20,30 +50,68 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # -----------------------------------------------------
+      # 1. Checkout repository
+      # -----------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # -----------------------------------------------------
+      # 2. Install uv (Python package manager)
+      # -----------------------------------------------------
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           version: "0.4.20"
 
+      # -----------------------------------------------------
+      # 3. Install Python 3.13
+      # -----------------------------------------------------
       - name: Install Python 3.13
         run: uv python install 3.13
 
+      # -----------------------------------------------------
+      # 4. Create virtual environment
+      # -----------------------------------------------------
       - name: Create virtual environment
         run: uv venv
 
+      # -----------------------------------------------------
+      # 5. Install Wapiti3 (modern, Python 3.13-compatible)
+      #
+      # NOTE:
+      # - The package is called "wapiti3"
+      # - The executable is called "wapiti"
+      # -----------------------------------------------------
       - name: Install Wapiti3
         run: |
           uv sync --frozen --directory .venv
           uv pip install wapiti3
 
+      # -----------------------------------------------------
+      # 6. Start Flask app
+      #
+      # IMPORTANT:
+      # - The app factory lives in src/app/__init__.py
+      # - The correct import path is "src.app"
+      # - This must succeed or Wapiti will find 0 URLs
+      # -----------------------------------------------------
       - name: Start Flask app
         run: |
           uv run flask --app src.app run --host=0.0.0.0 --port=5000 &
           sleep 5
 
+      # -----------------------------------------------------
+      # 7. Run Wapiti3 Active Scan
+      #
+      # Wapiti performs:
+      # - crawling
+      # - payload injection
+      # - vulnerability testing
+      #
+      # Output is written to wapiti-report.json
+      # -----------------------------------------------------
       - name: Run Wapiti3 Active Scan
         run: |
           uv run wapiti \
@@ -51,6 +119,12 @@ jobs:
             -f json \
             -o wapiti-report.json
 
+      # -----------------------------------------------------
+      # 8. Upload Wapiti3 Report
+      #
+      # Students and staff can download the JSON report from
+      # the workflow run page.
+      # -----------------------------------------------------
       - name: Upload Wapiti3 Report
         uses: actions/upload-artifact@v4
         with:
