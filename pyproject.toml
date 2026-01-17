@@ -42,17 +42,10 @@ dependencies = [
 # Optional dependency groups (uv-compatible)
 # ------------------------------------------------------------
 [dependency-groups.dev]
-# --- Testing ---
 pytest = "*"
 pytest-cov = "*"
-
-# --- Linting / formatting ---
 ruff = "*"
-
-# --- Static typing ---
 mypy = "*"
-
-# --- Security scanning ---
 bandit = "*"
 semgrep = "*"
 pip-audit = "*"
@@ -61,8 +54,8 @@ pip-audit = "*"
 # uv configuration
 # ------------------------------------------------------------
 [tool.uv]
-# No dev-dependencies here anymore — replaced by dependency-groups.dev
-# uv will automatically install dev dependencies via:
+# Dev dependencies now live under [dependency-groups.dev]
+# Install them with:
 #   uv sync --group dev
 
 # ------------------------------------------------------------
