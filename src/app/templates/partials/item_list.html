@@ -1,44 +1,56 @@
-<div class="item-list">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for item in items %}
-        <div class="item-card">
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.description }}</p>
+        <div class="bg-white shadow-sm border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                {{ item.title }}
+            </h3>
 
             {% if item.year %}
-                <p><strong>Year:</strong> {{ item.year }}</p>
+                <p class="text-sm text-gray-500 mb-2">
+                    {{ item.year }}
+                </p>
             {% endif %}
 
-            {% if item.creators %}
-                <p><strong>Creators:</strong> {{ item.creators | join(', ') }}</p>
-            {% endif %}
+            <p class="text-gray-700 text-sm mb-3">
+                {{ item.description }}
+            </p>
 
-            {% if item.categories %}
-                <p><strong>Categories:</strong> {{ item.categories | join(', ') }}</p>
-            {% endif %}
+            <div class="text-sm text-gray-600 mb-2">
+                <span class="font-medium">Creators:</span>
+                {{ item.creators | join(", ") }}
+            </div>
+
+            <div class="text-sm text-gray-600">
+                <span class="font-medium">Categories:</span>
+                {{ item.categories | join(", ") }}
+            </div>
         </div>
     {% endfor %}
 </div>
 
-<div class="pagination">
+<!-- Pagination -->
+<div class="flex justify-center items-center gap-4 mt-6">
     {% if pagination.has_prev %}
         <button
-            hx-get="/catalogue?page={{ pagination.page - 1 }}"
+            hx-get="/catalogue?page={{ pagination.prev_num }}"
             hx-target="#catalogue-results"
-            hx-include=".filters"
             hx-swap="innerHTML"
+            class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition"
         >
             Previous
         </button>
     {% endif %}
 
-    <span>Page {{ pagination.page }} of {{ pagination.total_pages }}</span>
+    <span class="text-gray-700 text-sm">
+        Page {{ pagination.page }} of {{ pagination.pages }}
+    </span>
 
     {% if pagination.has_next %}
         <button
-            hx-get="/catalogue?page={{ pagination.page + 1 }}"
+            hx-get="/catalogue?page={{ pagination.next_num }}"
             hx-target="#catalogue-results"
-            hx-include=".filters"
             hx-swap="innerHTML"
+            class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition"
         >
             Next
         </button>
