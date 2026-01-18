@@ -2,12 +2,14 @@
 Application factory for the STHS High‑Security Flask PWA Template.
 
 This file is the *entry point* for the Flask application.
-It creates the Flask app, loads configuration, and registers all blueprints.
+It creates the Flask app, loads configuration, initialises extensions,
+and registers all blueprints.
 
 Students should understand this file before modifying any part of the project.
 """
 
 from flask import Flask
+from .extensions import db   # <-- NEW: centralised SQLAlchemy instance
 
 
 def create_app():
@@ -37,7 +39,20 @@ def create_app():
     app = Flask(__name__)
 
     # ---------------------------------------------------------
-    # 2. Register blueprints
+    # 2. Initialise extensions
+    #
+    # Extensions provide reusable functionality such as:
+    # - database access (SQLAlchemy)
+    # - authentication
+    # - caching
+    #
+    # Each extension is created once (in extensions.py) and then
+    # "attached" to the app here using init_app().
+    # ---------------------------------------------------------
+    db.init_app(app)
+
+    # ---------------------------------------------------------
+    # 3. Register blueprints
     #
     # Each blueprint represents a logical "section" of the app.
     # This keeps the project modular and easy to navigate.
@@ -51,7 +66,6 @@ def create_app():
     # Students can add new blueprints (e.g., "api") without touching
     # the rest of the application.
     # ---------------------------------------------------------
-
     from .main import bp as main_bp
     from .auth import bp as auth_bp
     from .pwa import bp as pwa_bp
@@ -63,7 +77,7 @@ def create_app():
     app.register_blueprint(security_bp)
 
     # ---------------------------------------------------------
-    # 3. Return the configured app
+    # 4. Return the configured app
     #
     # Flask will now use:
     # - templates from src/app/templates/
