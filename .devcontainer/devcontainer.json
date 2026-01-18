@@ -6,7 +6,7 @@
     "cpus": 4
   },
 
-  "postCreateCommand": ".devcontainer/setup.sh",
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --version 0.9.26",
   "postStartCommand": ".devcontainer/startup.sh",
 
   "portsAttributes": {
