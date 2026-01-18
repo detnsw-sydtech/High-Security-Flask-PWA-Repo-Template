@@ -1,253 +1,97 @@
 """
-Database models for the STHS Flask PWA.
+Database models for the STHS High‑Security Flask PWA Template.
 
-This module defines the SQLAlchemy ORM (Object Relational Mapping) models
-used throughout the application. Each class represents a database table,
-and each attribute represents a column.
+All models inherit from `db.Model`, which comes from the shared
+SQLAlchemy instance defined in `src/app/extensions.py`.
 
-Students should understand the following concepts:
-
-1. SQLAlchemy ORM
-   - Allows Python classes to map directly to database tables.
-   - Avoids writing raw SQL for common operations.
-
-2. db.Model
-   - Base class for all models.
-   - Provided by SQLAlchemy and initialised in the application factory.
-
-3. Relationships
-   - one-to-many (e.g., Role → Users)
-   - many-to-many (e.g., Item ↔ Creator, Item ↔ Category)
-   - SQLAlchemy automatically loads related objects.
-
-4. Association Tables
-   - Used for many-to-many relationships.
-   - Do not have their own model class.
-   - Only contain foreign keys.
-
-These models are intentionally generic so students can adapt them to
-different project contexts (library catalogue, asset manager, product
-inventory, etc.).
+Students can add new models here as their project grows.
 """
 
 from datetime import datetime
-from . import db
+from ..extensions import db
 
 
-# ---------------------------------------------------------------------------
-# Association tables (many-to-many)
-# ---------------------------------------------------------------------------
-
-item_creator = db.Table(
-    "item_creator",
-    db.Column(
-        "item_id",
-        db.Integer,
-        db.ForeignKey("item.id"),
-        primary_key=True,
-    ),
-    db.Column(
-        "creator_id",
-        db.Integer,
-        db.ForeignKey("creator.id"),
-        primary_key=True,
-    ),
-)
-
-item_category = db.Table(
-    "item_category",
-    db.Column(
-        "item_id",
-        db.Integer,
-        db.ForeignKey("item.id"),
-        primary_key=True,
-    ),
-    db.Column(
-        "category_id",
-        db.Integer,
-        db.ForeignKey("category.id"),
-        primary_key=True,
-    ),
-)
-
-
-# ---------------------------------------------------------------------------
-# Role model
-# ---------------------------------------------------------------------------
-
-class Role(db.Model):
-    """
-    Represents a user role (e.g., member, staff, admin).
-
-    Demonstrates:
-    - one-to-many relationship (Role → Users)
-    - use of back_populates for bidirectional relationships
-    """
+# ------------------------------------------------------------
+# Example: ItemType (e.g., Book, Movie, Article)
+# ------------------------------------------------------------
+class ItemType(db.Model):
+    __tablename__ = "item_types"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
 
-    users = db.relationship("User", back_populates="role")
-
-    def __repr__(self) -> str:
-        return f"<Role {self.name}>"
-
-
-# ---------------------------------------------------------------------------
-# User model
-# ---------------------------------------------------------------------------
-
-class User(db.Model):
-    """
-    Represents an application user.
-
-    Demonstrates:
-    - foreign keys (role_id)
-    - one-to-many relationship (User → Role)
-    - timestamp fields (created_at)
-    - storing hashed passwords (never store raw passwords)
-    """
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
-
-    role_id = db.Column(db.Integer, db.ForeignKey("role.id"), nullable=False)
-    role = db.relationship("Role", back_populates="users")
-
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self) -> str:
-        return f"<User {self.username}>"
-
-
-# ---------------------------------------------------------------------------
-# ItemType model
-# ---------------------------------------------------------------------------
-
-class ItemType(db.Model):
-    """
-    Represents a type or category of item (e.g., Book, Video, Audio).
-
-    Demonstrates:
-    - one-to-many relationship (ItemType → Items)
-    """
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    description = db.Column(db.String(255))
-
     items = db.relationship("Item", back_populates="item_type")
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"<ItemType {self.name}>"
 
 
-# ---------------------------------------------------------------------------
-# Item model
-# ---------------------------------------------------------------------------
-
-class Item(db.Model):
-    """
-    Represents a generic item in the system.
-
-    This model is intentionally flexible so students can reuse it for:
-    - library items (books, DVDs)
-    - products
-    - digital assets
-    - tasks or activities
-
-    Demonstrates:
-    - foreign keys (item_type_id)
-    - many-to-many relationships (creators, categories)
-    - timestamp fields (created_at, updated_at)
-    """
-
-    id = db.Column(db.Integer, primary_key=True)
-
-    title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text)
-
-    year = db.Column(db.Integer)
-    identifier = db.Column(db.String(100))
-
-    item_type_id = db.Column(db.Integer, db.ForeignKey("item_type.id"), nullable=False)
-    item_type = db.relationship("ItemType", back_populates="items")
-
-    creators = db.relationship(
-        "Creator",
-        secondary=item_creator,
-        back_populates="items",
-    )
-
-    categories = db.relationship(
-        "Category",
-        secondary=item_category,
-        back_populates="items",
-    )
-
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(
-        db.DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
-    )
-
-    internal_notes = db.Column(db.Text)
-
-    def __repr__(self) -> str:
-        return f"<Item {self.title} ({self.id})>"
-
-
-# ---------------------------------------------------------------------------
-# Creator model
-# ---------------------------------------------------------------------------
-
+# ------------------------------------------------------------
+# Example: Creator (e.g., Author, Director)
+# ------------------------------------------------------------
 class Creator(db.Model):
-    """
-    Represents a creator (author, director, artist, etc.).
-
-    Demonstrates:
-    - many-to-many relationship (Creator ↔ Items)
-    """
+    __tablename__ = "creators"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(120), nullable=False)
 
-    birth_year = db.Column(db.Integer)
-    death_year = db.Column(db.Integer)
+    items = db.relationship("Item", secondary="item_creators", back_populates="creators")
 
-    items = db.relationship(
-        "Item",
-        secondary=item_creator,
-        back_populates="creators",
-    )
-
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"<Creator {self.name}>"
 
 
-# ---------------------------------------------------------------------------
-# Category model
-# ---------------------------------------------------------------------------
-
+# ------------------------------------------------------------
+# Example: Category (e.g., Fiction, Science, History)
+# ------------------------------------------------------------
 class Category(db.Model):
-    """
-    Represents a category, subject, genre, or tag.
-
-    Demonstrates:
-    - many-to-many relationship (Category ↔ Items)
-    """
+    __tablename__ = "categories"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    name = db.Column(db.String(120), nullable=False)
 
-    items = db.relationship(
-        "Item",
-        secondary=item_category,
-        back_populates="categories",
-    )
+    items = db.relationship("Item", secondary="item_categories", back_populates="categories")
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"<Category {self.name}>"
+
+
+# ------------------------------------------------------------
+# Example: Item (core catalogue object)
+# ------------------------------------------------------------
+class Item(db.Model):
+    __tablename__ = "items"
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text)
+    year = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Foreign key to ItemType
+    item_type_id = db.Column(db.Integer, db.ForeignKey("item_types.id"))
+    item_type = db.relationship("ItemType", back_populates="items")
+
+    # Many-to-many relationships
+    creators = db.relationship("Creator", secondary="item_creators", back_populates="items")
+    categories = db.relationship("Category", secondary="item_categories", back_populates="items")
+
+    def __repr__(self):
+        return f"<Item {self.title}>"
+
+
+# ------------------------------------------------------------
+# Association Tables (many-to-many)
+# ------------------------------------------------------------
+
+item_creators = db.Table(
+    "item_creators",
+    db.Column("item_id", db.Integer, db.ForeignKey("items.id"), primary_key=True),
+    db.Column("creator_id", db.Integer, db.ForeignKey("creators.id"), primary_key=True),
+)
+
+item_categories = db.Table(
+    "item_categories",
+    db.Column("item_id", db.Integer, db.ForeignKey("items.id"), primary_key=True),
+    db.Column("category_id", db.Integer, db.ForeignKey("categories.id"), primary_key=True),
+)
