@@ -2,9 +2,13 @@
   "name": "High Security Flask PWA Development Environment",
   "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
 
-  "hostRequirements": {
-    "cpus": 4
+  "containerEnv": {
+    "PATH": "/home/vscode/.local/bin:${PATH}"
   },
+
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --version 0.9.26",
+  "postStartCommand": ".devcontainer/startup.sh"
+}
 
   "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --version 0.9.26",
   "postStartCommand": ".devcontainer/startup.sh",
