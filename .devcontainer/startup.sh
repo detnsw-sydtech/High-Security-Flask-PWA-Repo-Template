@@ -5,18 +5,31 @@ set -e
 # ------------------------------------------------------------
 # STARTUP SCRIPT (runs every time the Codespace starts)
 # ------------------------------------------------------------
-# This script:
-#   - activates the virtual environment
-#   - launches Flask in the background
-#   - logs output to /tmp/flask.log
+# Purpose:
+#   This script prepares the development environment each time
+#   the Codespace starts. It ensures that:
+#     1. The virtual environment exists
+#     2. All dependencies are installed (uv sync)
+#     3. Flask launches automatically in the background
 #
-# Codespaces requires backgrounded processes for auto-start.
+# Why this matters:
+#   Codespaces does NOT keep background processes running
+#   between sessions. This script guarantees that the Flask
+#   development server starts reliably every time.
 # ------------------------------------------------------------
+
+echo "[startup] Waiting for virtual environment (.venv) to be ready..."
+while [ ! -d ".venv" ]; do
+    sleep 1
+done
 
 echo "[startup] Activating virtual environment..."
 source .venv/bin/activate
 
-echo "[startup] Launching Flask in background..."
+echo "[startup] Ensuring dependencies are installed (uv sync)..."
+uv sync
+
+echo "[startup] Launching Flask in the background..."
 nohup flask run --host 0.0.0.0 --port 5000 >/tmp/flask.log 2>&1 &
 
-echo "[startup] Flask started."
+echo "[startup] Flask started successfully."
