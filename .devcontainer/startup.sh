@@ -5,28 +5,24 @@ set -e
 # ------------------------------------------------------------
 # STARTUP SCRIPT (runs every time the Codespace starts)
 # ------------------------------------------------------------
-# Purpose:
-#   This script prepares the development environment each time
-#   the Codespace starts. It ensures that:
-#     1. The virtual environment exists
-#     2. All dependencies are installed (uv sync)
-#     3. Flask launches automatically in the background
-#
-# Why this matters:
-#   Codespaces does NOT keep background processes running
-#   between sessions. This script guarantees that the Flask
-#   development server starts reliably every time.
+# This script ensures that:
+#   1. The virtual environment exists
+#   2. Dependencies are fully installed (uv sync)
+#   3. Flask launches only AFTER the environment is stable
 # ------------------------------------------------------------
 
 echo "[startup] Waiting for virtual environment (.venv) to be ready..."
-while [ ! -d ".venv" ]; do
+for i in {1..30}; do
+    if [ -d ".venv" ]; then
+        break
+    fi
     sleep 1
 done
 
 echo "[startup] Activating virtual environment..."
 source .venv/bin/activate
 
-echo "[startup] Ensuring dependencies are installed (uv sync)..."
+echo "[startup] Running uv sync (this may update uv.lock)..."
 uv sync
 
 echo "[startup] Launching Flask in the background..."
