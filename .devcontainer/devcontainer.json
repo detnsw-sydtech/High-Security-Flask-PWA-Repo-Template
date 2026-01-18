@@ -2,6 +2,8 @@
   "name": "High Security Flask PWA Development Environment",
   "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
 
+  "features": {},
+
   "containerEnv": {
     "PATH": "/home/vscode/.local/bin:${PATH}"
   },
