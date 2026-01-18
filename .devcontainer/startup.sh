@@ -12,7 +12,7 @@ set -e
 # ------------------------------------------------------------
 
 echo "[startup] Waiting for virtual environment (.venv) to be ready..."
-for i in {1..30}; do
+for i in $(seq 1 30); do
     if [ -d ".venv" ]; then
         break
     fi
