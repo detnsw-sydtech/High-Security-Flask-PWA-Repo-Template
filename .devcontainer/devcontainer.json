@@ -8,7 +8,8 @@
     "PATH": "/home/vscode/.local/bin:${PATH}"
   },
 
-  "postCreateCommand": "UV_VERSION=0.9.26 curl -LsSf https://astral.sh/uv/install.sh | sh",
+  "postStartCommand": "bash .devcontainer/preflight.sh",
+  "postCreateCommand": "bash -c 'UV_VERSION=0.9.26 curl -LsSf https://astral.sh/uv/install.sh | sh'",
 
   "portsAttributes": {
     "5000": {
