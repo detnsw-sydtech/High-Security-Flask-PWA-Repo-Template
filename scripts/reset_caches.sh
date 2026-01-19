@@ -1,22 +1,31 @@
-# 1. Reset Python + uv state
+#!/usr/bin/env bash
+set -euo pipefail
 
-rm -rf .venv
-uv cache clean
-uv sync --frozen
+echo "=== Resetting repository caches and build artefacts ==="
+
+echo "Removing Python virtual environments..."
+rm -rf .venv || true
+
+echo "Clearing uv cache..."
+uv cache clean || true
+
+echo "Removing Python bytecode..."
+find . -type d -name "__pycache__" -exec rm -rf {} + || true
+
+echo "Removing framework build artefacts..."
+rm -rf dist/ build/ .next/ vite/.cache || true
+rm -rf .jinja2_cache || true
+
+echo "Removing generated static assets..."
+rm -rf static/generated/* || true
+
+echo "Cleaning ignored files via git..."
+git clean -fdX || true
+
+echo "Reinstalling dependencies from lockfile..."
+uv sync --frozen --directory .venv
+
+echo "Validating dependency integrity..."
 uv pip check
 
-
-# 2. Reset framework artefacts
-# delete pycache
-# clear Jinja2 template caches
-# remove JS build artefacts
-# remove bundler caches
-
-find . -type d -name "__pycache__" -exec rm -rf {} +
-rm -rf dist/ build/ .next/ vite/.cache
-rm -rf .jinja2_cache
-
-# 3. Reset service‑worker and PWA artefacts
-# remove old service worker builds
-# regenerate manifest and hashed assets
-# ensure no stale SW artefacts are committed
+echo "Reset complete."
