@@ -2,12 +2,60 @@
 set -euo pipefail
 
 REQUIRED="3.12"
-CURRENT="$(python3 --version 2>/dev/null | awk '{print $2}' | cut -d. -f1-2)"
 
-if [ "$CURRENT" != "$REQUIRED" ]; then
-  echo "❌ ERROR: This Codespace is running Python $CURRENT but the project requires Python $REQUIRED."
-  echo "Please rebuild the container or update your devcontainer.json."
-  exit 1
+echo "🔍 Running devcontainer preflight checks..."
+
+# ---------------------------------------------------------
+# 1. Check system Python version
+# ---------------------------------------------------------
+if command -v python3 >/dev/null 2>&1; then
+    CURRENT="$(python3 --version | awk '{print $2}' | cut -d. -f1-2)"
+else
+    echo "❌ ERROR: python3 not found in PATH."
+    echo "This environment is not valid for the High Security Flask PWA template."
+    exit 1
 fi
 
-echo "✅ Python version OK ($CURRENT)"
+if [ "$CURRENT" != "$REQUIRED" ]; then
+    echo "❌ ERROR: System Python version mismatch."
+    echo "Found:    $CURRENT"
+    echo "Required: $REQUIRED"
+    echo "Please rebuild the Codespace so it uses the correct Python version."
+    exit 1
+fi
+
+echo "✅ System Python version OK ($CURRENT)"
+
+
+# ---------------------------------------------------------
+# 2. Check uv installation
+# ---------------------------------------------------------
+if ! command -v uv >/dev/null 2>&1; then
+    echo "⚠️ WARNING: uv is not installed or not on PATH."
+    echo "The postCreateCommand should have installed uv."
+    echo "Try rebuilding the container."
+else
+    echo "✅ uv is installed ($(uv --version))"
+fi
+
+
+# ---------------------------------------------------------
+# 3. Check virtual environment drift (optional but helpful)
+# ---------------------------------------------------------
+if [ -d ".venv" ]; then
+    if [ -x ".venv/bin/python3" ]; then
+        VENV_PY="$(.venv/bin/python3 --version | awk '{print $2}' | cut -d. -f1-2)"
+        if [ "$VENV_PY" != "$REQUIRED" ]; then
+            echo "⚠️ WARNING: Your virtual environment was created with Python $VENV_PY."
+            echo "This may cause dependency or bytecode drift."
+            echo "Recommended fix:"
+            echo "    rm -rf .venv && uv venv && uv sync"
+        else
+            echo "✅ Virtual environment Python version OK ($VENV_PY)"
+        fi
+    fi
+else
+    echo "ℹ️ No virtual environment detected yet. This is normal on first boot."
+fi
+
+echo "✨ Preflight checks complete."
