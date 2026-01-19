@@ -5,8 +5,8 @@
   "features": {},
 
   "containerEnv": {
-    "PATH": "/home/vscode/.local/bin:${PATH}"
-  },
+  "PATH": "/home/vscode/.local/bin:/usr/local/bin:/usr/bin:/bin"
+},
 
   "postStartCommand": "bash .devcontainer/preflight.sh",
   "postCreateCommand": "bash -c 'UV_VERSION=0.9.26 curl -LsSf https://astral.sh/uv/install.sh | sh'",
