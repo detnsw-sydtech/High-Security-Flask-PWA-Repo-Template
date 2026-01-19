@@ -9,7 +9,10 @@ Students should understand this file before modifying any part of the project.
 """
 
 from flask import Flask
-from .extensions import db   # <-- NEW: centralised SQLAlchemy instance
+from .extensions import db   # <-- centralised SQLAlchemy instance
+
+# NEW: load environment variables from .env
+from dotenv import load_dotenv
 
 
 def create_app():
@@ -39,7 +42,20 @@ def create_app():
     app = Flask(__name__)
 
     # ---------------------------------------------------------
-    # 2. Initialise extensions
+    # 2. Load configuration from environment variables
+    #
+    # This ensures settings such as:
+    # - SQLALCHEMY_DATABASE_URI
+    # - SECRET_KEY
+    # - any future config values
+    #
+    # are correctly loaded before extensions are initialised.
+    # ---------------------------------------------------------
+    load_dotenv()                 # Load .env into the environment
+    app.config.from_prefixed_env()  # Load environment variables into Flask config
+
+    # ---------------------------------------------------------
+    # 3. Initialise extensions
     #
     # Extensions provide reusable functionality such as:
     # - database access (SQLAlchemy)
@@ -52,7 +68,7 @@ def create_app():
     db.init_app(app)
 
     # ---------------------------------------------------------
-    # 3. Register blueprints
+    # 4. Register blueprints
     #
     # Each blueprint represents a logical "section" of the app.
     # This keeps the project modular and easy to navigate.
@@ -77,7 +93,7 @@ def create_app():
     app.register_blueprint(security_bp)
 
     # ---------------------------------------------------------
-    # 4. Return the configured app
+    # 5. Return the configured app
     #
     # Flask will now use:
     # - templates from src/app/templates/
