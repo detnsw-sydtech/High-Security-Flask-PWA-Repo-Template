@@ -9,10 +9,11 @@ Students should understand this file before modifying any part of the project.
 """
 
 from flask import Flask
-from .extensions import db   # <-- centralised SQLAlchemy instance
+from .extensions import db   # centralised SQLAlchemy instance
 
-# NEW: load environment variables from .env
+# Load environment variables from .env
 from dotenv import load_dotenv
+import os
 
 
 def create_app():
@@ -51,8 +52,8 @@ def create_app():
     #
     # are correctly loaded before extensions are initialised.
     # ---------------------------------------------------------
-    load_dotenv()                 # Load .env into the environment
-    app.config.from_prefixed_env()  # Load environment variables into Flask config
+    load_dotenv()                         # Load .env into the environment
+    app.config.from_mapping(os.environ)   # Load ALL environment variables into Flask config
 
     # ---------------------------------------------------------
     # 3. Initialise extensions
