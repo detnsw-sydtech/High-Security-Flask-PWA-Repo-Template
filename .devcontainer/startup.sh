@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# =============================================================
+# If uv is not installed yet, exit gracefully so the container can finish setup
+# -------------------------------------------------------------
+if ! command -v uv >/dev/null 2>&1; then
+    echo "[startup] uv not installed yet — skipping startup tasks."
+    exit 0
+fi
+
 # ============================================================
 #  STARTUP SCRIPT (runs every time the Codespace starts)
 # ------------------------------------------------------------
@@ -17,7 +25,6 @@ set -euo pipefail
 # ============================================================
 
 echo "[startup] STARTUP SCRIPT RAN" > /tmp/startup.log
-
 
 # ============================================================
 #  SECTION 1 — Ensure virtual environment exists
