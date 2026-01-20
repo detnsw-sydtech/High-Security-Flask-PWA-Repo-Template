@@ -1,12 +1,19 @@
 {
   "name": "High Security Flask PWA Development Environment",
+
+  // Base image: Python 3.12 on Debian Bullseye
   "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
+
+  // Ensures container entrypoint is not overridden
   "overrideCommand": false,
 
-  "postStartCommand": "bash .devcontainer/preflight.sh",
+  // Automation: run preflight, then run startup script in background
+  "postStartCommand": "bash .devcontainer/preflight.sh; nohup bash .devcontainer/startup.sh >/tmp/startup.log 2>&1 &",
 
+  // Expose Flask port
   "forwardPorts": [5000],
 
+  // Auto-open preview when Flask starts
   "portsAttributes": {
     "5000": {
       "label": "Flask Application",
@@ -16,6 +23,7 @@
     }
   },
 
+  // VS Code extensions for Python + Codespaces
   "customizations": {
     "vscode": {
       "extensions": [
