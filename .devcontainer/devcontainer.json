@@ -7,6 +7,9 @@
   // Ensures container entrypoint is not overridden
   "overrideCommand": false,
 
+  // Automation: install uv
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh",
+
   // Automation: run preflight, then run startup script in background
   "postStartCommand": "bash .devcontainer/preflight.sh; nohup bash .devcontainer/startup.sh >/tmp/startup.log 2>&1 &",
 
