@@ -1,3 +1,4 @@
+```markdown
 .devcontainer/
 │
 ├── devcontainer.json
@@ -53,3 +54,4 @@
     # - How to rebuild the Codespace
     # - How to interpret preflight warnings
     # - How to read startup logs
+```
