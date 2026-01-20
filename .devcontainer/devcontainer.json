@@ -3,7 +3,7 @@
   "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
   "overrideCommand": false,
   "postCreateCommand": "apt-get update && apt-get install -y bash && curl -LsSf https://astral.sh/uv/install.sh | sh",
-  "postStartCommand": "bash .devcontainer/preflight.sh; nohup bash .devcontainer/startup.sh >/tmp/startup.log 2>&1 &",
+  "postStartCommand": "sh .devcontainer/preflight.sh; nohup sh .devcontainer/startup.sh >/tmp/startup.log 2>&1 &"
   "forwardPorts": [5000],
   "portsAttributes": {
     "5000": {
