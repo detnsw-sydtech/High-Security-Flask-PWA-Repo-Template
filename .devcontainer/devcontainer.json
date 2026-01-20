@@ -1,0 +1,27 @@
+{
+  "name": "High Security Flask PWA Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
+  "overrideCommand": false,
+
+  "forwardPorts": [5000],
+
+  "portsAttributes": {
+    "5000": {
+      "label": "Flask Application",
+      "onAutoForward": "openPreview",
+      "protocol": "http",
+      "visibility": "public"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "GitHub.codespaces"
+      ]
+    }
+  }
+}
