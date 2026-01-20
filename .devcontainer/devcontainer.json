@@ -3,7 +3,7 @@
   "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
   "overrideCommand": false,
 
-  "postStartCommand": "bash .devcontainer/preflight.sh"
+  "postStartCommand": "bash .devcontainer/preflight.sh",
 
   "forwardPorts": [5000],
 
