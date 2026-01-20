@@ -10,9 +10,9 @@
   },
 
   "postCreateCommand": "bash -c 'UV_VERSION=0.9.26 curl -LsSf https://astral.sh/uv/install.sh | sh'",
-
+  
   "postStartCommand": "bash .devcontainer/preflight.sh; nohup bash .devcontainer/startup.sh >/tmp/startup.log 2>&1 &",
-
+  "postStartCommand": "echo POSTSTART_RAN > /tmp/poststart_test.log",
 
   "portsAttributes": {
     "5000": {
