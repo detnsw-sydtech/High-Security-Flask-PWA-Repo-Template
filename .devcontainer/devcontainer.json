@@ -1,25 +1,11 @@
 {
-  "name": "High Security Flask PWA Development Environment",
+  "name": "Baseline Test Container",
   "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
   "overrideCommand": false,
-  "postCreateCommand": "apt-get update && apt-get install -y bash && curl -LsSf https://astral.sh/uv/install.sh | sh",
-  "postStartCommand": "sh .devcontainer/preflight.sh; nohup sh .devcontainer/startup.sh >/tmp/startup.log 2>&1 &",
-  "forwardPorts": [5000],
-  "portsAttributes": {
-    "5000": {
-      "label": "Flask Application",
-      "onAutoForward": "openPreview",
-      "protocol": "http",
-      "visibility": "public"
-    }
-  },
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-python.python",
-        "ms-python.black-formatter",
-        "ms-python.pylint",
-        "GitHub.codespaces"
+        "ms-python.python"
       ]
     }
   }
