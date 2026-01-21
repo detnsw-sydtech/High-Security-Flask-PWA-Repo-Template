@@ -49,7 +49,7 @@ def create_app():
     #
     # Instead, load only the keys your app actually needs.
     # ---------------------------------------------------------
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "cde259759ba72e5840e22c132b6a155e55f0f0d9ae776671194c3ad9c91a7975")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
         "SQLALCHEMY_DATABASE_URI", "sqlite:///dev.db"
     )
