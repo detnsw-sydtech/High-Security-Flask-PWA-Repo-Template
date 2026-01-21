@@ -11,7 +11,6 @@ Students should understand this file before modifying any part of the project.
 from flask import Flask
 from .extensions import db   # centralised SQLAlchemy instance
 
-# Load environment variables from .env
 from dotenv import load_dotenv
 import os
 
@@ -21,67 +20,48 @@ def create_app():
     Create and configure the Flask application.
 
     This function is called the *application factory*.
-    Instead of creating the Flask app at the top level of the file,
-    we wrap it in a function so that:
-
-    - the app can be created multiple times (useful for testing)
-    - configuration can be applied cleanly
-    - blueprints can be registered in a predictable order
-    - the project stays modular and easy to extend
-
-    Flask will automatically look for:
-    - HTML templates inside:  src/app/templates/
-    - static files inside:    src/app/static/
-
-    Returns:
-        A fully configured Flask application instance.
     """
 
     # ---------------------------------------------------------
-    # 1. Create the Flask application object
+    # 1. Load .env BEFORE creating the app
+    #
+    # This ensures environment variables are available before
+    # Flask reads them into its configuration.
+    #
+    # Priority order becomes:
+    #   1. GitHub/Codespaces secrets (real production key)
+    #   2. System environment variables
+    #   3. .env fallback (local development)
+    # ---------------------------------------------------------
+    load_dotenv()
+
+    # ---------------------------------------------------------
+    # 2. Create the Flask application object
     # ---------------------------------------------------------
     app = Flask(__name__)
 
     # ---------------------------------------------------------
-    # 2. Load configuration from environment variables
+    # 3. Apply configuration explicitly
     #
-    # This ensures settings such as:
-    # - SQLALCHEMY_DATABASE_URI
-    # - SECRET_KEY
-    # - any future config values
+    # Avoid app.config.from_mapping(os.environ) because it dumps
+    # *every* OS environment variable into Flask config, which can
+    # cause naming collisions and unexpected behaviour.
     #
-    # are correctly loaded before extensions are initialised.
+    # Instead, load only the keys your app actually needs.
     # ---------------------------------------------------------
-    load_dotenv()                         # Load .env into the environment
-    app.config.from_mapping(os.environ)   # Load ALL environment variables into Flask config
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+        "SQLALCHEMY_DATABASE_URI", "sqlite:///dev.db"
+    )
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # ---------------------------------------------------------
-    # 3. Initialise extensions
-    #
-    # Extensions provide reusable functionality such as:
-    # - database access (SQLAlchemy)
-    # - authentication
-    # - caching
-    #
-    # Each extension is created once (in extensions.py) and then
-    # "attached" to the app here using init_app().
+    # 4. Initialise extensions
     # ---------------------------------------------------------
     db.init_app(app)
 
     # ---------------------------------------------------------
-    # 4. Register blueprints
-    #
-    # Each blueprint represents a logical "section" of the app.
-    # This keeps the project modular and easy to navigate.
-    #
-    # Blueprints currently included:
-    # - main:     The PWA landing page (index.html)
-    # - auth:     Login/logout routes (future expansion)
-    # - pwa:      PWA-specific routes (offline page, install helpers)
-    # - security: Health checks and future security utilities
-    #
-    # Students can add new blueprints (e.g., "api") without touching
-    # the rest of the application.
+    # 5. Register blueprints
     # ---------------------------------------------------------
     from .main import bp as main_bp
     from .auth import bp as auth_bp
@@ -94,14 +74,6 @@ def create_app():
     app.register_blueprint(security_bp)
 
     # ---------------------------------------------------------
-    # 5. Return the configured app
-    #
-    # Flask will now use:
-    # - templates from src/app/templates/
-    # - static files from src/app/static/
-    # - routes from each blueprint
-    #
-    # This structure mirrors real-world Flask applications and
-    # supports a secure, scalable PWA architecture.
+    # 6. Return the configured app
     # ---------------------------------------------------------
     return app
