@@ -1,12 +1,17 @@
 {
-  "name": "Baseline Test Container",
-  "image": "mcr.microsoft.com/devcontainers/python:3.12-bullseye",
-  "overrideCommand": false,
+  "name": "Lightweight Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-python.python"
-      ]
+      "extensions": []
     }
-  }
+  },
+
+  "updateContentCommand": "",
+  "postCreateCommand": "",
+  "postStartCommand": "",
+  "postAttachCommand": "",
+
+  "features": {}
 }
