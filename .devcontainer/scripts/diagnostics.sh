@@ -5,14 +5,13 @@ set -euo pipefail
 #  ENVIRONMENT DIAGNOSTICS (manual staff utility)
 # ------------------------------------------------------------
 # This script prints:
-#   - Python version
+#   - System Python version
 #   - uv version
 #   - venv Python version
 #   - installed packages
+#   - basic dependency health
+#   - Flask process status
 #   - port forwarding info
-#   - Flask status
-#
-# Useful for debugging student environments.
 # ============================================================
 
 echo "================ ENVIRONMENT DIAGNOSTICS ================"
@@ -45,12 +44,19 @@ else
 fi
 
 echo
+echo "[diagnostics] Dependency health (uv pip check):"
+if [ -d ".venv" ]; then
+    .venv/bin/uv pip check || echo "dependency issues detected"
+else
+    echo "no venv, skipping dependency check"
+fi
+
+echo
 echo "[diagnostics] Flask process status:"
 pgrep -fl flask || echo "Flask not running"
 
 echo
-echo "[diagnostics] Port forwarding:"
+echo "[diagnostics] Port forwarding (5000):"
 ss -tulpn | grep 5000 || echo "Port 5000 not active"
 
 echo "=========================================================="
-
