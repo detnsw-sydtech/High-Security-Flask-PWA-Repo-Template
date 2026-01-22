@@ -1,4 +1,4 @@
-# Useful tips
+# Codespace Procedures -- starting Python, uv, venv, installing dependencies
 
 ## Step 0 -- This will make your flask app run (but do this after the other steps)
 In codespace, the following command will fire up a link that you click on to see your flask app front page.
