@@ -24,20 +24,22 @@ You’ll usually see a prompt telling you the app is running and a link to open 
 
 ## Common commands you might use
 
-From the terminal in the Codespace:
+**From the terminal in the Codespace:**
 
 - **Check environment health**
 
   ```bash
   bash .devcontainer/scripts/diagnostics.sh
 ```
-
-
-## Rebuild the virtual environment (if something feels “off”)
-
+```
+- **Rebuild the virtual environment (if something feels “off”)**
 ```bash
 bash .devcontainer/scripts/rebuild-venv.sh
 ```
 
+- **Run the app again (if you stopped it)**
+```bash
+bash .devcontainer/startup.sh
+```
 
 
