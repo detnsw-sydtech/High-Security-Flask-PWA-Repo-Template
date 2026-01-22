@@ -1,0 +1,28 @@
+name: Automated Repository Cleanup
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # Daily at 3 AM UTC
+  workflow_dispatch:       # Allow manual triggering
+
+jobs:
+  cleanup-workflow-runs:
+    name: Delete old workflow runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 7            # Keep only last 7 days
+          keep_minimum_runs: 5     # Always keep at least 5 runs per workflow
+
+  cleanup-caches:
+    name: Purge old GitHub Actions caches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old caches
+        uses: MyAlbum/purge-cache@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
