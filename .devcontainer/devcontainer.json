@@ -1,5 +1,5 @@
 {
-  "name": "Lightweight Dev Container",
+  "name": "High Security Flask PWA Devcontainer",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
   "customizations": {
@@ -8,10 +8,9 @@
     }
   },
 
-  "updateContentCommand": "",
-  "postCreateCommand": "",
-  "postStartCommand": "",
-  "postAttachCommand": "",
+  "postCreateCommand": "bash .devcontainer/scripts/install-uv.sh && bash .devcontainer/preflight.sh && bash .devcontainer/scripts/rebuild-venv.sh",
+
+  "postStartCommand": "bash .devcontainer/scripts/purge-vm.sh && bash .devcontainer/scripts/diagnostics.sh && bash .devcontainer/startup.sh",
 
   "features": {}
 }
