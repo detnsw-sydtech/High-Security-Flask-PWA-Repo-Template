@@ -28,8 +28,8 @@ You’ll usually see a prompt telling you the app is running and a link to open 
 
 - **Check environment health**
 
-  ```bash
-  bash .devcontainer/scripts/diagnostics.sh
+```bash
+bash .devcontainer/scripts/diagnostics.sh
 ```
 ```
 - **Rebuild the virtual environment (if something feels “off”)**
