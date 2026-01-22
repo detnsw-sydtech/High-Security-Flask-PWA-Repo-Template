@@ -1,77 +1,57 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# =============================================================
-# If uv is not installed yet, exit gracefully so the container can finish setup
-# -------------------------------------------------------------
-if ! command -v uv >/dev/null 2>&1; then
-    echo "[startup] uv not installed yet — skipping startup tasks."
-    exit 0
-fi
-
 # ============================================================
 #  STARTUP SCRIPT (runs every time the Codespace starts)
 # ------------------------------------------------------------
 # Responsibilities:
-#   1. Ensure a virtual environment exists (.venv)
-#   2. Activate the environment safely
-#   3. Run `uv sync` to install/update dependencies
-#   4. Launch the Flask app in the background
+#   1. Ensure uv is available
+#   2. Ensure a virtual environment exists (.venv)
+#   3. Activate the environment safely
+#   4. Run `uv sync` to confirm dependencies
+#   5. Launch the Flask app in the background
 #
 # This script is intentionally idempotent:
-#   - Safe to run on first boot
 #   - Safe to run on subsequent boots
-#   - Safe even if .venv is missing or stale
+#   - Fails loudly if environment is not initialized
 # ============================================================
+
+# If uv is not installed yet, exit gracefully so the container can finish setup
+if ! command -v uv >/dev/null 2>&1; then
+    echo "[startup] uv not installed yet — skipping startup tasks."
+    echo "[startup] Run: bash .devcontainer/scripts/install-uv.sh"
+    exit 0
+fi
 
 echo "[startup] STARTUP SCRIPT RAN" > /tmp/startup.log
 
-# ============================================================
-#  SECTION 1 — Ensure virtual environment exists
-# ------------------------------------------------------------
-# We do NOT assume .venv already exists.
-# On a fresh Codespace, it will not.
-# `uv venv` is fast, safe, and reproducible.
-# ============================================================
-
-echo "[startup] Ensuring virtual environment exists..."
+# ---------------------------------------------------------
+# 1 — Ensure virtual environment exists
+# ---------------------------------------------------------
 if [ ! -d ".venv" ]; then
-    echo "[startup] Creating virtual environment with uv venv..."
-    uv venv
+    echo "[startup] ERROR: .venv missing — environment not initialized."
+    echo "[startup] Run: bash .devcontainer/scripts/rebuild-venv.sh"
+    exit 1
 fi
 
-
-# ============================================================
-#  SECTION 2 — Activate the virtual environment
-# ------------------------------------------------------------
-# This always succeeds because Section 1 guarantees .venv exists.
-# ============================================================
-
+# ---------------------------------------------------------
+# 2 — Activate the virtual environment
+# ---------------------------------------------------------
 echo "[startup] Activating virtual environment..."
+# shellcheck disable=SC1091
 source .venv/bin/activate
 
-
-# ============================================================
-#  SECTION 3 — Sync dependencies using uv
-# ------------------------------------------------------------
-# `uv sync` ensures:
-#   - dependencies match uv.lock
-#   - environment is fully reproducible
-#   - no drift between Codespace boots
-# ============================================================
-
+# ---------------------------------------------------------
+# 3 — Sync dependencies using uv
+# ---------------------------------------------------------
 echo "[startup] Running uv sync..."
 uv sync
 
-
-# ============================================================
-#  SECTION 4 — Launch Flask in the background
-# ------------------------------------------------------------
-# nohup ensures Flask keeps running after the script exits.
-# Output is logged to /tmp/flask.log for debugging.
-# ============================================================
-
+# ---------------------------------------------------------
+# 4 — Launch Flask in the background
+# ---------------------------------------------------------
 echo "[startup] Launching Flask in the background..."
 nohup flask run --host 0.0.0.0 --port 5000 >/tmp/flask.log 2>&1 &
 
 echo "[startup] Flask started successfully."
+echo "[startup] Open in browser on port 5000."
