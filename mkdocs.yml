@@ -57,4 +57,4 @@ nav:
       - ERD Exercise: architecture/erd-drawing-exercise.md
 
   - Maintenance:
-      - ERD Exercise: architecture/erd-drawing-exercise.md
+      - Codespace Terminal: maintenance/codespace-terminal.md
