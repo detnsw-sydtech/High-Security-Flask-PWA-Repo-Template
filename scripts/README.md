@@ -1,4 +1,6 @@
-# #Useful tips
+# Useful tips
+
+## Step 0 -- This will make your flask app run (but do this after the other steps)
 In codespace, the following command will fire up a link that you click on to see your flask app front page.
 
 ```bash
@@ -35,11 +37,51 @@ Confirm:
 ```bash
 uv --version
 ```
+If that prints a version, uv is ready.
+
 
 
 ## 🧭 Step 3 — Create your virtual environment
 Your script is correct: it expects ```.venv``` to exist.
+Create it:
+```bash
+uv venv
+```
+Then activate it:
+```bash
+source .venv/bin/activate
+```
+Confirm:
+```bash
+python --version
+which python
+```
+You should see ```.venv/bin/python```.
 
 
+
+## 🧭 Step 4 — Sync dependencies
+Now install everything from your ```pyproject.toml```:
+```bash
+uv sync
+```
+This installs Flask, SQLAlchemy, your extensions, everything.
+
+
+
+## 🧭 Step 5 — Run your dev-start script again
+```bash
+./scripts/dev-start.sh
+```
+
+## Remember
+A fresh Codespace:
+
+- does not include Python
+- does not include uv
+- does not include your .venv
+- does not preserve executable bits on scripts
+
+Your workflow is correct — the environment just needed to be rebuilt.
 
 
