@@ -55,3 +55,6 @@ nav:
       - How to Read ERDs: architecture/how-to-read-mermaid-erds.md
       - ERD vs Models: architecture/erd-vs-models-side-by-side.md
       - ERD Exercise: architecture/erd-drawing-exercise.md
+
+  - Maintenance:
+      - ERD Exercise: architecture/erd-drawing-exercise.md
