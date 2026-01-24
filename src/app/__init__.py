@@ -9,7 +9,7 @@ Students should understand this file before modifying any part of the project.
 """
 
 from flask import Flask
-from .extensions import db   # centralised SQLAlchemy instance
+from .extensions import db, apply_security_headers   # centralised SQLAlchemy + security middleware
 
 from dotenv import load_dotenv
 import os
@@ -49,9 +49,13 @@ def create_app():
     #
     # Instead, load only the keys your app actually needs.
     # ---------------------------------------------------------
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "cde259759ba72e5840e22c132b6a155e55f0f0d9ae776671194c3ad9c91a7975")
+    app.config["SECRET_KEY"] = os.getenv(
+        "SECRET_KEY",
+        "cde259759ba72e5840e22c132b6a155e55f0f0d9ae776671194c3ad9c91a7975"
+    )
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-        "SQLALCHEMY_DATABASE_URI", "sqlite:///dev.db"
+        "SQLALCHEMY_DATABASE_URI",
+        "sqlite:///dev.db"
     )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -74,6 +78,22 @@ def create_app():
     app.register_blueprint(security_bp)
 
     # ---------------------------------------------------------
-    # 6. Return the configured app
+    # 6. Apply global security headers
+    #
+    # This middleware hardens every response by adding:
+    #   - X-Frame-Options (prevents clickjacking)
+    #   - X-Content-Type-Options (prevents MIME sniffing)
+    #   - Referrer-Policy (limits information leakage)
+    #   - Permissions-Policy (restricts powerful browser APIs)
+    #
+    # This directly addresses Nikto findings and models secure
+    # defaults for students building production-ready Flask apps.
+    # ---------------------------------------------------------
+    @app.after_request
+    def add_security_headers(response):
+        return apply_security_headers(response)
+
+    # ---------------------------------------------------------
+    # 7. Return the configured app
     # ---------------------------------------------------------
     return app
