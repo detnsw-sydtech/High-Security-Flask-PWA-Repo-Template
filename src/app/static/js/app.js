@@ -19,15 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
       { title: 'Clean Code', author: 'Robert C. Martin' },
       { title: 'Designing Data-Intensive Applications', author: 'Martin Kleppmann' },
     ];
-    featuredGrid.innerHTML = sampleItems
-      .map(
-        (item) => `
-          <article class="card">
-            <h3 class="card-title">${item.title}</h3>
-            <p class="card-meta">by ${item.author}</p>
-          </article>
-        `
-      )
-      .join('');
+
+    // Clear any existing content safely
+    featuredGrid.textContent = '';
+
+    // Gold-standard secure DOM construction
+    sampleItems.forEach((item) => {
+      const article = document.createElement('article');
+      article.className = 'card';
+
+      const title = document.createElement('h3');
+      title.className = 'card-title';
+      title.textContent = item.title; // SAFE: escapes HTML
+
+      const meta = document.createElement('p');
+      meta.className = 'card-meta';
+      meta.textContent = `by ${item.author}`; // SAFE: escapes HTML
+
+      article.appendChild(title);
+      article.appendChild(meta);
+      featuredGrid.appendChild(article);
+    });
   }
 });
