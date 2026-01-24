@@ -9,10 +9,33 @@ import sys
 import importlib
 from pathlib import Path
 
+# ---------------------------------------------------------------------
+# Allowed modules for dynamic import (prevents arbitrary code execution)
+# ---------------------------------------------------------------------
+ALLOWED_MODULES = {
+    "flask",
+    "sqlalchemy",
+    "faker",
+    "flask_sqlalchemy",
+    "src.app",
+    "src.app.main",
+    "src.app.extensions",
+    "src.app.models",
+}
+
+def safe_import(module: str):
+    """Import a module only if it is explicitly allowed."""
+    if module not in ALLOWED_MODULES:
+        raise ValueError(f"Module '{module}' is not allowed for import")
+    return importlib.import_module(module)
+
+# ---------------------------------------------------------------------
+
 def check_python():
     print("🔍 Checking Python version…")
     print(f"   Python: {sys.version}")
-    assert sys.version_info >= (3, 13), "Python 3.13+ required"
+    # Adjusted to match repo standard: Python 3.12+
+    assert sys.version_info >= (3, 12), "Python 3.12+ required"
     print("   ✔ OK\n")
 
 def check_uv():
@@ -32,7 +55,7 @@ def check_imports():
     print("🔍 Checking required imports…")
     for module in ["flask", "sqlalchemy", "faker", "flask_sqlalchemy"]:
         try:
-            importlib.import_module(module)
+            safe_import(module)
             print(f"   ✔ {module} imported")
         except ImportError:
             raise AssertionError(f"Missing dependency: {module}")
