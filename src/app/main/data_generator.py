@@ -31,8 +31,13 @@ def generate_record():
         "author": fake.name(),
         "year": int(fake.year()),
         "isbn": fake.isbn13(),
-        "category": random.choice(CATEGORIES),
-        "type": random.choice(ITEM_TYPES),
+
+        # Using non‑cryptographic randomness is safe here because this generator
+        # only produces demo/sample catalogue data. These values are not used for
+        # authentication, secrets, tokens, or any security‑sensitive purpose.
+        "category": random.choice(CATEGORIES),  # nosec
+        "type": random.choice(ITEM_TYPES),      # nosec
+
         "summary": fake.text(max_nb_chars=200),
     }
 
@@ -53,4 +58,3 @@ def generate_dataset():
 
 if __name__ == "__main__":
     generate_dataset()
-
