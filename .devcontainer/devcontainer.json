@@ -1,0 +1,38 @@
+{
+  "name": "High Security Flask PWA Devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [],
+      "settings": {
+        "markdown.preview.open": true,
+        "markdown.preview.openMarkdownLinks": "inPreview",
+        "workbench.startupEditor": "readme"
+      }
+    },
+    "codespaces": {
+      "openFiles": [
+        "README.md",
+        "src/app/templates/index.html"
+      ]
+    }
+  },
+
+  "forwardPorts": [5000],
+
+  "portsAttributes": {
+    "5000": {
+      "label": "Flask Application",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/scripts/install-uv.sh && bash .devcontainer/preflight.sh && UV_NO_DEV=1 bash .devcontainer/scripts/rebuild-venv.sh",
+
+  "postAttachCommand": "sleep 5 && uv run flask --debug run",
+
+  "postStartCommand": "bash .devcontainer/scripts/purge-vm.sh && bash .devcontainer/scripts/diagnostics.sh && bash .devcontainer/startup.sh",
+
+  "features": {}
+}
