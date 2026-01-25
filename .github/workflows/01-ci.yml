@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-      uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
@@ -59,7 +59,7 @@ jobs:
           version: "0.4.20"
 
       - name: Install Python 3.12 via uv
-        run: uv python install 3.12
+        run: uv python install 3.12 && uv python pin 3.12
 
       - name: Cache uv package store
         uses: actions/cache@v4
@@ -76,7 +76,7 @@ jobs:
         run: bash scripts/reset_caches.sh
 
       - name: Install dependencies (app + dev)
-        run: uv sync --frozen --directory .venv
+        run: uv sync --frozen
 
       - name: Ruff autofix
         run: uv run ruff check . --fix
@@ -117,7 +117,7 @@ jobs:
           version: "0.4.20"
 
       - name: Install Python 3.12
-        run: uv python install 3.12
+        run: uv python install 3.12 && uv python pin 3.12
 
       - name: Cache uv package store
         uses: actions/cache@v4
@@ -131,7 +131,7 @@ jobs:
         run: uv venv
 
       - name: Install dev dependencies
-        run: uv sync --frozen --directory .venv
+        run: uv sync --frozen
 
       - name: Bandit (Python SAST)
         run: uv run bandit -r src -ll -c bandit.yaml
@@ -139,7 +139,7 @@ jobs:
       - name: Semgrep (security rules)
         uses: returntocorp/semgrep-action@v1
         with:
-          config: r/python.security.audit
+          config: auto
 
 
   # ---------------------------------------------------------
@@ -160,10 +160,27 @@ jobs:
           version: "0.4.20"
 
       - name: Install Python 3.12
-        run: uv python install 3.12
+        run: uv python install 3.12 && uv python pin 3.12
 
       - name: Cache uv package store
         uses: actions/cache@v4
         with:
           path: ~/.cache/uv
-          key: uv-${{ runner
+          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Create virtual environment
+        run: uv venv
+
+      - name: Install dev dependencies
+        run: uv sync --frozen
+
+      - name: pip-audit (vulnerability scan)
+        run: uv run pip-audit --strict --desc --format markdown --output pip-audit-report.md
+
+      - name: Upload SBOM + audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-audit-report
+          path: pip-audit-report.md
