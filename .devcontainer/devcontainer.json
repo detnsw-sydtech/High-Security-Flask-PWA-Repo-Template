@@ -19,7 +19,7 @@
   "portsAttributes": {
     "5000": {
       "label": "Flask Application",
-      "onAutoForward": "openPreview"
+      "onAutoForward": "notify"
     }
   },
 
