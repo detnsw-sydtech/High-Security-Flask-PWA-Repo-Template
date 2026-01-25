@@ -5,11 +5,16 @@
   "customizations": {
     "vscode": {
       "extensions": [],
-      "settings": {}
+      "settings": {
+        "markdown.preview.open": true,
+        "markdown.preview.openMarkdownLinks": "inPreview",
+        "workbench.startupEditor": "readme"
+      }
     },
     "codespaces": {
       "openFiles": [
-        "README.md"
+        "README.md",
+        "src/app/templates/index.html"
       ]
     }
   },
@@ -25,7 +30,7 @@
 
   "postCreateCommand": "bash .devcontainer/scripts/install-uv.sh && bash .devcontainer/preflight.sh && bash .devcontainer/scripts/rebuild-venv.sh",
 
-  "postAttachCommand": "sleep 15 && uv run flask --debug run",
+  "postAttachCommand": "sleep 10 && uv run flask --debug run",
 
   "postStartCommand": "bash .devcontainer/scripts/purge-vm.sh && bash .devcontainer/scripts/diagnostics.sh && bash .devcontainer/startup.sh",
 
