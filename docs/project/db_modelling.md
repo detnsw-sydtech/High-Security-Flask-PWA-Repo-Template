@@ -9,6 +9,22 @@ The goal is to give you a **repeatable, industry‑aligned workflow** that you c
 
 
 ## 1. 🧱 Where Models Live
+All database models live in:
+```code
+src/app/db/models.py
+```
+This file already contains example models:
+- ```ItemType```
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
 
 
 
@@ -51,7 +67,7 @@ The goal is to give you a **repeatable, industry‑aligned workflow** that you c
 
 
 ## 11. 🗂 Recommended Folder Structure
-
+Suggested Directory Tree
 ```tree
 src/
   app/
@@ -72,6 +88,18 @@ src/
       search.py
 ```
 
+## 🎯 Summary Workflow (Student‑Friendly)
+
+1. Define models in src/app/db/models.py
+2. Register models in the app factory
+3. Generate migrations
+4. Apply migrations
+5. Build RBAC‑protected CRUD routes
+6. Implement CSV import/export
+7. Build catalogue UI
+8. Add JSON API endpoints
+9. Write automated tests
+10. Document your work
 
 
-
+This is the reference architecture you’ll use for all future database‑driven projects.
