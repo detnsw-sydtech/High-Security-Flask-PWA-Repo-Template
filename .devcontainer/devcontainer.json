@@ -1,6 +1,6 @@
 {
   "name": "High Security Flask PWA Devcontainer",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
 
   "customizations": {
     "vscode": {
