@@ -23,8 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Verify Tailwind folder exists
         run: |
@@ -42,32 +41,22 @@ jobs:
 
 
   # ---------------------------------------------------------
-  # 2. Quality Gate (Ruff + pytest + mypy)
+  # Composite Action: Python Setup
   # ---------------------------------------------------------
-  quality:
-    name: Quality (Ruff + pytest + mypy)
+  python-setup:
+    name: Python Setup
     runs-on: ubuntu-latest
-    needs: check-tailwind-folders
+    outputs:
+      ready: "true"
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install uv
+      - name: Install uv + Python 3.12
         uses: astral-sh/setup-uv@v7
         with:
           version: "0.4.20"
-
-      - name: Install Python 3.12 via uv
-        run: uv python install 3.12 && uv python pin 3.12
-
-      - name: Cache uv package store
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/uv
-          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
-          restore-keys: |
-            uv-${{ runner.os }}-
+          python-version: "3.12"
 
       - name: Create virtual environment
         run: uv venv
@@ -75,11 +64,44 @@ jobs:
       - name: Install dependencies (app + dev)
         run: uv sync --frozen
 
+
+  # ---------------------------------------------------------
+  # 2. Quality Gate (Ruff + pytest + mypy)
+  # ---------------------------------------------------------
+  quality:
+    name: Quality (Ruff + pytest + mypy)
+    runs-on: ubuntu-latest
+    needs: [check-tailwind-folders, python-setup]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv + Python 3.12
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.4.20"
+          python-version: "3.12"
+
+      - name: Create virtual environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
       - name: Reset caches (GitHub-side canonical state)
         run: bash scripts/reset_caches.sh
 
       - name: Ruff autofix
-        run: uv run ruff check . --fix
+        run: |
+          if [ ! -f "pyproject.toml" ]; then
+            echo "No pyproject.toml found, skipping Ruff autofix"
+            exit 0
+          fi
+          if [ ! -d ".venv" ]; then
+            echo "No .venv found, skipping Ruff autofix"
+            exit 0
+          fi
+          uv run ruff check . --fix
 
       - name: Commit Ruff fixes
         if: ${{ github.event_name == 'pull_request' }}
@@ -108,24 +130,13 @@ jobs:
     needs: quality
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install uv
+      - name: Install uv + Python 3.12
         uses: astral-sh/setup-uv@v7
         with:
           version: "0.4.20"
-
-      - name: Install Python 3.12
-        run: uv python install 3.12 && uv python pin 3.12
-
-      - name: Cache uv package store
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/uv
-          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
-          restore-keys: |
-            uv-${{ runner.os }}-
+          python-version: "3.12"
 
       - name: Create virtual environment
         run: uv venv
@@ -151,24 +162,13 @@ jobs:
     needs: quality
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install uv
+      - name: Install uv + Python 3.12
         uses: astral-sh/setup-uv@v7
         with:
           version: "0.4.20"
-
-      - name: Install Python 3.12
-        run: uv python install 3.12 && uv python pin 3.12
-
-      - name: Cache uv package store
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/uv
-          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
-          restore-keys: |
-            uv-${{ runner.os }}-
+          python-version: "3.12"
 
       - name: Create virtual environment
         run: uv venv
