@@ -25,7 +25,7 @@
 
   "postCreateCommand": "bash .devcontainer/scripts/install-uv.sh && bash .devcontainer/preflight.sh && bash .devcontainer/scripts/rebuild-venv.sh",
 
-  "postAttachCommand": "uv run flask --debug run",
+  "postAttachCommand": "sleep 2 && uv run flask --debug run",
 
   "postStartCommand": "bash .devcontainer/scripts/purge-vm.sh && bash .devcontainer/scripts/diagnostics.sh && bash .devcontainer/startup.sh",
 
