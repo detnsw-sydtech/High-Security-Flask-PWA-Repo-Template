@@ -72,11 +72,11 @@ jobs:
       - name: Create virtual environment
         run: uv venv
 
-      - name: Reset caches (GitHub-side canonical state)
-        run: bash scripts/reset_caches.sh
-
       - name: Install dependencies (app + dev)
         run: uv sync --frozen
+
+      - name: Reset caches (GitHub-side canonical state)
+        run: bash scripts/reset_caches.sh
 
       - name: Ruff autofix
         run: uv run ruff check . --fix
