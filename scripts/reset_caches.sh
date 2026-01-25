@@ -22,6 +22,15 @@ rm -rf static/generated/* || true
 echo "Cleaning ignored files via git..."
 git clean -fdX || true
 
+# -------------------------------------------------------------------
+# Safety check: only reinstall dependencies if a venv actually exists
+# -------------------------------------------------------------------
+if [ ! -d ".venv" ]; then
+  echo "No .venv directory found. Skipping dependency reinstall."
+  echo "Reset complete."
+  exit 0
+fi
+
 echo "Reinstalling dependencies from lockfile..."
 uv sync --frozen --directory .venv
 
