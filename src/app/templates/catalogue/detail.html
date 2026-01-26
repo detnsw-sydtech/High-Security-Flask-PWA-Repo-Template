@@ -1,1 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title }} — Catalogue{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="/">Home</a> › <a href="/catalogue/full">Catalogue</a> › {{ item.title }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ item.title }}</h1>
+
+<p><strong>Description:</strong> {{ item.description }}</p>
+<p><strong>Year:</strong> {{ item.year }}</p>
+<p><strong>Type:</strong> {{ item.item_type.name if item.item_type else "Unknown" }}</p>
+
+<p><strong>Creators:</strong>
+    {% for c in item.creators %}
+        {{ c.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</p>
+
+<p><strong>Categories:</strong>
+    {% for c in item.categories %}
+        {{ c.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</p>
+
+<a href="/catalogue/full">Back to Catalogue</a>
+{% endblock %}
 
