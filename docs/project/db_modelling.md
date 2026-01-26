@@ -62,7 +62,9 @@ src/app/extensions.py
 ```
 
 **NOTES:**
+
 **SQL** is an abbreviation for Structured Query Language and it is the common language used to interact with databases.
+
 **ORM** is an abbreviation for Object-Relational Mapper and it is the tool that enables the database designer to create the design of the tables, fields and relationships in the database.
 
 
