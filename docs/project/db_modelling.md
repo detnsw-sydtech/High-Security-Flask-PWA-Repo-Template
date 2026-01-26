@@ -155,6 +155,16 @@ You can also think back to importing of CSV files into databases and spreadsheet
 
 ## 7. 📤 CSV Export (Admin + Librarian)
 
+Exporting data is the reverse of import:
+- query all items
+- write rows to CSV in memory
+- return as a downloadable file
+
+You will learn from this:
+- model serialization
+- streaming files
+- building admin tools
+
 
 ## 8. 🖥 Building the Catalogue UI
 
