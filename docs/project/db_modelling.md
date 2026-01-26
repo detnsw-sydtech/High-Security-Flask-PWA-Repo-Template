@@ -83,13 +83,11 @@ This ensures migrations pick up all models automatically.
 We use **Flask‑Migrate (Alembic)** to track schema changes. 
 
 
-Flask-Migrate is located at:
+Flask-Migrate is located at the link below (opens in the same tab as this one):
 
 https://pypi.org/project/Flask-Migrate/
 
-
-
-Flask-Migrate is located at: <a href="[https://example.com](https://pypi.org/project/Flask-Migrate/)" target="_blank">here</a>
+[Flask-Migrate](https://pypi.org/project/Flask-Migrate/)
 
 
 ## 5. 🔐 RBAC‑Protected CRUD Operations
