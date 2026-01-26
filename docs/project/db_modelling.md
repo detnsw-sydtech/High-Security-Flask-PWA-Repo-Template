@@ -54,6 +54,16 @@ This gives you a strong foundation for building your own relational schemas.
 
 ## 3. 🏗 Registering Models With the Application
 
+**SQLAlchemy**  is a widely-used Python **SQL** toolkit and **ORM** that provides a full suite of enterprise-level persistence patterns, designed for efficient and high-performing database access.
+
+The SQLAlchemy instance is created in:
+```bash
+src/app/extensions.py
+```
+
+**NOTES:**
+**SQL** is an abbreviation for Structured Query Language and it is the common language used to interact with databases.
+**ORM** is an abbreviation for Object-Relational Mapper and it is the tool that enables the database designer to create the design of the tables, fields and relationships in the database.
 
 
 ## 4. 🔧 Creating and Running Database Migrations
