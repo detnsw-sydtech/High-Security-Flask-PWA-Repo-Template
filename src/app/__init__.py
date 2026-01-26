@@ -10,6 +10,7 @@ Students should understand this file before modifying any part of the project.
 
 from flask import Flask
 from .extensions import db, apply_security_headers   # centralised SQLAlchemy + security middleware
+from flask_migrate import Migrate
 
 from dotenv import load_dotenv
 import os
@@ -24,14 +25,6 @@ def create_app():
 
     # ---------------------------------------------------------
     # 1. Load .env BEFORE creating the app
-    #
-    # This ensures environment variables are available before
-    # Flask reads them into its configuration.
-    #
-    # Priority order becomes:
-    #   1. GitHub/Codespaces secrets (real production key)
-    #   2. System environment variables
-    #   3. .env fallback (local development)
     # ---------------------------------------------------------
     load_dotenv()
 
@@ -42,12 +35,6 @@ def create_app():
 
     # ---------------------------------------------------------
     # 3. Apply configuration explicitly
-    #
-    # Avoid app.config.from_mapping(os.environ) because it dumps
-    # *every* OS environment variable into Flask config, which can
-    # cause naming collisions and unexpected behaviour.
-    #
-    # Instead, load only the keys your app actually needs.
     # ---------------------------------------------------------
     app.config["SECRET_KEY"] = os.getenv(
         "SECRET_KEY",
@@ -63,6 +50,7 @@ def create_app():
     # 4. Initialise extensions
     # ---------------------------------------------------------
     db.init_app(app)
+    Migrate(app, db)   # <-- REQUIRED for flask db upgrade/migrate
 
     # ---------------------------------------------------------
     # 5. Register blueprints
@@ -71,25 +59,16 @@ def create_app():
     from .auth import bp as auth_bp
     from .pwa import bp as pwa_bp
     from .security import bp as security_bp
-    from .catalogue import bp as catalogue_bp
+    from .catalogue import bp as catalogue_bp   # <-- NEW
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(pwa_bp)
     app.register_blueprint(security_bp)
-    app.register_blueprint(catalogue_bp)
+    app.register_blueprint(catalogue_bp)        # <-- NEW
 
     # ---------------------------------------------------------
     # 6. Apply global security headers
-    #
-    # This middleware hardens every response by adding:
-    #   - X-Frame-Options (prevents clickjacking)
-    #   - X-Content-Type-Options (prevents MIME sniffing)
-    #   - Referrer-Policy (limits information leakage)
-    #   - Permissions-Policy (restricts powerful browser APIs)
-    #
-    # This directly addresses Nikto findings and models secure
-    # defaults for students building production-ready Flask apps.
     # ---------------------------------------------------------
     @app.after_request
     def add_security_headers(response):
