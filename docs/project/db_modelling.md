@@ -132,7 +132,26 @@ This will teach you how to:
 
 ## 6. 📥 CSV Import (Admin‑Only)
 
+CSV import is a powerful teaching tool.
 
+Typical workflow:
+
+1. Admin uploads a CSV file
+2. Backend validates the file
+3. Parse rows using Python’s csv module
+4. Convert rows into model instances
+5. Commit to the database
+6. Return a summary (added, skipped, errors)
+
+This teaches you how to do:
+
+- file upload handling
+- data validation
+- bulk inserts
+- idempotency (avoid duplicates)
+
+Sample CSV templates are widely available for viewing on the web. 
+You can also think back to importing of CSV files into databases and spreadsheets during the Stage 5 Computing Technology course.
 
 ## 7. 📤 CSV Export (Admin + Librarian)
 
