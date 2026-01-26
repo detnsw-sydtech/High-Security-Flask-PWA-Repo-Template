@@ -15,23 +15,30 @@ src/app/db/models.py
 ```
 This file already contains example models:
 - ```ItemType```
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
+- ```Creator```
+- ```Category```
+- ```Item```
+- ```item_creators``` (association table, allows for 1 to many relationship to be established)
+- ```item_categories``` (association table, allows for 1 to many relationship to be established)
 
-
-
+You can add your own additional models here as their project grows.
 
 ## 2. 🧱 Understanding the Existing Model Structure
+The template already demonstrates:
+### ✔ One‑to‑many
+``ItemType → Item```
 
+### ✔ One‑to‑many
+```Item ↔ Creator```
+```Item ↔ Category```
 
+### ✔ Association tables
+```item_creators```
+```item_categories```
+
+### ✔ Common fields
+```id```, ```title```, ```description```, ```year```, ```created_at```
+This gives you a strong foundation for building your own relational schemas.
 
 ## 3. 🏗 Registering Models With the Application
 
