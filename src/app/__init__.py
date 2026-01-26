@@ -71,11 +71,13 @@ def create_app():
     from .auth import bp as auth_bp
     from .pwa import bp as pwa_bp
     from .security import bp as security_bp
+    from .catalogue import bp as catalogue_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(pwa_bp)
     app.register_blueprint(security_bp)
+    app.register_blueprint(catalogue_bp)
 
     # ---------------------------------------------------------
     # 6. Apply global security headers
