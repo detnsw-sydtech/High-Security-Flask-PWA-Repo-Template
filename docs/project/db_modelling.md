@@ -222,7 +222,15 @@ The blue **“Debug JSON”** button at the top of the flask home page can call 
 
 ## 10. 🧪 Automated Testing
 
+You should write tests for:
 
+- models
+- migrations
+- RBAC permissions
+- CSV import/export
+- API endpoints
+
+This reinforces correctness and reproducibility.
 
 
 ## 11. 🗂 Recommended Folder Structure
@@ -246,6 +254,9 @@ src/
       csv_exporter.py
       search.py
 ```
+
+This structure keeps logic clean and teachable.
+
 
 ## 🎯 Summary Workflow (Student‑Friendly)
 
