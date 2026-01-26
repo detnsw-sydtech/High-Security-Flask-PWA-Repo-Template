@@ -9,7 +9,7 @@ Includes:
 - CSV import/export endpoints (placeholders for future work)
 """
 
-from flask import Blueprint, render_template, jsonify, request, redirect, url_for
+from flask import Blueprint, render_template, jsonify, request
 from sqlalchemy import or_
 from ..db.models import Item, Category, Creator, ItemType
 
@@ -20,7 +20,7 @@ bp = Blueprint("catalogue", __name__, url_prefix="/catalogue")
 # Full catalogue page (non-HTMX)
 # ------------------------------------------------------------
 
-@bp.get("/full")
+@bp.get("/full", endpoint="catalogue_full")
 def catalogue_full():
     """
     Render the full catalogue page.
@@ -35,7 +35,7 @@ def catalogue_full():
 # HTMX Catalogue Partial
 # ------------------------------------------------------------
 
-@bp.get("/")
+@bp.get("/", endpoint="catalogue_partial")
 def catalogue_partial():
     """
     Return an HTML partial containing:
@@ -70,7 +70,6 @@ def catalogue_partial():
             or_(
                 Item.title.ilike(like),
                 Item.description.ilike(like),
-                # Item.identifier will be added in the migration template
             )
         )
 
@@ -125,7 +124,7 @@ def catalogue_partial():
 # Item Detail Page (placeholder)
 # ------------------------------------------------------------
 
-@bp.get("/<int:item_id>")
+@bp.get("/<int:item_id>", endpoint="catalogue_detail")
 def catalogue_detail(item_id):
     """
     Display a single item's details.
@@ -139,7 +138,7 @@ def catalogue_detail(item_id):
 # Debug JSON endpoint
 # ------------------------------------------------------------
 
-@bp.get("/debug")
+@bp.get("/debug", endpoint="catalogue_debug")
 def catalogue_debug():
     """
     Temporary debug endpoint.
@@ -164,7 +163,7 @@ def catalogue_debug():
 # CSV Import (placeholder)
 # ------------------------------------------------------------
 
-@bp.post("/import")
+@bp.post("/import", endpoint="catalogue_import")
 def catalogue_import():
     """
     CSV import endpoint (Admin-only).
@@ -177,11 +176,10 @@ def catalogue_import():
 # CSV Export (placeholder)
 # ------------------------------------------------------------
 
-@bp.get("/export")
+@bp.get("/export", endpoint="catalogue_export")
 def catalogue_export():
     """
     CSV export endpoint (Admin + Librarian).
     Implementation will be added once csv_exporter.py is created.
     """
     return jsonify({"status": "not implemented"}), 501
-
