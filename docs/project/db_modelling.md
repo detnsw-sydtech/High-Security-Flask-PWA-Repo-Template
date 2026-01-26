@@ -40,6 +40,7 @@ The template already demonstrates:
 
 ### ✔ Common fields
 ```id```, ```title```, ```description```, ```year```, ```created_at```
+
 This gives you a strong foundation for building your own relational schemas.
 
 ## 3. 🏗 Registering Models With the Application
