@@ -61,6 +61,16 @@ The SQLAlchemy instance is created in:
 src/app/extensions.py
 ```
 
+The app factory imports models so Flask‑Migrate can detect them.
+
+You must ensure:
+
+- new models are defined in ```src/app/db/models.py```
+
+- the file is imported in the app factory (already handled in the template)
+
+This ensures migrations pick up all models automatically.
+
 **NOTES:**
 
 **SQL** is an abbreviation for Structured Query Language and it is the common language used to interact with databases.
@@ -70,6 +80,14 @@ src/app/extensions.py
 
 ## 4. 🔧 Creating and Running Database Migrations
 
+We use **Flask‑Migrate (Alembic)** to track schema changes. 
+
+
+Flask-Migrate is located at:
+
+```html
+<a href="https://pypi.org/project/Flask-Migrate/" target="_blank">Flask-Migrate</a>
+```
 
 ## 5. 🔐 RBAC‑Protected CRUD Operations
 
