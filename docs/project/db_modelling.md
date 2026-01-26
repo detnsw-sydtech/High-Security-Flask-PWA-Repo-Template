@@ -26,14 +26,16 @@ You can add your own additional models here as their project grows.
 ## 2. 🧱 Understanding the Existing Model Structure
 The template already demonstrates:
 ### ✔ One‑to‑many
-``ItemType → Item```
+```ItemType → Item```
 
 ### ✔ One‑to‑many
 ```Item ↔ Creator```
+
 ```Item ↔ Category```
 
 ### ✔ Association tables
 ```item_creators```
+
 ```item_categories```
 
 ### ✔ Common fields
