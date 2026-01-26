@@ -28,6 +28,7 @@ dependencies = [
   "sqlalchemy>=2.0",              # Core ORM and query engine
   "flask-sqlalchemy>=3.0",        # Flask integration for SQLAlchemy
   "alembic>=1.13",                # Database migrations
+  "flask-migrate>=4.1",           # Database migrations
 
   # --- PWA essentials ---
   "flask-compress==1.14",         # Gzip/Brotli compression
