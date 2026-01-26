@@ -1,3 +1,4 @@
+```tree
 [drwxr-xr-x 4.0K]  src
 └── [drwxr-xr-x 4.0K]  app
     ├── [-rw-r--r-- 3.5K]  __init__.py
@@ -42,5 +43,5 @@
         ├── [-rw-r--r--  626]  index.html
         └── [drwxr-xr-x 4.0K]  partials
             └── [-rw-r--r-- 1.8K]  item_list.html
-
+```
 14 directories, 30 files
