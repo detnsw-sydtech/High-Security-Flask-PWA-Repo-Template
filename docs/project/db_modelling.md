@@ -92,6 +92,10 @@ Flask-Migrate is located at:
 [Flask-Migrate](https://pypi.org/project/Flask-Migrate)
 
 
+<a href="[https://github.com](https://pypi.org/project/Flask-Migrate)" target="_blank" rel="noopener noreferrer">Flask-Migrate</a>
+
+<a href="[Flask-Migrate](https://pypi.org/project/Flask-Migrate)" target="_blank" rel="noopener noreferrer"></a>
+
 ## 5. 🔐 RBAC‑Protected CRUD Operations
 
 
