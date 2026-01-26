@@ -168,7 +168,17 @@ You will learn from this:
 
 ## 8. 🖥 Building the Catalogue UI
 
+Start simple:
+- list all items
+- filter by category
+- search by title/author
+- view item details
 
+This teaches:
+- Jinja templates
+- pagination
+- search forms
+- linking models to UI
 
 
 ## 9. 🔌 JSON API Endpoints (Optional but Powerful)
