@@ -110,7 +110,25 @@ This is the **canonical workflow** students will use every time they change a mo
 
 ## 5. 🔐 RBAC‑Protected CRUD Operations
 
+Routes for adding, editing, and deleting items should be protected using the existing RBAC decorators.
 
+Example pattern:
+
+- Admin + Librarian → add/edit items
+
+- Admin → delete items
+
+- All authenticated users → view items
+
+This will teach you how to:
+
+- protect routes
+
+- check roles
+
+- return JSON for debugging
+
+- build forms or API endpoints
 
 ## 6. 📥 CSV Import (Admin‑Only)
 
