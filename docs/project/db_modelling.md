@@ -184,9 +184,40 @@ This teaches:
 ## 9. 🔌 JSON API Endpoints (Optional but Powerful)
 
 JSON is an abbreviation for **JavaScript Object Notation**.
-JSON is a lightweight, text-based, language-independent data-interchange format designed to be easy for humans to read/write and for machines to parse/generate. 
+
+JSON is a lightweight, text-based, language-independent data-interchange format designed to be easy for humans to read/write and for machines to parse/generate.
+
 It is primarily used to transmit ***structured data*** between a server and web applications using key-value pairs. 
-It is commonly used for configurations and API communication.
+
+It is commonly used for configurations and API (**Application Programming Interface**)communication.
+
+An example of the format of JSON file is:
+```json
+{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "skills": ["JavaScript", "Python"],
+  "address": {
+    "city": "New York",
+    "zip": "10001"
+  }
+}
+```
+
+Expose JSON endpoints for debugging or API use as below:
+
+- ```/api/catalog```
+- ```/api/catalog/<id>```
+- ```/api/catalog/search?q=...```
+
+This teaches:
+
+- model serialization
+- REST patterns
+- API testing
+
+The blue **“Debug JSON”** button at the top of the flask home page can call these endpoints.
 
 
 ## 10. 🧪 Automated Testing
