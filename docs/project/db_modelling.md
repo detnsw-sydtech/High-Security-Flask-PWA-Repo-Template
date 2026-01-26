@@ -183,7 +183,10 @@ This teaches:
 
 ## 9. 🔌 JSON API Endpoints (Optional but Powerful)
 
-
+JSON is an abbreviation for **JavaScript Object Notation**.
+JSON is a lightweight, text-based, language-independent data-interchange format designed to be easy for humans to read/write and for machines to parse/generate. 
+It is primarily used to transmit ***structured data*** between a server and web applications using key-value pairs. 
+It is commonly used for configurations and API communication.
 
 
 ## 10. 🧪 Automated Testing
