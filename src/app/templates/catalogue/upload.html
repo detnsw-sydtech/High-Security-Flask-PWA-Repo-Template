@@ -1,1 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Upload CSV — Catalogue{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="/">Home</a> › <a href="/catalogue/full">Catalogue</a> › Upload CSV
+{% endblock %}
+
+{% block content %}
+<h1>Upload Catalogue CSV</h1>
+
+<form action="/catalogue/import" method="post" enctype="multipart/form-data">
+    <label>Select CSV file:</label>
+    <input type="file" name="file" accept=".csv" required>
+
+    <button type="submit">Upload</button>
+</form>
+{% endblock %}
 
