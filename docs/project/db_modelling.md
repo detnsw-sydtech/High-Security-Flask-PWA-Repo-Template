@@ -85,14 +85,11 @@ We use **Flask‑Migrate (Alembic)** to track schema changes.
 
 Flask-Migrate is located at:
 
+https://pypi.org/project/Flask-Migrate/
 
 
-<a href="https://www.markdownguide.org" target="_blank">Learn Markdown!</a>
 
-[Flask-Migrate](https://pypi.org/project/Flask-Migrate)
-
-
-<a href="https://pypi.org/project/Flask-Migrate" target="_blank" rel="noopener noreferrer">Flask-Migrate</a>
+Flask-Migrate is located at: <a href="[https://example.com](https://pypi.org/project/Flask-Migrate/)" target="_blank">here</a>
 
 
 ## 5. 🔐 RBAC‑Protected CRUD Operations
