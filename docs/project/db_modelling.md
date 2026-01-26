@@ -75,6 +75,10 @@ This ensures migrations pick up all models automatically.
 
 **SQL** is an abbreviation for Structured Query Language and it is the common language used to interact with databases.
 
+The link to SQLAlchemy on PyPi is below:
+
+[SQLAlchemy](https://pypi.org/project/SQLAlchemy/)
+
 **ORM** is an abbreviation for Object-Relational Mapper and it is the tool that enables the database designer to create the design of the tables, fields and relationships in the database.
 
 
@@ -82,12 +86,26 @@ This ensures migrations pick up all models automatically.
 
 We use **Flask‑Migrate (Alembic)** to track schema changes. 
 
-
-Flask-Migrate is located at the link below (opens in the same tab as this one):
-
-https://pypi.org/project/Flask-Migrate/
+The link to Flask-Migrate on PyPi is below:
 
 [Flask-Migrate](https://pypi.org/project/Flask-Migrate/)
+
+### Initial setup (done once per project)
+```
+flask db init
+```
+
+### Generate a migration after editing models
+```
+flask db migrate -m "Describe your change"
+```
+
+### Apply the migration
+```
+flask db upgrade
+```
+
+This is the **canonical workflow** students will use every time they change a model.
 
 
 ## 5. 🔐 RBAC‑Protected CRUD Operations
