@@ -13,8 +13,7 @@
     },
     "codespaces": {
       "openFiles": [
-        "README.md",
-        "src/app/templates/index.html"
+        "README.md"
       ]
     }
   },
