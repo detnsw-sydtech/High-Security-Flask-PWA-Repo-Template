@@ -2,7 +2,7 @@
 
 # Ruff configuration for the STHS Flask PWA template.
 
-target-version = "py313"
+target-version = "py312"
 line-length = 88
 src = ["src"]
 
