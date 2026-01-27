@@ -6,7 +6,7 @@
     "vscode": {
       "extensions": [],
       "settings": {
-        "markdown.preview.open": true,
+        "markdown.preview.openMarkdownFiles": "inPreview",
         "markdown.preview.openMarkdownLinks": "inPreview",
         "workbench.startupEditor": "readme"
       }
