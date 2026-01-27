@@ -1,5 +1,8 @@
 name: 00 Pre-Commit Quality Gate
 
+permissions:
+  contents: read
+
 on:
   pull_request:
   push:
