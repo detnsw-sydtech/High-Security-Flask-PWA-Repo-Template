@@ -1,5 +1,8 @@
 name: 90 Temporary Repository Tree Generator
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
 
