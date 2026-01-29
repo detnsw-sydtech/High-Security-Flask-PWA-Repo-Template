@@ -6,6 +6,9 @@ on:
     branches-ignore:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   canonical-structure:
     name: Validate Canonical Project Structure
