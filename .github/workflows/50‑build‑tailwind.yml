@@ -1,5 +1,8 @@
 name: 50 Build Tailwind CSS (Staff Only)
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
 
