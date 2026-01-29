@@ -7,6 +7,8 @@ jobs:
   reset-student-branch:
     name: Reset student branch to canonical template
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
