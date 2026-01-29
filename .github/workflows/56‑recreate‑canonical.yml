@@ -1,4 +1,6 @@
 name: 56 Recreate Canonical Template (Dangerous)
+permissions:
+  contents: read
 
 on:
   workflow_dispatch:
