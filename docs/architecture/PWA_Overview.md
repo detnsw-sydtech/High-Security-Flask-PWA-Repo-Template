@@ -30,7 +30,7 @@ This project implements all three components in a secure and standards‑complia
 
 ## 2. Architectural Model
 
-```text
+```table
 +-----------------------------------------------------------+
 |                         Browser                           |
 +-----------------------------------------------------------+
@@ -55,5 +55,22 @@ This project implements all three components in a secure and standards‑complia
 ```
 
 
+## 3. Caching Strategies Implemented
 
+The service worker uses three complementary caching strategies. These mirror patterns used in production PWAs such as Google Workspace, GitHub Mobile, and Twitter Lite.
 
+### 3.1 Cache‑First
+
+**Use case:**
+- Static assets that rarely change (CSS, JS bundles, icons, images).
+
+**Behaviour:**
+- Return the cached version immediately.
+- If not cached, fetch from the network and store it.
+
+**Advantages:**
+- Extremely fast load times.
+- Reduces network usage.
+
+**Trade‑offs:**
+- Requires explicit versioning to avoid stale assets.
