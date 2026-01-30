@@ -103,13 +103,16 @@ Use admonitions for emphasis:
 
 ````markdown
 !!! note
+
     This endpoint requires authentication.
 
 ````
+
 will look like:
 
 ```
 !!! note
+
     This endpoint requires authentication.
 ```
 
