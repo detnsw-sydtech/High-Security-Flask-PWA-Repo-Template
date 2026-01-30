@@ -11,6 +11,12 @@ theme:
     - content.code.highlight
     - content.code.fences
     - content.code.mermaid
+    - navigation.instant
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
   palette:
     primary: blue grey
     accent: indigo
@@ -19,16 +25,32 @@ theme:
 
 markdown_extensions:
   - admonition
-  - codehilite
   - footnotes
+  - tables
+  - def_list
+  - attr_list
+  - md_in_html
+
+  # Syntax highlighting (Pygments)
+  - codehilite:
+      guess_lang: false
+      linenums: false
+
+  # Table of contents
   - toc:
       permalink: true
+
+  # Advanced fenced code blocks
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.details
 
 extra_css:
   - _static/theme.css
@@ -41,9 +63,11 @@ extra:
 plugins:
   - search
   - mermaid2
+  - autorefs
 
 nav:
   - Home: index.md
+
   - Architecture:
       - App Factory: architecture/app-factory-overview.md
       - Database Model: architecture/database-model-overview.md
@@ -58,3 +82,7 @@ nav:
 
   - Maintenance:
       - Codespace Terminal: maintenance/codespace-terminal.md
+
+  - Student Guide:
+      - Documentation Style Guide: student/style-guide.md
+      - Coding Standards: student/coding-standards.md
