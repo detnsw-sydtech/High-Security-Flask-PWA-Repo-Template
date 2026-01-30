@@ -61,22 +61,22 @@ Example:
 ### 4.1 Code Blocks
 Use fenced code blocks with language labels:
 
-````markdown
 ```python
 def example():
     return "hello"
 ```
-```
+
+
 
 ```python
 def example():
     return "hello"
 ```
 
-```
+
 
 ```markdown
-
+```
 
 ### 4.2 Diagrams
 Use Mermaid for diagrams:
@@ -88,8 +88,17 @@ flowchart TD
     B --> C[Cache]
     B --> D[Network]
 ```
+````
 
 
-```markdown
+````markdown
+```mermaid
+flowchart TD
+    A[Request] --> B[Service Worker]
+    B --> C[Cache]
+    B --> D[Network]
+```
+````
+
 ## 4.3 Admonitions
-
+```
