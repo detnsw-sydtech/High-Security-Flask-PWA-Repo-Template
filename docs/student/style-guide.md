@@ -108,9 +108,10 @@ Use admonitions for emphasis:
 ````
 will look like:
 
+```
 !!! note
     This endpoint requires authentication.
-
+```
 
 
 
