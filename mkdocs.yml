@@ -30,6 +30,9 @@ markdown_extensions:
   - def_list
   - attr_list
   - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
 
   # Syntax highlighting (Pygments)
   - codehilite:
