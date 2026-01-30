@@ -68,6 +68,10 @@ def example():
 ```
 ```
 
+```python
+def example():
+    return "hello"
+```
 
 ```
 ### 4.2 Diagrams
