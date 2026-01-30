@@ -19,10 +19,12 @@ A Progressive Web App is a web application enhanced with capabilities traditiona
 - Installability
 - Background updates
 - Local caching for performance
+- A consistent user experience across devices
 
-A consistent user experience across devices
-
-
+PWAs rely on three core components:
+1. Service Worker – a background script that intercepts network requests and manages caching.
+2. Web App Manifest – metadata describing how the app behaves when installed.
+3. HTTPS – required for security and to enable service worker functionality.
 
 
 
