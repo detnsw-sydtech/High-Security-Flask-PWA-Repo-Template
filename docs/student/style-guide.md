@@ -106,7 +106,10 @@ Use admonitions for emphasis:
     This endpoint requires authentication.
 
 ````
+will look like:
 
+!!! note
+    This endpoint requires authentication.
 
 
 
