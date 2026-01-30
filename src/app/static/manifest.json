@@ -1,3 +1,22 @@
-@bp.get("/manifest.json")
-def manifest():
-    return send_from_directory("static", "manifest.json", ...)
+{
+  "name": "Sydney Tech Library Catalogue",
+  "short_name": "STHSCat",
+  "description": "A secure, offline-capable library catalogue built by Sydney Technical High School.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#003366",
+  "theme_color": "#003366",
+  "icons": [
+    {
+      "src": "/static/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
