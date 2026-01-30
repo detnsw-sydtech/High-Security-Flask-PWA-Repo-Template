@@ -90,15 +90,13 @@ flowchart TD
 ```
 ````
 
-
-````markdown
 ```mermaid
 flowchart TD
     A[Request] --> B[Service Worker]
     B --> C[Cache]
     B --> D[Network]
 ```
-````
+
 
 ## 4.3 Admonitions
 ```
