@@ -102,16 +102,16 @@ flowchart TD
 Use admonitions for emphasis:
 
 ````markdown
-!!! note
+!!! note "Note"
 
     This endpoint requires authentication.
-
 ````
+
 
 will look like:
 
 ```
-!!! note
+!!! note "Note"
 
     This endpoint requires authentication.
 ```
