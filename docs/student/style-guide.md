@@ -65,7 +65,11 @@ Use fenced code blocks with language labels:
 ```python
 def example():
     return "hello"
+```
+```
 
+
+```
 ### 4.2 Diagrams
 Use Mermaid for diagrams:
 
