@@ -61,22 +61,20 @@ Example:
 ### 4.1 Code Blocks
 Use fenced code blocks with language labels:
 
+````markdown
+```python
+def example():
+    return "hello"
+```
+````
+
+will look like this with colour coding for your Python...
+
 ```python
 def example():
     return "hello"
 ```
 
-
-
-```python
-def example():
-    return "hello"
-```
-
-
-
-```markdown
-```
 
 ### 4.2 Diagrams
 Use Mermaid for diagrams:
@@ -90,6 +88,8 @@ flowchart TD
 ```
 ````
 
+will render into this!
+
 ```mermaid
 flowchart TD
     A[Request] --> B[Service Worker]
@@ -99,4 +99,15 @@ flowchart TD
 
 
 ## 4.3 Admonitions
-```
+Use admonitions for emphasis:
+
+````markdown
+!!! note
+    This endpoint requires authentication.
+
+````
+
+
+
+
+
