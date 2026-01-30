@@ -1,21 +1,26 @@
 // ------------------------------------------------------------
-// Versioning
+// Service Worker for Sydney Tech Library Catalogue
+// Implements: Cache-First, Network-First, Stale-While-Revalidate
+// Security: No eval(), no dynamic import, no uncontrolled caching
 // ------------------------------------------------------------
+
+// Versioned caches (bump when assets change)
 const STATIC_CACHE = "static-v1";
 const DYNAMIC_CACHE = "dynamic-v1";
 
-// Assets to pre-cache (cache-first)
+// Pre-cache essential assets (cache-first)
 const STATIC_ASSETS = [
-  "/",            // homepage
-  "/offline",     // offline fallback
+  "/",              // homepage
+  "/offline",       // offline fallback
   "/static/css/main.css",
   "/static/js/main.js",
   "/static/img/icon-192.png",
-  "/static/img/icon-512.png"
+  "/static/img/icon-512.png",
+  "/static/version.txt"
 ];
 
 // ------------------------------------------------------------
-// Install Event — Pre-cache static assets
+// INSTALL — Pre-cache static assets
 // ------------------------------------------------------------
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -27,7 +32,7 @@ self.addEventListener("install", event => {
 });
 
 // ------------------------------------------------------------
-// Activate Event — Clean up old caches
+// ACTIVATE — Remove old caches
 // ------------------------------------------------------------
 self.addEventListener("activate", event => {
   event.waitUntil(
@@ -43,7 +48,7 @@ self.addEventListener("activate", event => {
 });
 
 // ------------------------------------------------------------
-// Fetch Strategy Router
+// FETCH — Strategy router
 // ------------------------------------------------------------
 self.addEventListener("fetch", event => {
   const request = event.request;
@@ -65,24 +70,24 @@ self.addEventListener("fetch", event => {
 });
 
 // ------------------------------------------------------------
-// Strategy: Cache-First
+// CACHE-FIRST
 // ------------------------------------------------------------
 function cacheFirst(request) {
   return caches.match(request).then(cached => {
-    return (
-      cached ||
-      fetch(request).then(response => {
-        return caches.open(DYNAMIC_CACHE).then(cache => {
-          cache.put(request, response.clone());
-          return response;
-        });
-      })
-    );
+    if (cached) {
+      return cached;
+    }
+    return fetch(request).then(response => {
+      return caches.open(DYNAMIC_CACHE).then(cache => {
+        cache.put(request, response.clone());
+        return response;
+      });
+    });
   });
 }
 
 // ------------------------------------------------------------
-// Strategy: Network-First (HTML pages)
+// NETWORK-FIRST (HTML)
 // ------------------------------------------------------------
 function networkFirst(request) {
   return fetch(request)
@@ -100,7 +105,7 @@ function networkFirst(request) {
 }
 
 // ------------------------------------------------------------
-// Strategy: Stale-While-Revalidate
+// STALE-WHILE-REVALIDATE
 // ------------------------------------------------------------
 function staleWhileRevalidate(request) {
   return caches.match(request).then(cached => {
@@ -118,7 +123,7 @@ function staleWhileRevalidate(request) {
 }
 
 // ------------------------------------------------------------
-// Helper: Detect static assets
+// Helper: Identify static assets
 // ------------------------------------------------------------
 function isStaticAsset(url) {
   return (
