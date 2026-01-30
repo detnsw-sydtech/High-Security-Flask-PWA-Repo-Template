@@ -1,8 +1,18 @@
-@bp.get("/service-worker.js")
-def service_worker():
-    return send_from_directory(
-        "static/js",
-        "service-worker.js",
-        mimetype="application/javascript",
-        cache_timeout=0
-    )
+// Basic PWA service worker for caching static assets
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open("v1").then(cache => {
+      return cache.addAll([
+        "/",              // homepage
+        "/offline",       // offline fallback
+      ]);
+    })
+  );
+});
+
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match("/offline"))
+  );
+});
