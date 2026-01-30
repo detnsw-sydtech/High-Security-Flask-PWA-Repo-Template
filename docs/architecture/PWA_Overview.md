@@ -26,9 +26,33 @@ PWAs rely on three core components:
 2. Web App Manifest – metadata describing how the app behaves when installed.
 3. HTTPS – required for security and to enable service worker functionality.
 
+This project implements all three components in a secure and standards‑compliant manner.
 
+## 2. Architectural Model
 
+```text
++-----------------------------------------------------------+
+|                         Browser                           |
++-----------------------------------------------------------+
+|  HTML  |  CSS  |  JS  |  Images  |  API Requests          |
++-----------------------------------------------------------+
+                 ↑                     |
+                 |                     ↓
++-----------------------------------------------------------+
+|                     Service Worker                        |
+|  - Intercepts fetch requests                               |
+|  - Applies caching strategies                              |
+|  - Provides offline fallback                               |
++-----------------------------------------------------------+
+                 ↑                     |
+                 |                     ↓
++-----------------------------------------------------------+
+|                           Caches                          |
+|  STATIC_CACHE   (pre-cached assets)                       |
+|  DYNAMIC_CACHE  (runtime caching)                         |
++-----------------------------------------------------------+
 
+```
 
 
 
