@@ -78,6 +78,7 @@ def example():
 
 ### 4.2 Diagrams
 Use Mermaid for diagrams:
+#### Flowcharts
 
 ````markdown
 ```mermaid
@@ -97,28 +98,54 @@ flowchart TD
     B --> D[Network]
 ```
 
+#### Entity Relationship Diagrams: to show a database schema with entities/tables and relationships
 
-## 4.3 Admonitions
-Use admonitions for emphasis:
-
-````markdown
-!!! note "Note"
-
-    This endpoint requires authentication.
-````
-
-
-will look like:
-
-```
-!!! note "Note"
-
-    This endpoint requires authentication.
-```
-
+This uses markdown mermaid.
 
 ````markdown
+```
+
+```
 ````
+
+to render as this:
+
+
+
+#### Class Diagrams: to objected oriented design, data dictionaries, entities, attributes and attribute types
+
+````markdown
+``` mermaid
+classDiagram
+  Person <|-- Student
+  Person <|-- Professor
+  Person : +String name
+  Person : +String phoneNumber
+  Person : +String emailAddress
+  Person: +purchaseParkingPass()
+  Address "1" <-- "0..1" Person:lives at
+  class Student{
+    +int studentNumber
+    +int averageMark
+    +isEligibleToEnrol()
+    +getSeminarsTaken()
+  }
+  class Professor{
+    +int salary
+  }
+  class Address{
+    +String street
+    +String city
+    +String state
+    +int postalCode
+    +String country
+    -validate()
+    +outputAsLabel()
+  }
+```
+````
+
+renders beautifully as this ...
 
 ``` mermaid
 classDiagram
@@ -148,3 +175,26 @@ classDiagram
     +outputAsLabel()
   }
 ```
+
+
+
+
+
+## 4.3 Admonitions
+Use admonitions for emphasis:
+
+````markdown
+!!! note "Note"
+
+    This endpoint requires authentication.
+````
+
+
+will look like:
+
+```
+!!! note "Note"
+
+    This endpoint requires authentication.
+```
+
