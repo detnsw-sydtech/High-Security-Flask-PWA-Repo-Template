@@ -74,6 +74,10 @@ def example():
 ```
 
 ```
+
+```markdown
+
+
 ### 4.2 Diagrams
 Use Mermaid for diagrams:
 
@@ -86,4 +90,6 @@ flowchart TD
 ```
 
 
+```markdown
+## 4.3 Admonitions
 
