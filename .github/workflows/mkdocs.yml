@@ -23,16 +23,13 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
-      - name: Clear pip cache
-        run: pip cache purge
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
-      - name: Install dependencies MkDocs, Material theme, mermaid2 plugin
-        run: |
-          pip install mkdocs-material
-          pip install mkdocs-material-extensions
-          pip install mkdocs-mermaid2-plugin
+      - name: Install project dependencies
+        run: uv sync --frozen
 
       - name: Build site
         run: mkdocs build --clean
