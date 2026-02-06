@@ -41,7 +41,9 @@
 
   "postAttachCommand": "sleep 5 && uv run flask --debug run --host 0.0.0.0 --port 5000",
 
-  "postStartCommand": "bash .devcontainer/scripts/purge-vm.sh && bash .devcontainer/scripts/diagnostics.sh && bash .devcontainer/startup.sh",
+  "postStartCommand": "bash .devcontainer/scripts/health-check.sh || true",
+
+  "postStartCommandDenylist": [],
 
   "features": {}
 }
