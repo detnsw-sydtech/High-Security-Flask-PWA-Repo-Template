@@ -9,7 +9,7 @@ It is written for senior Software Engineering students (Stage 6) who are expecte
 - Secure coding practices
 - Deployment considerations
 
-+ The PWA implemented in this system follows industry‑standard patterns and is intentionally designed to be readable, auditable, and extensible.
+The PWA implemented in this system follows industry‑standard patterns and is intentionally designed to be readable, auditable, and extensible.
 
 ## 1. Overview of a PWA
 
