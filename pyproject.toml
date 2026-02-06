@@ -17,6 +17,7 @@ dependencies = [
   "werkzeug>=3.0.3",              # WSGI utilities and HTTP handling
   "itsdangerous==2.2.0",          # Secure signing utilities
   "click==8.1.7",                 # CLI command framework
+  "mkdocs-autorefs",              # Markdown documents plugin
 
   # --- Security ---
   "flask-talisman==1.1.0",        # CSP, HSTS, secure headers
