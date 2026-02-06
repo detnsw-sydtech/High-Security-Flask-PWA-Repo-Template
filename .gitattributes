@@ -1,0 +1,40 @@
+# ============================================================
+# SE12 High-Security Flask PWA Template
+# Line ending, formatting, and permission enforcement
+# ============================================================
+
+# ------------------------------------------------------------
+# Enforce LF endings for all scripts
+# ------------------------------------------------------------
+*.sh     text eol=lf
+*.py     text eol=lf
+*.ps1    text eol=lf
+*.cmd    text eol=lf
+*.bat    text eol=lf
+
+# Ensure devcontainer scripts are executable
+.devcontainer/scripts/*.sh text eol=lf executable
+
+# ------------------------------------------------------------
+# Enforce formatting for Markdown, YAML, JSON, TOML
+# ------------------------------------------------------------
+*.md       text eol=lf
+*.markdown text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.json     text eol=lf
+*.toml     text eol=lf
+*.ini      text eol=lf
+*.cfg      text eol=lf
+
+# ------------------------------------------------------------
+# Protect MkDocs documentation from Windows line-ending issues
+# ------------------------------------------------------------
+docs/**     text eol=lf
+mkdocs.yml  text eol=lf
+
+# ------------------------------------------------------------
+# Prevent CRLF corruption in GitHub Actions workflows
+# ------------------------------------------------------------
+.github/**/*.yml text eol=lf
+.github/**/*.yaml text eol=lf
