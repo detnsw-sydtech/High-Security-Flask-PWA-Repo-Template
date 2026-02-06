@@ -11,7 +11,7 @@ It is written for senior Software Engineering students (Stage 6) who are expecte
 
 The PWA implemented in this system follows industry‑standard patterns and is intentionally designed to be readable, auditable, and extensible.
 
-## Overview of a PWA
+## 1. Overview of a PWA
 
 A Progressive Web App is a web application enhanced with capabilities traditionally associated with native applications. These capabilities include:
 
