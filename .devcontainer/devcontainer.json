@@ -4,17 +4,23 @@
 
   "customizations": {
     "vscode": {
-      "extensions": [],
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter",
+        "bierner.markdown-mermaid"
+      ],
       "settings": {
+        "python.defaultInterpreterPath": "/workspaces/high-security-flask-pwa-template/.venv/bin/python",
+        "python.analysis.typeCheckingMode": "strict",
         "markdown.preview.openMarkdownFiles": "inPreview",
         "markdown.preview.openMarkdownLinks": "inPreview",
         "workbench.startupEditor": "readme"
       }
     },
     "codespaces": {
-      "openFiles": [
-        "README.md"
-      ]
+      "openFiles": ["README.md"]
     }
   },
 
@@ -27,9 +33,9 @@
     }
   },
 
-  "postCreateCommand": "bash .devcontainer/scripts/install-uv.sh && bash .devcontainer/preflight.sh && UV_NO_DEV=1 bash .devcontainer/scripts/rebuild-venv.sh",
+  "postCreateCommand": "bash .devcontainer/scripts/install-uv.sh && UV_NO_DEV=1 uv sync && bash .devcontainer/preflight.sh",
 
-  "postAttachCommand": "sleep 5 && uv run flask --debug run",
+  "postAttachCommand": "sleep 5 && uv run flask --debug run --host 0.0.0.0 --port 5000",
 
   "postStartCommand": "bash .devcontainer/scripts/purge-vm.sh && bash .devcontainer/scripts/diagnostics.sh && bash .devcontainer/startup.sh",
 
