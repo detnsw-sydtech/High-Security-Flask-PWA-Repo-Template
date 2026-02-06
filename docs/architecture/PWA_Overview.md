@@ -11,7 +11,7 @@ It is written for senior Software Engineering students (Stage 6) who are expecte
 
 The PWA implemented in this system follows industry‑standard patterns and is intentionally designed to be readable, auditable, and extensible.
 
-## Overview of a PWA
+## 1. Overview of a PWA
 
 A Progressive Web App is a web application enhanced with capabilities traditionally associated with native applications. These capabilities include:
 
@@ -30,7 +30,7 @@ This project implements all three components in a secure and standards‑complia
 
 ## 2. Architectural Model
 
-```table
+```
 +-----------------------------------------------------------+
 |                         Browser                           |
 +-----------------------------------------------------------+
@@ -40,9 +40,9 @@ This project implements all three components in a secure and standards‑complia
                  |                     ↓
 +-----------------------------------------------------------+
 |                     Service Worker                        |
-|  - Intercepts fetch requests                               |
-|  - Applies caching strategies                              |
-|  - Provides offline fallback                               |
+|  - Intercepts fetch requests                             |
+|  - Applies caching strategies                            |
+|  - Provides offline fallback                             |
 +-----------------------------------------------------------+
                  ↑                     |
                  |                     ↓
@@ -74,3 +74,39 @@ The service worker uses three complementary caching strategies. These mirror pat
 
 **Trade‑offs:**
 - Requires explicit versioning to avoid stale assets.
+
+### 3.2 Network‑First
+
+**Use case:**
+- Dynamic or user‑specific data where freshness is critical (API responses, user profiles, dashboards).
+
+**Behaviour:**
+- Attempt to fetch a fresh response from the network first.
+- If the network request fails or times out, fall back to a cached response (if available).
+- Optionally cache successful network responses for future offline use.
+
+**Advantages:**
+- Ensures users see the most up‑to‑date data when online.
+- Provides a reasonable offline experience by falling back to cached data.
+
+**Trade‑offs:**
+- Slower than cache‑first when network latency is high.
+- Behaviour depends on network availability; must be tuned with appropriate timeouts.
+
+### 3.3 Stale‑While‑Revalidate
+
+**Use case:**
+- Content that benefits from being very fast but should still eventually reflect updates (CDN‑backed images, font files, configuration JSON, semi‑static pages).
+
+**Behaviour:**
+- Return the cached response immediately if present (“stale”).
+- In parallel, fetch an updated response from the network.
+- When the network response arrives, update the cache for the next request.
+
+**Advantages:**
+- Combines fast perceived performance with eventual consistency.
+- Hides network latency on repeat visits.
+
+**Trade‑offs:**
+- Users may briefly see outdated content until the background update completes.
+- Requires careful versioning and cache invalidation to avoid long‑lived stale data in critical flows.
