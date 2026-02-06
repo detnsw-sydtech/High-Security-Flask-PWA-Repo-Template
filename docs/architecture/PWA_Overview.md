@@ -40,9 +40,9 @@ This project implements all three components in a secure and standards‑complia
                  |                     ↓
 +-----------------------------------------------------------+
 |                     Service Worker                        |
-|  - Intercepts fetch requests                               |
-|  - Applies caching strategies                              |
-|  - Provides offline fallback                               |
+|  - Intercepts fetch requests                             |
+|  - Applies caching strategies                            |
+|  - Provides offline fallback                             |
 +-----------------------------------------------------------+
                  ↑                     |
                  |                     ↓
