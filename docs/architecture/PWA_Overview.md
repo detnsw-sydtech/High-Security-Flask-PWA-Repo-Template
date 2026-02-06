@@ -30,7 +30,7 @@ This project implements all three components in a secure and standards‑complia
 
 ## 2. Architectural Model
 
-```table
+```
 +-----------------------------------------------------------+
 |                         Browser                           |
 +-----------------------------------------------------------+
