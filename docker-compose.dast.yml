@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hs-flask-app
+    environment:
+      FLASK_ENV: production
+    ports:
+      - "5000:5000"
+    command: >
+      flask run --host=0.0.0.0 --port=5000
+
+  # Optional: a ZAP service for local dev DAST (not used by Actions directly)
+  zap:
+    image: owasp/zap2docker-stable
+    container_name: hs-zap
+    depends_on:
+      - app
+    command: >
+      zap-baseline.py
+      -t http://app:5000
+      -r zap-report.html
+    networks:
+      - dast-net
+
+networks:
+  dast-net:
+    driver: bridge
